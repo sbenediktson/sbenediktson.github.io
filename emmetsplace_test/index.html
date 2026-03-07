@@ -481,13 +481,7 @@
         // Most recent video = first in uploads playlist order that passes filter
         const featuredId = ids.find(passesFilter);
 
-        const filtered = ids
-          .filter(id => passesFilter(id) && id !== featuredId)
-          .sort((a, b) => {
-            const aSongs = videoData[a]?.songs.length > 0 ? 0 : 1;
-            const bSongs = videoData[b]?.songs.length > 0 ? 0 : 1;
-            return aSongs - bSongs;
-          });
+        const filtered = ids.filter(id => passesFilter(id) && id !== featuredId);
 
         // Render featured card
         if (featuredId) {
