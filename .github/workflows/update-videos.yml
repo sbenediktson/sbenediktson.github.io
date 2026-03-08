@@ -17,7 +17,8 @@ jobs:
           node-version: "20"
 
       - name: Fetch videos
-        run: node emmetsplace/fetch-videos.js
+        run: node fetch-videos.js
+        working-directory: emmetsplace
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
