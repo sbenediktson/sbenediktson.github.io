@@ -11,7 +11,7 @@
       background: #111;
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
-      padding: 32px 24px;
+      padding: 32px 24px 88px;
     }
 
     .site-header {
@@ -38,20 +38,31 @@
       position: relative;
     }
 
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #666;
+      display: flex;
+      align-items: center;
+    }
+
     .search-bar {
       width: 100%;
-      padding: 10px 36px 10px 14px;
-      background: #1c1c1c;
-      border: 1px solid rgba(200,160,188,0.2);
-      border-radius: 6px;
-      color: #c5bfc8;
+      padding: 11px 38px 11px 38px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: #e0dae6;
       font-size: 1rem; /* must be ≥16px to prevent iOS zoom */
       font-family: inherit;
       outline: none;
     }
 
     .search-bar::placeholder { color: #555; }
-    .search-bar:focus { border-color: rgba(200,160,188,0.45); }
+    .search-bar:focus { border-color: rgba(200,160,188,0.5); box-shadow: 0 0 0 1px rgba(200,160,188,0.2); }
 
     .search-clear {
       position: absolute;
@@ -104,60 +115,39 @@
     }
 
     .video-card.featured {
-      flex-direction: row;
-      gap: 20px;
-      border: 1px solid rgba(200,160,188,0.18);
-      border-radius: 12px;
-      padding: 18px;
-      background: #161616;
-      margin-bottom: 32px;
-    }
-
-    .video-card.featured .video-link {
-      width: 45%;
-      flex-shrink: 0;
-    }
-
-    .video-card.featured .card-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      border-color: rgba(200,160,188,0.3);
     }
 
     .video-card.featured h2 {
-      font-size: 1.35rem;
-      font-weight: normal;
       color: #e8dff0;
     }
 
     @media (max-width: 640px) {
-      body { padding: 20px 16px; }
+      body { padding: 20px 16px 88px; }
 
       .site-logo { height: 70px; margin-bottom: 20px; }
 
       .controls { flex-wrap: wrap; }
       .btn-random { width: 100%; justify-content: center; font-size: 1rem; }
 
-      .video-card.featured { flex-direction: column; }
-      .video-card.featured .video-link { width: 100%; }
-      .video-card.featured h2 { font-size: 1.1rem; }
-
-      .video-link { width: 100%; }
-
       .video-entry-link { font-size: 0.9rem; padding: 6px 10px; }
       .video-artist { font-size: 0.85rem; }
       .show-more-btn { font-size: 0.9rem; padding: 6px 10px; }
-
-      .pagination button { padding: 10px 18px; font-size: 1rem; }
     }
 
-    /* Regular grid */
+    /* Episode carousel */
     .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(480px, 100%), 1fr));
-      gap: 20px;
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 8px;
     }
+
+    .video-grid::-webkit-scrollbar { display: none; }
 
     .video-card {
       display: flex;
@@ -167,6 +157,9 @@
       border-radius: 10px;
       padding: 14px;
       background: #161616;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      width: min(82vw, 360px);
     }
 
     .video-card h2 {
@@ -188,7 +181,7 @@
       align-items: center;
       justify-content: center;
       aspect-ratio: 16 / 9;
-      width: 50%;
+      width: 100%;
       border-radius: 8px;
       text-decoration: none;
       color: #fff;
@@ -214,7 +207,7 @@
       width: 68px;
       height: 48px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 63'%3E%3Crect rx='14' ry='14' width='90' height='63' fill='%23FF0000'/%3E%3Cpolygon points='36,15 67,31.5 36,48' fill='white'/%3E%3C/svg%3E") no-repeat center/contain;
-      opacity: 0;
+      opacity: 0.75;
       transition: opacity 0.2s;
       pointer-events: none;
     }
@@ -224,18 +217,14 @@
 
     .video-artists {
       display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
+      flex-direction: column;
+      gap: 3px;
       margin-bottom: 4px;
     }
 
     .video-artist {
       font-size: 0.75rem;
       color: #9a8fa0;
-      background: #1c1c1c;
-      border: 1px solid rgba(200,160,188,0.12);
-      border-radius: 4px;
-      padding: 2px 7px;
     }
 
     .video-artist strong {
@@ -251,32 +240,22 @@
     }
 
     .video-entry-link {
-      color: #b0a8b8;
+      color: #ddd8e4;
       text-decoration: none;
-      font-size: 0.8rem;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: #1c1c1c;
-      border: 1px solid rgba(200,160,188,0.1);
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.15s;
+    }
+
+    .video-entry-link:last-of-type {
+      border-bottom: none;
     }
 
     .video-entry-link:hover {
-      background: #222;
-      color: #e0d4e8;
-      border-color: rgba(200,160,188,0.28);
+      color: #f0eaf5;
     }
 
-    .video-entry-link::after {
-      content: "";
-      display: inline-block;
-      width: 16px;
-      height: 11px;
-      margin-left: 5px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 63'%3E%3Crect rx='14' ry='14' width='90' height='63' fill='%23FF0000'/%3E%3Cpolygon points='36,15 67,31.5 36,48' fill='white'/%3E%3C/svg%3E") no-repeat center/contain;
-      opacity: 0.5;
-      vertical-align: middle;
-    }
 
     mark {
       background: rgba(200,160,188,0.2);
@@ -300,33 +279,234 @@
 
     .show-more-btn:hover { color: #9a8fa0; }
 
-    .pagination {
+
+    /* Tunes view */
+    #tunes-view { display: none; }
+
+    .tune-list {
       display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 700px;
+    }
+
+    .tune-row {
+      display: flex;
+      flex-direction: row;
       align-items: center;
       gap: 12px;
-      margin-top: 32px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #161616;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
     }
 
-    .pagination button {
+    .tune-row:hover {
       background: #1c1c1c;
-      border: 1px solid rgba(200,160,188,0.2);
-      border-radius: 6px;
-      color: #c5bfc8;
-      padding: 8px 16px;
+      border-color: rgba(200,160,188,0.2);
+    }
+
+    .tune-thumb {
+      width: 80px;
+      aspect-ratio: 16/9;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1a1a1a;
+    }
+
+    .tune-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .tune-title {
+      color: #ddd8e4;
       font-size: 0.9rem;
-      font-family: inherit;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tune-meta {
+      color: #555;
+      font-size: 0.72rem;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tunes-count {
+      color: #555;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    /* Random view */
+    #random-view {
+      display: none;
+      min-height: calc(100vh - 200px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0;
+      padding: 40px 0;
+    }
+
+    .random-heading {
+      font-size: 2rem;
+      color: #e8dff0;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .random-sub {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+      max-width: 280px;
+    }
+
+    .random-btn-circle {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #5a4a1a, #2e2508);
+      border: 2px solid rgba(200,160,50,0.4);
+      color: #c8a030;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 32px;
     }
 
-    .pagination button:hover:not(:disabled) {
-      border-color: rgba(200,160,188,0.45);
-      color: #e0d4e8;
+    .random-btn-circle:hover {
+      border-color: rgba(200,160,50,0.7);
+      box-shadow: 0 0 32px rgba(200,160,30,0.15);
     }
 
-    .pagination button:disabled { opacity: 0.25; cursor: default; }
+    .random-discover {
+      color: #555;
+      font-size: 0.85rem;
+    }
 
-    .pagination span { color: #555; font-size: 0.9rem; }
+    .random-result {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .random-thumb-link {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-color: #1a1a1a;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .random-thumb-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      transition: background 0.2s;
+    }
+
+    .random-thumb-link:hover::before { background: rgba(0,0,0,0.1); }
+
+    .random-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      background: rgba(200,160,30,0.85);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .random-result-title {
+      font-size: 1.25rem;
+      color: #e8dff0;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .random-watch-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #c8a030;
+      color: #111;
+      text-decoration: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: bold;
+      padding: 14px 32px;
+      border-radius: 999px;
+      transition: background 0.15s;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .random-watch-btn:hover { background: #d4ae40; }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      z-index: 100;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 10px 0;
+      background: none;
+      border: none;
+      color: #555;
+      font-family: inherit;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: color 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-tab.active { color: #c8a0bc; }
+    .nav-tab:hover:not(.active) { color: #9a8fa0; }
   </style>
 </head>
 <body>
@@ -334,25 +514,61 @@
     <img class="site-logo" src="https://emmetsplace.lovable.app/assets/emmets-place-logo-DG2aWdw-.png" alt="Emmet's Place">
     <div class="controls">
       <div class="search-wrap">
-        <input class="search-bar" id="search" type="text" placeholder="Search streams...">
+        <span class="search-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        <input class="search-bar" id="search" type="text" placeholder="Search episodes, guests, tunes...">
         <button class="search-clear" id="search-clear" onclick="clearSearch()">×</button>
       </div>
-      <button class="btn-random" id="random-btn" onclick="pickRandom()">🎲 Find me something new</button>
     </div>
   </header>
-  <div id="featured"></div>
-  <div class="video-grid" id="grid"></div>
-  <div class="pagination" id="pagination">
-    <button id="prev-btn" onclick="changePage(-1)">← Prev</button>
-    <span id="page-info"></span>
-    <button id="next-btn" onclick="changePage(1)">Next →</button>
+
+  <div id="episodes-view">
+    <div class="video-grid" id="grid"></div>
   </div>
+
+  <div id="tunes-view">
+    <div class="tunes-count" id="tunes-count"></div>
+    <div class="tune-list" id="tune-list"></div>
+  </div>
+
+  <div id="random-view">
+    <h1 class="random-heading">Feeling Lucky?</h1>
+    <p class="random-sub">Shuffle a random tune from Emmet's Place</p>
+    <div class="random-result" id="random-result"></div>
+    <button class="random-btn-circle" id="random-circle-btn" onclick="doRandom()">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+      <span id="random-btn-label">Randomize</span>
+    </button>
+    <p class="random-discover" id="random-discover"></p>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-tab active" id="tab-episodes" onclick="switchTab('episodes')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Episodes
+    </button>
+    <button class="nav-tab" id="tab-tunes" onclick="switchTab('tunes')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      Tunes
+    </button>
+    <button class="nav-tab" id="tab-random" onclick="switchTab('random')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+      Random
+    </button>
+  </nav>
 
   <script>
     const grid = document.getElementById("grid");
+    let currentTab = "episodes";
+    let allTunes = []; // { title, videoId, start, videoTitle, streamDate }
 
     function stripEmoji(str) {
       return str.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, "").replace(/\s+/g, " ").trim();
+    }
+
+    function normalizeApos(str) {
+      return str.replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'");
     }
 
     async function loadData() {
@@ -362,29 +578,7 @@
       return { ids: json.ids, data: json.data };
     }
 
-    const PAGE_SIZE = 20;
     let allCards = [];
-    let currentPage = 0;
-
-    function showPage(page) {
-      currentPage = page;
-      // allCards[0] is the featured card (always visible, outside the grid)
-      const gridCards = allCards.slice(1);
-      const start = page * PAGE_SIZE;
-      gridCards.forEach((card, i) => {
-        card.style.display = (i >= start && i < start + PAGE_SIZE) ? "" : "none";
-      });
-      const total = Math.ceil(gridCards.length / PAGE_SIZE);
-      document.getElementById("page-info").textContent = `Page ${page + 1} of ${total}`;
-      document.getElementById("prev-btn").disabled = page === 0;
-      document.getElementById("next-btn").disabled = page >= total - 1;
-      document.getElementById("pagination").style.display = total > 1 ? "flex" : "none";
-    }
-
-    function changePage(delta) {
-      showPage(currentPage + delta);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
 
     function buildCardInner(id, videoTitle, artists, songs, thumb) {
       const artistsHTML = artists.length
@@ -394,30 +588,61 @@
         : "";
       const songLinks = songs.map(({ title, start }) => {
         const startParam = start ? `&t=${start}s` : "";
-        return `<a class="video-entry-link" data-text="${title.replace(/"/g, '&quot;')}" href="https://www.youtube.com/watch?v=${id}${startParam}" target="_blank">${title}</a>`;
+        const cleanTitle = stripEmoji(title);
+        return `<a class="video-entry-link" data-text="${cleanTitle.replace(/"/g, '&quot;')}" href="https://www.youtube.com/watch?v=${id}${startParam}" target="_blank">${cleanTitle}</a>`;
       });
       let entriesHTML;
       if (!songs.length) {
-        entriesHTML = `<a class="video-entry-link" href="https://www.youtube.com/watch?v=${id}" target="_blank">Watch on YouTube</a>`;
-      } else if (songs.length <= 3) {
+        entriesHTML = "";
+      } else if (songs.length <= 6) {
         entriesHTML = songLinks.join("");
       } else {
         const uid = `more-${id}`;
-        entriesHTML = songLinks.slice(0, 3).join("") +
-          `<div id="${uid}" style="display:none;flex-direction:column;gap:6px">${songLinks.slice(3).join("")}</div>` +
-          `<button class="show-more-btn" onclick="var el=document.getElementById('${uid}');var isOpen=el.style.display==='flex';el.style.display=isOpen?'none':'flex';this.textContent=isOpen?'Show ${songs.length - 3} more...':'Show less'">Show ${songs.length - 3} more...</button>`;
+        entriesHTML = songLinks.slice(0, 6).join("") +
+          `<div id="${uid}" style="display:none;flex-direction:column;gap:6px">${songLinks.slice(6).join("")}</div>` +
+          `<button class="show-more-btn" onclick="var el=document.getElementById('${uid}');var isOpen=el.style.display==='flex';el.style.display=isOpen?'none':'flex';this.textContent=isOpen?'Show ${songs.length - 6} more...':'Show less'">Show ${songs.length - 6} more...</button>`;
       }
       return { artistsHTML, entriesHTML };
     }
 
+    function renderTunes() {
+      const list = document.getElementById("tune-list");
+      list.innerHTML = "";
+      const query = normalizeApos(document.getElementById("search").value.toLowerCase().trim());
+      const re = query ? new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi") : null;
+
+      const visible = query
+        ? allTunes.filter(t => normalizeApos(t.title.toLowerCase()).includes(query) || normalizeApos(t.videoTitle.toLowerCase()).includes(query))
+        : allTunes;
+
+      document.getElementById("tunes-count").textContent =
+        query ? `${visible.length} of ${allTunes.length} tunes` : `${allTunes.length} tunes`;
+
+      for (const tune of visible) {
+        const startParam = tune.start ? `&t=${tune.start}s` : "";
+        const href = `https://www.youtube.com/watch?v=${tune.videoId}${startParam}`;
+        const titleHTML = re ? tune.title.replace(re, "<mark>$1</mark>") : tune.title;
+        const metaHTML = re ? tune.videoTitle.replace(re, "<mark>$1</mark>") : tune.videoTitle;
+        const dateStr = tune.streamDate
+          ? new Date(tune.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+          : "";
+        const row = document.createElement("a");
+        row.className = "tune-row";
+        row.href = href;
+        row.target = "_blank";
+        const thumb = `https://img.youtube.com/vi/${tune.videoId}/default.jpg`;
+        row.innerHTML = `<img class="tune-thumb" src="${thumb}" alt="" loading="lazy"><div class="tune-info"><span class="tune-title">${titleHTML}</span><span class="tune-meta">${metaHTML}${dateStr ? " · " + dateStr : ""}</span></div>`;
+        list.appendChild(row);
+      }
+    }
+
     async function render() {
       grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
-      document.getElementById("pagination").style.display = "none";
-      document.getElementById("featured").innerHTML = "";
       try {
         const { ids, data: videoData } = await loadData();
         grid.innerHTML = "";
         allCards = [];
+        allTunes = [];
 
         function passesFilter(id) {
           const info = videoData[id];
@@ -437,38 +662,20 @@
             return db - da;
           });
 
-        const featuredId = chronological[0];
-        const filtered = chronological.slice(1);
-
-        // Render featured card
-        if (featuredId) {
-          const info = videoData[featuredId];
+        // Build flat tunes list (sorted alphabetically)
+        for (const id of chronological) {
+          const info = videoData[id];
           const videoTitle = stripEmoji(info.title);
-          const thumb = `https://img.youtube.com/vi/${featuredId}/hqdefault.jpg`;
-          const { artistsHTML, entriesHTML } = buildCardInner(featuredId, videoTitle, info.artists, info.songs, thumb);
-          const featuredCard = document.createElement("div");
-          featuredCard.className = "video-card featured";
-          const featuredDateStr = info.streamDate
-            ? new Date(info.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-            : "";
-          featuredCard.innerHTML = `
-            <a class="video-link" href="https://www.youtube.com/watch?v=${featuredId}" target="_blank" style="background-image: url('${thumb}')"></a>
-            <div class="card-body">
-              <div class="featured-label">Latest Stream</div>
-              <h2><a class="title-link" href="https://www.youtube.com/watch?v=${featuredId}" target="_blank">${videoTitle}</a></h2>
-              ${featuredDateStr ? `<div class="stream-date">${featuredDateStr}</div>` : ""}
-              ${artistsHTML}
-              <div class="video-entries">${entriesHTML}</div>
-            </div>
-          `;
-          featuredCard.dataset.titles = [videoTitle, ...info.songs.map(s => s.title)].join(" ").toLowerCase();
-          featuredCard.dataset.artists = info.artists.map(a => a.name).join(" ").toLowerCase();
-          document.getElementById("featured").appendChild(featuredCard);
-          allCards.push(featuredCard);
+          for (const song of info.songs) {
+            if (song.title && song.title.trim()) {
+              allTunes.push({ title: song.title, videoId: id, start: song.start, videoTitle, streamDate: info.streamDate });
+            }
+          }
         }
+        allTunes.sort((a, b) => a.title.localeCompare(b.title));
 
-        // Render regular grid cards
-        for (const id of filtered) {
+        // Render all cards (most recent first, in carousel)
+        for (const [idx, id] of chronological.entries()) {
           const info = videoData[id];
           const videoTitle = stripEmoji(info.title);
           const thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
@@ -478,8 +685,9 @@
             ? new Date(info.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
             : "";
           const card = document.createElement("div");
-          card.className = "video-card";
+          card.className = idx === 0 ? "video-card featured" : "video-card";
           card.innerHTML = `
+            ${idx === 0 ? '<div class="featured-label">Latest Stream</div>' : ""}
             <h2><a class="title-link" href="https://www.youtube.com/watch?v=${id}" target="_blank">${videoTitle}</a></h2>
             ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
             <a class="video-link" href="https://www.youtube.com/watch?v=${id}" target="_blank" style="background-image: url('${thumb}')"></a>
@@ -488,30 +696,70 @@
           `;
           card.dataset.titles = [videoTitle, ...info.songs.map(s => s.title)].join(" ").toLowerCase();
           card.dataset.artists = info.artists.map(a => a.name).join(" ").toLowerCase();
-          card.style.display = "none";
           grid.appendChild(card);
           allCards.push(card);
         }
 
-        showPage(0);
+        if (currentTab === "tunes") renderTunes();
       } catch (err) {
         grid.innerHTML = `<p style="color:#c88;padding:8px">Failed to load videos: ${err.message}</p>`;
       }
     }
 
-    function pickRandom() {
-      const eligible = allCards.slice(1); // skip featured
-      if (!eligible.length) return;
-      const pick = eligible[Math.floor(Math.random() * eligible.length)];
-      document.getElementById("search").value = "";
-      document.getElementById("pagination").style.display = "none";
-      eligible.forEach(c => { c.style.display = "none"; });
-      pick.style.display = "";
+    function switchTab(tab) {
+      currentTab = tab;
+      ["episodes", "tunes", "random"].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
+      });
+      document.getElementById("episodes-view").style.display = tab === "episodes" ? "" : "none";
+      document.getElementById("tunes-view").style.display = tab === "tunes" ? "block" : "none";
+      document.getElementById("random-view").style.display = tab === "random" ? "flex" : "none";
+      const searchWrap = document.querySelector(".search-wrap");
+      searchWrap.style.display = tab === "random" ? "none" : "";
+      document.getElementById("search").placeholder =
+        tab === "tunes" ? "Search tunes..." : "Search episodes, guests, tunes...";
+      if (tab !== "random") clearSearch();
+      if (tab === "episodes") allCards.forEach(c => { c.style.display = ""; });
+      if (tab === "tunes") renderTunes();
+      if (tab === "random") {
+        document.getElementById("random-discover").textContent =
+          allTunes.length ? `${allTunes.length} tunes to discover` : "";
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function doRandom() {
+      if (!allTunes.length) return;
+      const tune = allTunes[Math.floor(Math.random() * allTunes.length)];
+      const startParam = tune.start ? `&t=${tune.start}s` : "";
+      const href = `https://www.youtube.com/watch?v=${tune.videoId}${startParam}`;
+      const thumb = `https://img.youtube.com/vi/${tune.videoId}/hqdefault.jpg`;
+
+      const result = document.getElementById("random-result");
+      result.innerHTML = `
+        <a class="random-thumb-link" href="${href}" target="_blank" style="background-image:url('${thumb}')">
+          <div class="random-play-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#111"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </a>
+        <p class="random-result-title">${tune.title}</p>
+        <a class="random-watch-btn" href="${href}" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Watch on YouTube
+        </a>
+      `;
+      result.style.display = "flex";
+      document.getElementById("random-btn-label").textContent = "Shuffle Again";
+      document.getElementById("random-discover").textContent = "";
     }
 
     function clearSearch() {
       document.getElementById("search").value = "";
       document.getElementById("search-clear").style.display = "none";
+      if (currentTab === "tunes") {
+        renderTunes();
+        return;
+      }
       allCards.forEach(card => {
         card.querySelectorAll(".video-entry-link").forEach(link => {
           link.innerHTML = link.dataset.text || link.textContent;
@@ -521,15 +769,20 @@
         if (titleAnchor && titleAnchor.dataset.text) titleAnchor.innerHTML = titleAnchor.dataset.text;
         card.querySelectorAll("[id^='more-']").forEach(el => { el.style.display = "none"; });
         card.querySelectorAll(".show-more-btn").forEach(btn => { btn.style.display = ""; });
+        card.style.display = "";
       });
-      showPage(0);
     }
 
     render();
 
     document.getElementById("search").addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      document.getElementById("search-clear").style.display = query ? "" : "none";
+      const query = normalizeApos(e.target.value.toLowerCase().trim());
+      document.getElementById("search-clear").style.display = query ? "block" : "none";
+
+      if (currentTab === "tunes") {
+        renderTunes();
+        return;
+      }
 
       if (!query) {
         allCards.forEach(card => {
@@ -541,12 +794,10 @@
           if (titleAnchor && titleAnchor.dataset.text) titleAnchor.innerHTML = titleAnchor.dataset.text;
           card.querySelectorAll("[id^='more-']").forEach(el => { el.style.display = "none"; });
           card.querySelectorAll(".show-more-btn").forEach(btn => { btn.style.display = ""; });
+          card.style.display = "";
         });
-        showPage(currentPage);
         return;
       }
-
-      document.getElementById("pagination").style.display = "none";
       const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
 
       allCards.forEach(card => {
@@ -558,14 +809,14 @@
         if (titleAnchor && !titleAnchor.dataset.text) titleAnchor.dataset.text = titleAnchor.textContent;
         const titleText = titleAnchor?.dataset.text || "";
         const artistText = card.dataset.artists || "";
-        const titleMatch = titleText.toLowerCase().includes(query) || artistText.includes(query);
+        const titleMatch = normalizeApos(titleText.toLowerCase()).includes(query) || normalizeApos(artistText).includes(query);
 
         if (titleAnchor) titleAnchor.innerHTML = titleMatch ? titleText.replace(re, "<mark>$1</mark>") : titleText;
 
         let anyLinkVisible = false;
         card.querySelectorAll(".video-entry-link").forEach(link => {
           const text = link.dataset.text || link.textContent;
-          if (titleMatch || text.toLowerCase().includes(query)) {
+          if (titleMatch || normalizeApos(text.toLowerCase()).includes(query)) {
             link.style.display = "";
             link.innerHTML = text.replace(re, "<mark>$1</mark>");
             anyLinkVisible = true;
