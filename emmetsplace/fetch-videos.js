@@ -67,6 +67,14 @@ async function fetchLiveVideoId(channelId) {
   return data.items?.[0]?.id?.videoId || null;
 }
 
+async function fetchUpcomingVideoId(channelId) {
+  const res = await fetch(
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=upcoming&type=video&key=${API_KEY}`
+  );
+  const data = await res.json();
+  return data.items?.[0]?.id?.videoId || null;
+}
+
 async function fetchChannelVideos() {
   const channelRes = await fetch(
     `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=EmmetCohen&key=${API_KEY}`
@@ -108,6 +116,7 @@ async function fetchVideoData(ids) {
         duration: parseDuration(item.contentDetails?.duration || ""),
         isLive: !!item.liveStreamingDetails,
         streamDate: item.liveStreamingDetails?.actualStartTime || item.snippet.publishedAt,
+        scheduledStartTime: item.liveStreamingDetails?.scheduledStartTime || null,
         artists: parseArtists(desc),
         songs: parseSongs(desc),
       };
@@ -130,7 +139,18 @@ async function mainLiveOnly() {
   const liveVideoId = await fetchLiveVideoId(channelId);
   console.log(liveVideoId ? `Live video: ${liveVideoId}` : "No live broadcast");
 
+  console.log("Checking for upcoming broadcast...");
+  const upcomingVideoId = await fetchUpcomingVideoId(channelId);
+  console.log(upcomingVideoId ? `Upcoming video: ${upcomingVideoId}` : "No upcoming broadcast");
+
+  // Fetch details for upcoming video if not already in data
+  if (upcomingVideoId && !existing.data[upcomingVideoId]) {
+    const extra = await fetchVideoData([upcomingVideoId]);
+    Object.assign(existing.data, extra);
+  }
+
   existing.liveVideoId = liveVideoId;
+  existing.upcomingVideoId = upcomingVideoId;
   fs.writeFileSync("videos.json", JSON.stringify(existing));
   console.log("Updated liveVideoId in videos.json");
 }
@@ -149,7 +169,17 @@ async function main() {
   const liveVideoId = await fetchLiveVideoId(channelId);
   if (liveVideoId) console.log(`Live video: ${liveVideoId}`);
 
-  const output = { generatedAt: new Date().toISOString(), ids, data, liveVideoId };
+  console.log("Checking for upcoming broadcast...");
+  const upcomingVideoId = await fetchUpcomingVideoId(channelId);
+  if (upcomingVideoId) console.log(`Upcoming video: ${upcomingVideoId}`);
+
+  // Fetch details for upcoming video if not already in data
+  if (upcomingVideoId && !data[upcomingVideoId]) {
+    const extra = await fetchVideoData([upcomingVideoId]);
+    Object.assign(data, extra);
+  }
+
+  const output = { generatedAt: new Date().toISOString(), ids, data, liveVideoId, upcomingVideoId };
   fs.writeFileSync("videos.json", JSON.stringify(output));
   console.log("Wrote videos.json");
 }

@@ -23,49 +23,118 @@
       flex-direction: column;
     }
 
-    .latest-link {
+    .featured-latest {
+      display: block;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      margin-bottom: 24px;
+      background-color: #1a1a1a;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .featured-latest:hover {
+      border-color: rgba(255,255,255,0.18);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .featured-latest-overlay {
       position: absolute;
-      top: 20px;
-      right: 16px;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.25) 45%,
+        transparent 100%
+      );
+    }
+
+    .featured-latest-badge {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c5bfc8;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 3px 8px;
+      backdrop-filter: blur(4px);
+    }
+
+    .featured-latest-badge.live {
+      color: #e03030;
+      border-color: rgba(220,50,50,0.45);
       display: flex;
       align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      color: #9a8fa0;
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.15s;
-      z-index: 1;
-      max-width: 160px;
+      gap: 6px;
     }
 
-    .latest-link:hover { color: #e0d4e8; }
-
-    .latest-thumb {
-      width: 64px;
-      aspect-ratio: 16/9;
-      border-radius: 4px;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: border-color 0.15s;
-    }
-
-    .latest-link:hover .latest-thumb { border-color: rgba(255,255,255,0.25); }
-
-    .latest-info {
+    .featured-latest-badge.upcoming {
+      color: #a0c8e8;
+      border-color: rgba(100,180,220,0.4);
       display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
+      align-items: center;
+      gap: 5px;
     }
 
-    .latest-label {
-      font-size: 0.62rem;
-      color: #6a6070;
-      letter-spacing: 0.1em;
+    .featured-latest-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(4px);
     }
+
+    .featured-latest:hover .featured-latest-play {
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    .featured-latest-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px 16px;
+    }
+
+    .featured-latest-title {
+      font-size: 0.95rem;
+      color: #f0eaf8;
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.3;
+      margin-bottom: 5px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+    }
+
+    .featured-latest-cta {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7a6f80;
+      transition: color 0.15s;
+    }
+
+    .featured-latest:hover .featured-latest-cta { color: #b0a4b8; }
 
     .live-dot {
       width: 7px;
@@ -117,8 +186,8 @@
       font-weight: normal;
       letter-spacing: 0.04em;
       color: #e8dff0;
-      margin-bottom: 20px;
       position: relative;
+      margin-bottom: 20px;
       text-shadow: 0 0 28px rgba(200, 130, 180, 0.45);
       animation: titleglow 6s ease-in-out infinite alternate;
       line-height: 1.1;
@@ -526,6 +595,54 @@
     .sort-pill:hover { color: #c5bfc8; border-color: rgba(255,255,255,0.2); }
     .sort-pill.active { background: rgba(200,160,188,0.12); border-color: rgba(200,160,188,0.4); color: #e0d4e8; }
 
+    .alpha-index {
+      position: fixed;
+      right: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 50;
+      padding: 4px 0;
+      background: rgba(17,17,17,0.8);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.07);
+      backdrop-filter: blur(6px);
+      user-select: none;
+      touch-action: none;
+      cursor: pointer;
+      max-height: 72vh;
+      overflow: hidden;
+    }
+
+    .alpha-index-letter {
+      font-size: 0.5rem;
+      color: #6a6070;
+      padding: 1.5px 6px;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      transition: color 0.1s;
+    }
+
+    .alpha-index-letter.active {
+      color: #c8a0bc;
+      font-weight: bold;
+    }
+
+    .tune-section-header {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: #6a6070;
+      text-transform: uppercase;
+      padding: 10px 12px 4px;
+      position: sticky;
+      top: 0;
+      background: #111;
+      z-index: 2;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
     /* Random view */
     #random-view {
       display: none;
@@ -691,8 +808,8 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="latest-link" id="latest-link" href="#" target="_blank" style="display:none"></a>
     <h1 class="site-title" id="site-title">Emmet's Place</h1>
+    <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
     <div class="controls">
       <div class="search-wrap">
         <span class="search-icon">
@@ -750,6 +867,8 @@
     </button>
   </nav>
 
+  <div class="alpha-index" id="alpha-index"></div>
+
   <script>
     (function flyInTitle() {
       const el = document.getElementById("site-title");
@@ -801,7 +920,7 @@
       const res = await fetch("videos.json");
       if (!res.ok) throw new Error(`Could not load videos.json (${res.status})`);
       const json = await res.json();
-      return { ids: json.ids, data: json.data, liveVideoId: json.liveVideoId || null };
+      return { ids: json.ids, data: json.data, liveVideoId: json.liveVideoId || null, upcomingVideoId: json.upcomingVideoId || null };
     }
 
     let allCards = [];
@@ -858,7 +977,7 @@
       document.getElementById("tunes-count").textContent =
         query ? `${visible.length} of ${allTunes.length} tunes` : `${allTunes.length} tunes`;
 
-      for (const tune of visible) {
+      function makeTuneRow(tune) {
         const startParam = tune.start ? `&t=${tune.start}s` : "";
         const href = `https://www.youtube.com/watch?v=${tune.videoId}${startParam}`;
         const titleHTML = re ? tune.title.replace(re, "<mark>$1</mark>") : tune.title;
@@ -872,33 +991,124 @@
         row.target = "_blank";
         const thumb = `https://img.youtube.com/vi/${tune.videoId}/default.jpg`;
         row.innerHTML = `<img class="tune-thumb" src="${thumb}" alt="" loading="lazy"><div class="tune-info"><span class="tune-title">${titleHTML}</span><span class="tune-meta">${metaHTML}${dateStr ? " · " + dateStr : ""}</span></div>`;
-        list.appendChild(row);
+        return row;
+      }
+
+      const alphaIndex = document.getElementById("alpha-index");
+
+      if (tunesSort === "alpha" && !query) {
+        // Group by first letter
+        const groups = new Map();
+        for (const tune of visible) {
+          const first = tune.title[0]?.toUpperCase() || "#";
+          const key = /[A-Z]/.test(first) ? first : "#";
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(tune);
+        }
+        const letters = [...groups.keys()].sort((a, b) => a === "#" ? 1 : b === "#" ? -1 : a.localeCompare(b));
+
+        // Build alpha index bar
+        alphaIndex.innerHTML = letters.map(l =>
+          `<span class="alpha-index-letter" data-letter="${l}">${l}</span>`
+        ).join("");
+        alphaIndex.style.display = "flex";
+
+        function scrollToLetter(letter, smooth) {
+          const el = document.getElementById(`alpha-section-${letter}`);
+          if (el) el.scrollIntoView({ behavior: smooth ? "smooth" : "instant", block: "start" });
+        }
+        function highlightLetter(letter) {
+          alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
+            el.classList.toggle("active", el.dataset.letter === letter)
+          );
+        }
+
+        alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el => {
+          el.addEventListener("click", () => { scrollToLetter(el.dataset.letter, true); highlightLetter(el.dataset.letter); });
+        });
+
+        let dragging = false;
+        function navToPoint(y) {
+          for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
+            const r = el.getBoundingClientRect();
+            if (y >= r.top && y <= r.bottom) { scrollToLetter(el.dataset.letter, false); highlightLetter(el.dataset.letter); break; }
+          }
+        }
+        alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; alphaIndex.setPointerCapture(e.pointerId); navToPoint(e.clientY); });
+        alphaIndex.addEventListener("pointermove", (e) => { if (dragging) navToPoint(e.clientY); });
+        alphaIndex.addEventListener("pointerup", () => { dragging = false; });
+
+        // Render with section headers
+        for (const letter of letters) {
+          const header = document.createElement("div");
+          header.className = "tune-section-header";
+          header.id = `alpha-section-${letter}`;
+          header.textContent = letter;
+          list.appendChild(header);
+          for (const tune of groups.get(letter)) list.appendChild(makeTuneRow(tune));
+        }
+      } else {
+        alphaIndex.style.display = "none";
+        for (const tune of visible) list.appendChild(makeTuneRow(tune));
       }
     }
 
     async function render() {
       grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
       try {
-        const { ids, data: videoData, liveVideoId } = await loadData();
+        const { ids, data: videoData, liveVideoId, upcomingVideoId } = await loadData();
         grid.innerHTML = "";
         allCards = [];
         allTunes = [];
 
-        // Update latest/live link in header
+        // Update featured card in header (upcoming > live > latest)
         const latestLink = document.getElementById("latest-link");
-        const recentId = liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
-        if (recentId) {
-          const thumb = `https://img.youtube.com/vi/${recentId}/mqdefault.jpg`;
-          const isLive = !!liveVideoId;
-          latestLink.href = `https://www.youtube.com/watch?v=${recentId}`;
+        const featuredId = upcomingVideoId || liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
+        if (featuredId) {
+          const isLive = !upcomingVideoId && !!liveVideoId;
+          const isUpcoming = !!upcomingVideoId;
+          const videoTitle = stripEmoji(videoData[featuredId]?.title || "");
+          const scheduledTime = videoData[featuredId]?.scheduledStartTime;
+          const scheduledLabel = scheduledTime
+            ? new Date(scheduledTime).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
+            : null;
+          latestLink.href = `https://www.youtube.com/watch?v=${featuredId}`;
+          latestLink.style.backgroundImage = `url('https://img.youtube.com/vi/${featuredId}/hqdefault.jpg')`;
+
+          let badge, centerIcon, cta;
+          if (isUpcoming) {
+            badge = `<div class="featured-latest-badge upcoming">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${scheduledLabel ? scheduledLabel : "Upcoming"}
+            </div>`;
+            centerIcon = `<div class="featured-latest-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>`;
+            cta = "Set Reminder →";
+          } else if (isLive) {
+            badge = `<div class="featured-latest-badge live"><span class="live-dot"></span>Live Now</div>`;
+            centerIcon = `<div class="featured-latest-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>`;
+            cta = "Watch Now →";
+          } else {
+            badge = `<div class="featured-latest-badge">Latest Episode</div>`;
+            centerIcon = `<div class="featured-latest-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>`;
+            cta = "Watch Now →";
+          }
+
           latestLink.innerHTML = `
-            <img class="latest-thumb" src="${thumb}" alt="">
-            <div class="latest-info">
-              <span class="latest-label">${isLive ? "" : "Latest"}</span>
-              ${isLive ? `<span style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span><span class="live-label">Live Now</span></span>` : ""}
+            <div class="featured-latest-overlay"></div>
+            ${badge}
+            ${centerIcon}
+            <div class="featured-latest-info">
+              <div class="featured-latest-title">${videoTitle}</div>
+              <div class="featured-latest-cta">${cta}</div>
             </div>
           `;
-          latestLink.style.display = "flex";
+          latestLink.style.display = "block";
         }
 
         function passesFilter(id) {
@@ -991,6 +1201,7 @@
       });
       document.getElementById("episodes-view").style.display = tab === "episodes" ? "" : "none";
       document.getElementById("tunes-view").style.display = tab === "tunes" ? "block" : "none";
+      if (tab !== "tunes") document.getElementById("alpha-index").style.display = "none";
       document.getElementById("random-view").style.display = tab === "random" ? "flex" : "none";
       const searchWrap = document.querySelector(".search-wrap");
       searchWrap.style.display = tab === "random" ? "none" : "";
