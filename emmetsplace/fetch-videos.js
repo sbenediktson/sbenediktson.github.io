@@ -59,12 +59,22 @@ function parseArtists(description) {
   return artists;
 }
 
+async function fetchLiveVideoId(channelId) {
+  const res = await fetch(
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&type=video&key=${API_KEY}`
+  );
+  const data = await res.json();
+  return data.items?.[0]?.id?.videoId || null;
+}
+
 async function fetchChannelVideos() {
   const channelRes = await fetch(
     `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=EmmetCohen&key=${API_KEY}`
   );
   const channelData = await channelRes.json();
-  const uploadsId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+  const channelItem = channelData.items[0];
+  const uploadsId = channelItem.contentDetails.relatedPlaylists.uploads;
+  fetchChannelVideos._channelId = channelItem.id;
 
   const ids = [];
   let pageToken = null;
@@ -106,21 +116,47 @@ async function fetchVideoData(ids) {
   return results;
 }
 
+async function mainLiveOnly() {
+  const existing = JSON.parse(fs.readFileSync("videos.json", "utf8"));
+
+  // Get channel ID from existing data to avoid an extra API call
+  const channelRes = await fetch(
+    `https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=EmmetCohen&key=${API_KEY}`
+  );
+  const channelData = await channelRes.json();
+  const channelId = channelData.items[0].id;
+
+  console.log("Checking for live broadcast...");
+  const liveVideoId = await fetchLiveVideoId(channelId);
+  console.log(liveVideoId ? `Live video: ${liveVideoId}` : "No live broadcast");
+
+  existing.liveVideoId = liveVideoId;
+  fs.writeFileSync("videos.json", JSON.stringify(existing));
+  console.log("Updated liveVideoId in videos.json");
+}
+
 async function main() {
   console.log("Fetching channel videos...");
   const ids = await fetchChannelVideos();
+  const channelId = fetchChannelVideos._channelId;
   console.log(`Found ${ids.length} video IDs`);
 
   console.log("Fetching video details...");
   const data = await fetchVideoData(ids);
   console.log(`Fetched details for ${Object.keys(data).length} videos`);
 
-  const output = { generatedAt: new Date().toISOString(), ids, data };
+  console.log("Checking for live broadcast...");
+  const liveVideoId = await fetchLiveVideoId(channelId);
+  if (liveVideoId) console.log(`Live video: ${liveVideoId}`);
+
+  const output = { generatedAt: new Date().toISOString(), ids, data, liveVideoId };
   fs.writeFileSync("videos.json", JSON.stringify(output));
   console.log("Wrote videos.json");
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (process.argv.includes("--live-only")) {
+  mainLiveOnly().catch((err) => { console.error(err); process.exit(1); });
+} else {
+  main().catch((err) => { console.error(err); process.exit(1); });
+}
+

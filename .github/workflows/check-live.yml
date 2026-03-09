@@ -1,0 +1,32 @@
+name: Check live broadcast
+
+on:
+  schedule:
+    - cron: "15-45 23 * * 1"  # Mon 6:15–6:45 PM CDT (UTC-5)
+    - cron: "15-45 0 * * 2"   # Mon 6:15–6:45 PM CST (UTC-6, runs Tue UTC)
+  workflow_dispatch:
+
+jobs:
+  check-live:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check for live broadcast
+        run: node fetch-videos.js --live-only
+        working-directory: emmetsplace
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add emmetsplace/videos.json
+          git diff --cached --quiet || git commit -m "chore: update live status"
+          git push

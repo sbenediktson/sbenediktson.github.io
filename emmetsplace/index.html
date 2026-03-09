@@ -11,17 +11,126 @@
       background: #111;
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
-      padding: 32px 24px 88px;
+      padding: 0 0 88px;
     }
 
     .site-header {
-      margin-bottom: 36px;
+      padding: 32px 24px 20px;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .latest-link {
+      position: absolute;
+      top: 20px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #9a8fa0;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+      z-index: 1;
+      max-width: 160px;
+    }
+
+    .latest-link:hover { color: #e0d4e8; }
+
+    .latest-thumb {
+      width: 64px;
+      aspect-ratio: 16/9;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color 0.15s;
+    }
+
+    .latest-link:hover .latest-thumb { border-color: rgba(255,255,255,0.25); }
+
+    .latest-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .latest-label {
+      font-size: 0.62rem;
+      color: #6a6070;
+      letter-spacing: 0.1em;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #e03030;
+      box-shadow: 0 0 6px rgba(220, 50, 50, 0.8);
+      animation: livepulse 1.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes livepulse {
+      0%, 100% { transform: scale(1);   opacity: 1; }
+      50%       { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    .live-label {
+      color: #e03030;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+    }
+
+    .site-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 120% at 15% 60%,  rgba(160, 100, 40, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 110% at 85% 40%,  rgba(80,  50, 160, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 80%  at 50% 110%, rgba(120, 40, 80,  0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 60%  at 50% -10%, rgba(30,  20, 50,  0.5)  0%, transparent 80%);
+      animation: stagelight 10s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes stagelight {
+      0%   { opacity: 0.75; transform: scaleX(1) translateY(0); }
+      50%  { opacity: 1;    transform: scaleX(1.04) translateY(3px); }
+      100% { opacity: 0.75; transform: scaleX(0.97) translateY(-3px); }
     }
 
     .site-logo {
-      display: block;
-      height: 90px;
-      margin-bottom: 28px;
+      display: none;
+    }
+
+    .site-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.4rem;
+      font-weight: normal;
+      letter-spacing: 0.04em;
+      color: #e8dff0;
+      margin-bottom: 20px;
+      position: relative;
+      text-shadow: 0 0 28px rgba(200, 130, 180, 0.45);
+      animation: titleglow 6s ease-in-out infinite alternate;
+      line-height: 1.1;
+    }
+
+    @keyframes titleglow {
+      0%   { text-shadow: 0 0 14px rgba(200, 130, 180, 0.25); }
+      100% { text-shadow: 0 0 36px rgba(200, 130, 180, 0.6); }
+    }
+
+    .site-title .char {
+      display: inline-block;
     }
 
     .controls {
@@ -99,6 +208,44 @@
       color: #e0d4e8;
     }
 
+    /* Filter pills */
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: #6a6070;
+      font-family: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+    }
+
+    .filter-pill:hover { color: #c5bfc8; border-color: rgba(255,255,255,0.2); }
+    .filter-pill.active { background: rgba(200,160,188,0.12); border-color: rgba(200,160,188,0.4); color: #e0d4e8; }
+
+    /* In Studio badge */
+    .studio-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c8a0bc;
+      border: 1px solid rgba(200,160,188,0.35);
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin-bottom: 2px;
+      align-self: flex-start;
+    }
+
     /* Featured card */
     .featured-label {
       font-size: 0.65rem;
@@ -135,37 +282,41 @@
       .show-more-btn { font-size: 0.9rem; padding: 6px 10px; }
     }
 
-    /* Episode carousel */
+    /* Episode list */
     .video-grid {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-padding: 0;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 8px;
-    }
-
-    .video-grid::-webkit-scrollbar { display: none; }
-
-    .video-card {
       display: flex;
       flex-direction: column;
       gap: 8px;
+    }
+
+    .video-card {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 10px;
-      padding: 14px;
+      padding: 10px 12px;
       background: #161616;
+    }
+
+    .video-card-thumb {
       flex-shrink: 0;
-      scroll-snap-align: start;
-      width: min(82vw, 360px);
+      width: 120px;
+    }
+
+    .video-card-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .video-card h2 {
-      font-size: 1rem;
+      font-size: 0.88rem;
       font-weight: normal;
       color: #ddd8e4;
+      margin: 0;
     }
 
     .title-link {
@@ -204,8 +355,8 @@
     .video-link::after {
       content: "";
       position: absolute;
-      width: 68px;
-      height: 48px;
+      width: 36px;
+      height: 26px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 63'%3E%3Crect rx='14' ry='14' width='90' height='63' fill='%23FF0000'/%3E%3Cpolygon points='36,15 67,31.5 36,48' fill='white'/%3E%3C/svg%3E") no-repeat center/contain;
       opacity: 0.75;
       transition: opacity 0.2s;
@@ -340,11 +491,40 @@
       text-overflow: ellipsis;
     }
 
+    .tunes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
     .tunes-count {
       color: #555;
       font-size: 0.8rem;
-      margin-bottom: 12px;
     }
+
+    .sort-pills {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .sort-pill {
+      padding: 3px 11px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: #6a6070;
+      font-family: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+    }
+
+    .sort-pill:hover { color: #c5bfc8; border-color: rgba(255,255,255,0.2); }
+    .sort-pill.active { background: rgba(200,160,188,0.12); border-color: rgba(200,160,188,0.4); color: #e0d4e8; }
 
     /* Random view */
     #random-view {
@@ -511,7 +691,8 @@
 </head>
 <body>
   <header class="site-header">
-    <img class="site-logo" src="https://emmetsplace.lovable.app/assets/emmets-place-logo-DG2aWdw-.png" alt="Emmet's Place">
+    <a class="latest-link" id="latest-link" href="#" target="_blank" style="display:none"></a>
+    <h1 class="site-title" id="site-title">Emmet's Place</h1>
     <div class="controls">
       <div class="search-wrap">
         <span class="search-icon">
@@ -524,11 +705,22 @@
   </header>
 
   <div id="episodes-view">
+    <div class="filter-pills">
+      <button class="filter-pill active" data-filter="all" onclick="filterEpisodes('all')">All</button>
+      <button class="filter-pill" data-filter="studio" onclick="filterEpisodes('studio')">In Studio</button>
+      <button class="filter-pill" data-filter="road" onclick="filterEpisodes('road')">On the Road</button>
+    </div>
     <div class="video-grid" id="grid"></div>
   </div>
 
   <div id="tunes-view">
-    <div class="tunes-count" id="tunes-count"></div>
+    <div class="tunes-header">
+      <span class="tunes-count" id="tunes-count"></span>
+      <div class="sort-pills">
+        <button class="sort-pill" data-sort="alpha" onclick="setTunesSort('alpha')">A to Z</button>
+        <button class="sort-pill active" data-sort="recent" onclick="setTunesSort('recent')">Most Recent</button>
+      </div>
+    </div>
     <div class="tune-list" id="tune-list"></div>
   </div>
 
@@ -559,6 +751,40 @@
   </nav>
 
   <script>
+    (function flyInTitle() {
+      const el = document.getElementById("site-title");
+      const target = "Emmet's Place";
+
+      el.innerHTML = target.split("").map((ch, i) =>
+        ch === " "
+          ? '<span style="display:inline-block;white-space:pre"> </span>'
+          : `<span class="char" data-index="${i}">${ch}</span>`
+      ).join("");
+
+      const spans = Array.from(el.querySelectorAll(".char[data-index]"));
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      spans.forEach(span => {
+        const rx = (Math.random() - 0.5) * vw * 1.4;
+        const ry = (Math.random() - 0.5) * vh * 1.4;
+        const rot = (Math.random() - 0.5) * 540;
+        span.style.display = "inline-block";
+        span.style.transform = `translate(${rx}px, ${ry}px) rotate(${rot}deg)`;
+        span.style.opacity = "0";
+        span.style.transition = "none";
+      });
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        spans.forEach((span, i) => {
+          const delay = 60 + i * 50;
+          span.style.transition = `transform 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 0.5s ease ${delay}ms`;
+          span.style.transform = "translate(0, 0) rotate(0deg)";
+          span.style.opacity = "1";
+        });
+      }));
+    })();
+
     const grid = document.getElementById("grid");
     let currentTab = "episodes";
     let allTunes = []; // { title, videoId, start, videoTitle, streamDate }
@@ -575,7 +801,7 @@
       const res = await fetch("videos.json");
       if (!res.ok) throw new Error(`Could not load videos.json (${res.status})`);
       const json = await res.json();
-      return { ids: json.ids, data: json.data };
+      return { ids: json.ids, data: json.data, liveVideoId: json.liveVideoId || null };
     }
 
     let allCards = [];
@@ -605,15 +831,29 @@
       return { artistsHTML, entriesHTML };
     }
 
+    let tunesSort = "recent";
+
+    function setTunesSort(sort) {
+      tunesSort = sort;
+      document.querySelectorAll(".sort-pill").forEach(p => p.classList.toggle("active", p.dataset.sort === sort));
+      renderTunes();
+    }
+
     function renderTunes() {
       const list = document.getElementById("tune-list");
       list.innerHTML = "";
       const query = normalizeApos(document.getElementById("search").value.toLowerCase().trim());
       const re = query ? new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi") : null;
 
-      const visible = query
+      let visible = query
         ? allTunes.filter(t => normalizeApos(t.title.toLowerCase()).includes(query) || normalizeApos(t.videoTitle.toLowerCase()).includes(query))
-        : allTunes;
+        : [...allTunes];
+
+      if (tunesSort === "recent") {
+        visible.sort((a, b) => new Date(b.streamDate || 0) - new Date(a.streamDate || 0));
+      } else {
+        visible.sort((a, b) => a.title.localeCompare(b.title));
+      }
 
       document.getElementById("tunes-count").textContent =
         query ? `${visible.length} of ${allTunes.length} tunes` : `${allTunes.length} tunes`;
@@ -639,10 +879,27 @@
     async function render() {
       grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
       try {
-        const { ids, data: videoData } = await loadData();
+        const { ids, data: videoData, liveVideoId } = await loadData();
         grid.innerHTML = "";
         allCards = [];
         allTunes = [];
+
+        // Update latest/live link in header
+        const latestLink = document.getElementById("latest-link");
+        const recentId = liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
+        if (recentId) {
+          const thumb = `https://img.youtube.com/vi/${recentId}/mqdefault.jpg`;
+          const isLive = !!liveVideoId;
+          latestLink.href = `https://www.youtube.com/watch?v=${recentId}`;
+          latestLink.innerHTML = `
+            <img class="latest-thumb" src="${thumb}" alt="">
+            <div class="latest-info">
+              <span class="latest-label">${isLive ? "" : "Latest"}</span>
+              ${isLive ? `<span style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span><span class="live-label">Live Now</span></span>` : ""}
+            </div>
+          `;
+          latestLink.style.display = "flex";
+        }
 
         function passesFilter(id) {
           const info = videoData[id];
@@ -672,7 +929,6 @@
             }
           }
         }
-        allTunes.sort((a, b) => a.title.localeCompare(b.title));
 
         // Render all cards (most recent first, in carousel)
         for (const [idx, id] of chronological.entries()) {
@@ -684,15 +940,24 @@
           const dateStr = info.streamDate
             ? new Date(info.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
             : "";
+          const isStudio = /\bvol\b/i.test(videoTitle);
+          const isRoad = /live at/i.test(videoTitle);
+          const cardType = isStudio ? "studio" : isRoad ? "road" : "other";
+
           const card = document.createElement("div");
-          card.className = idx === 0 ? "video-card featured" : "video-card";
+          card.className = "video-card";
+          card.dataset.type = cardType;
           card.innerHTML = `
-            ${idx === 0 ? '<div class="featured-label">Latest Stream</div>' : ""}
-            <h2><a class="title-link" href="https://www.youtube.com/watch?v=${id}" target="_blank">${videoTitle}</a></h2>
-            ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
-            <a class="video-link" href="https://www.youtube.com/watch?v=${id}" target="_blank" style="background-image: url('${thumb}')"></a>
-            ${artistsHTML}
-            <div class="video-entries">${entriesHTML}</div>
+            <div class="video-card-thumb">
+              <a class="video-link" href="https://www.youtube.com/watch?v=${id}" target="_blank" style="background-image: url('${thumb}')"></a>
+            </div>
+            <div class="video-card-body">
+              ${isStudio ? '<span class="studio-badge">In Studio</span>' : ""}
+              <h2><a class="title-link" href="https://www.youtube.com/watch?v=${id}" target="_blank">${videoTitle}</a></h2>
+              ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
+              ${artistsHTML}
+              <div class="video-entries">${entriesHTML}</div>
+            </div>
           `;
           card.dataset.titles = [videoTitle, ...info.songs.map(s => s.title)].join(" ").toLowerCase();
           card.dataset.artists = info.artists.map(a => a.name).join(" ").toLowerCase();
@@ -704,6 +969,19 @@
       } catch (err) {
         grid.innerHTML = `<p style="color:#c88;padding:8px">Failed to load videos: ${err.message}</p>`;
       }
+    }
+
+    let activeFilter = "all";
+
+    function filterEpisodes(filter) {
+      activeFilter = filter;
+      document.querySelectorAll(".filter-pill").forEach(p => {
+        p.classList.toggle("active", p.dataset.filter === filter);
+      });
+      allCards.forEach(card => {
+        const show = filter === "all" || card.dataset.type === filter;
+        card.style.display = show ? "" : "none";
+      });
     }
 
     function switchTab(tab) {
@@ -719,7 +997,7 @@
       document.getElementById("search").placeholder =
         tab === "tunes" ? "Search tunes..." : "Search episodes, guests, tunes...";
       if (tab !== "random") clearSearch();
-      if (tab === "episodes") allCards.forEach(c => { c.style.display = ""; });
+      if (tab === "episodes") filterEpisodes(activeFilter);
       if (tab === "tunes") renderTunes();
       if (tab === "random") {
         document.getElementById("random-discover").textContent =
