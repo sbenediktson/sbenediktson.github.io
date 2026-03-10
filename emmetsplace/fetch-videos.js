@@ -150,7 +150,8 @@ async function mainLiveOnly() {
   }
 
   existing.liveVideoId = liveVideoId;
-  existing.upcomingVideoId = upcomingVideoId;
+  // If the same video appears in both live and upcoming (YouTube API quirk), treat it as live only
+  existing.upcomingVideoId = liveVideoId ? null : upcomingVideoId;
   fs.writeFileSync("videos.json", JSON.stringify(existing));
   console.log("Updated liveVideoId in videos.json");
 }

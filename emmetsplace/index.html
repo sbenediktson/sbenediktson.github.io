@@ -1065,8 +1065,8 @@
         const latestLink = document.getElementById("latest-link");
         const featuredId = upcomingVideoId || liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
         if (featuredId) {
-          const isLive = !upcomingVideoId && !!liveVideoId;
-          const isUpcoming = !!upcomingVideoId;
+          const isLive = !!liveVideoId;
+          const isUpcoming = !liveVideoId && !!upcomingVideoId;
           const videoTitle = stripEmoji(videoData[featuredId]?.title || "");
           const scheduledTime = videoData[featuredId]?.scheduledStartTime;
           const scheduledLabel = scheduledTime
