@@ -883,21 +883,21 @@
       });
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        // "Emmet's Place" spans: E(0) m(1) m(2) e(3) t(4) '(5) s(6) P(7) l(8) a(9) c(10) e(11)
-        // [rotDeg, yPx]  — straight letters get [0,0]
+        // "Emmet's Place": straight=high, diagonal=low
+        const HI = -10, LO = 10;
         const perChar = [
-          [ 0,   0],  // E  — straight, baseline
-          [-8,   8],  // m  — left lean, down
-          [ 0, -12],  // m  — straight (M), raised up
-          [ 8,   8],  // e  — right lean, down
-          [ 0,   0],  // t  — straight (T), baseline
-          [-4,   2],  // '  — slight left
-          [ 0,   0],  // s  — straight (S), baseline
-          [-8,   0],  // P  — left lean, baseline
-          [ 0,  10],  // l  — straight (L), down
-          [ 8,  -8],  // a  — right lean, UP (raised)
-          [ 0,   0],  // c  — straight (C), baseline
-          [ 8,  10],  // e  — right lean, down
+          [ 0,  HI],  // E  — straight, high
+          [-8,  LO],  // m  — left lean, low
+          [ 0,  HI],  // M  — straight, high
+          [ 8,  LO],  // e  — right lean, low
+          [ 0,  HI],  // T  — straight, high
+          [-4,  HI],  // '  — with S (high)
+          [ 0,  HI],  // S  — straight, high
+          [-8,  LO],  // P  — left lean, low
+          [ 0,  HI],  // L  — straight, high
+          [ 8,  LO],  // A  — right lean, low
+          [ 0,  HI],  // C  — straight, high
+          [ 8,  LO],  // E  — right lean, low
         ];
         spans.forEach((span, i) => {
           const delay = 60 + i * 50;
