@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Emmet's Place – Streams</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -185,16 +188,16 @@
     }
 
     .site-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 2.4rem;
+      font-family: 'Bebas Neue', Georgia, serif;
+      font-size: 3.8rem;
       font-weight: normal;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       color: #e8dff0;
       position: relative;
       margin-bottom: 20px;
       text-shadow: 0 0 28px rgba(200, 130, 180, 0.45);
       animation: titleglow 6s ease-in-out infinite alternate;
-      line-height: 1.1;
+      line-height: 1;
     }
 
     @keyframes titleglow {
@@ -901,7 +904,7 @@
       requestAnimationFrame(() => requestAnimationFrame(() => {
         spans.forEach((span, i) => {
           const delay = 60 + i * 50;
-          span.style.transition = `transform 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 0.5s ease ${delay}ms`;
+          span.style.transition = `transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 0.7s ease ${delay}ms`;
           span.style.transform = "translate(0, 0) rotate(0deg)";
           span.style.opacity = "1";
         });
