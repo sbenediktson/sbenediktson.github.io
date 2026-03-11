@@ -1018,39 +1018,7 @@
         ).join("");
         alphaIndex.style.display = "flex";
 
-        function doNav(letter) {
-          const section = document.getElementById(`alpha-section-${letter}`);
-          const top = section ? section.getBoundingClientRect().top : null;
-          console.log("[alpha] doNav", letter, "section found:", !!section, "top:", top, "scrollY:", window.scrollY);
-          if (section) window.scrollBy(0, top);
-          alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
-            el.classList.toggle("active", el.dataset.letter === letter)
-          );
-        }
-
-        // Register all interaction handlers only once to avoid accumulation
-        if (!alphaIndex.dataset.listenersAdded) {
-          alphaIndex.dataset.listenersAdded = "1";
-
-          // Tap: delegate clicks from any letter span
-          alphaIndex.addEventListener("click", (e) => {
-            const letter = e.target.closest("[data-letter]")?.dataset.letter;
-            console.log("[alpha] click target:", e.target.tagName, "letter:", letter);
-            if (letter) doNav(letter);
-          });
-          let dragging = false;
-          function navToPoint(clientY) {
-            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
-              const r = el.getBoundingClientRect();
-              if (clientY >= r.top && clientY <= r.bottom) { doNav(el.dataset.letter); break; }
-            }
-          }
-          alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; });
-          alphaIndex.addEventListener("pointermove", (e) => { if (dragging) navToPoint(e.clientY); });
-          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
-        }
-
-        // Render with section headers
+        // Render sections first so we can measure their positions
         for (const letter of letters) {
           const header = document.createElement("div");
           header.className = "tune-section-header";
@@ -1058,6 +1026,47 @@
           header.textContent = letter;
           list.appendChild(header);
           for (const tune of groups.get(letter)) list.appendChild(makeTuneRow(tune));
+        }
+
+        // Pre-compute absolute Y positions using offsetTop (avoids getBoundingClientRect timing issues)
+        // Store on the element so the once-registered click handler always reads fresh values
+        const sectionY = {};
+        for (const letter of letters) {
+          const el = document.getElementById(`alpha-section-${letter}`);
+          if (el) {
+            let y = 0, node = el;
+            while (node) { y += node.offsetTop; node = node.offsetParent; }
+            sectionY[letter] = y;
+          }
+        }
+        alphaIndex._sectionY = sectionY;
+
+        // Register interaction handlers only once to avoid accumulation
+        if (!alphaIndex.dataset.listenersAdded) {
+          alphaIndex.dataset.listenersAdded = "1";
+
+          function nav(letter) {
+            const y = alphaIndex._sectionY?.[letter];
+            if (y !== undefined) window.scrollTo(0, y);
+            alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
+              el.classList.toggle("active", el.dataset.letter === letter)
+            );
+          }
+
+          alphaIndex.addEventListener("click", (e) => {
+            const letter = e.target.closest("[data-letter]")?.dataset.letter;
+            if (letter) nav(letter);
+          });
+          let dragging = false;
+          alphaIndex.addEventListener("pointerdown", () => { dragging = true; });
+          alphaIndex.addEventListener("pointermove", (e) => {
+            if (!dragging) return;
+            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
+              const r = el.getBoundingClientRect();
+              if (e.clientY >= r.top && e.clientY <= r.bottom) { nav(el.dataset.letter); break; }
+            }
+          });
+          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
         }
       } else {
         alphaIndex.style.display = "none";
