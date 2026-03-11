@@ -1256,12 +1256,52 @@
             return db - da;
           });
 
+        // Patterns that identify non-song entries (announcements, intros, remarks, etc.)
+        const NON_SONG_PATTERNS = [
+          /^a few (words|remarks|notes)/i,
+          /^introduction of /i,
+          /^intro of /i,
+          /^appreciation (of|to|for)/i,
+          /closing (words|thanks|remarks|send)/i,
+          /\bwords of (gratitude|appreciation|love)\b/i,
+          /\bheartfelt (acknowledgement|remarks)\b/i,
+          /goodnight/i,
+          /\boutro\b/i,
+          /^close (of|the) set/i,
+          /^blues piano introduction\b/i,
+          /^bass (interlude|intro)\b/i,
+          /\btakes? (the )?stage\b/i,
+          /^emmet cohen trio\b/i,
+          /^the emmet cohen trio\b/i,
+          /^emmet cohen,? piano/i,
+          /^emmet cohen$/i,
+          /\b(greets|acknowledges|announces|expresses|highlights|honors|invites|offers|praises|presents|recalls|reflects|reminisces|affirms|digs|introduces|remembers|shares|salutes|dedicates|celebrates|returns)\b.*(audience|gratitude|appreciation|stage|thanks|love|joy|pride|warmth|impact|legacy|spirit|memory|friendship)/i,
+          /^[A-Z][a-zA-Z'-]+ [A-Z][a-zA-Z'-]* (greets|acknowledges|announces|expresses|highlights|honors|invites|offers|praises|presents|recalls|reflects|reminisces|affirms|introduces|remembers|shares)/i,
+          /^[A-Z][a-zA-Z'-]+ (greets|acknowledges|announces|expresses|highlights|honors|offers|praises|recalls|reflects|reminisces|affirms|introduces|remembers|shares|salutes|digs|keeps)/i,
+          /^emmet (greets|acknowledges|announces|closes|expresses|highlights|honors|invites|offers|praises|presents|recalls|reflects|salutes|shares|welcomes|dedicates)/i,
+          /^emmet's (appreciation|closing|heartfelt|respect)/i,
+          /^an? (official|outpouring|tribute|anthropology|elling)/i,
+          /^a (century|thankful|safe,|grateful|tribute)/i,
+          /\b(announces|announce)\b.*(lineup|festival|album|tour|perform)/i,
+          /\bbirthday (send|celebration)\b/i,
+          /^(bassist|drummer|guitarist|trumpeter|vocalist|pianist) [A-Z]/i,
+          /\bblues send$/i,
+          /^[A-Z][a-zA-Z'-]+'s (affirmation|appreciation|praise|gratitude|reflection|respect|story about|closing)/i,
+        ];
+        function isNonSong(title) {
+          // Preserve entries that are a real song + timestamp continuation (e.g. "Song / 1:02:56 ...")
+          if (/^[A-Z'"\(]/.test(title) && /\/ \d+:\d+/.test(title)) return false;
+          // Preserve entries where a song with attribution is followed by a "// blues send" tag
+          if (/\(.*\).*\/\/.*blues send/i.test(title)) return false;
+          return NON_SONG_PATTERNS.some(p => p.test(title));
+        }
+
         // Build flat tunes list (sorted alphabetically)
         for (const id of chronological) {
           const info = videoData[id];
           const videoTitle = stripEmoji(info.title);
           for (const song of info.songs) {
-            if (song.title && song.title.trim()) {
+            if (song.title && song.title.trim() && !isNonSong(song.title.trim())) {
               allTunes.push({ title: song.title, videoId: id, start: song.start, videoTitle, streamDate: info.streamDate });
             }
           }
