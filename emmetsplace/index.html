@@ -1242,6 +1242,7 @@
           if (!info) return false;
           if (!info.isLive) return false;
           if (/^re-stream/i.test(info.title)) return false;
+          if (['HWOaossSONs'].includes(id)) return false;
           if (info.duration > 0 && info.duration < 3600) return false;
           return true;
         }
