@@ -492,14 +492,16 @@
       font-size: 0.75rem;
       background: none;
       border: none;
-      padding: 2px 0;
+      border-bottom: 1px solid #6a6070;
+      padding: 0;
       cursor: pointer;
       font-family: inherit;
-      transition: color 0.15s;
+      transition: color 0.15s, border-color 0.15s;
       text-align: left;
+      line-height: 1.4;
     }
 
-    .card-expand-btn:hover { color: #c5bfc8; }
+    .card-expand-btn:hover { color: #c5bfc8; border-color: #c5bfc8; }
 
     /* Tunes view */
     #tunes-view { display: none; }
@@ -845,12 +847,12 @@
   <div id="random-view">
     <h1 class="random-heading">Feeling Lucky?</h1>
     <p class="random-sub">Shuffle a random tune from Emmet's Place</p>
-    <div class="random-result" id="random-result"></div>
     <button class="random-btn-circle" id="random-circle-btn" onclick="doRandom()">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
       <span id="random-btn-label">Randomize</span>
     </button>
     <p class="random-discover" id="random-discover"></p>
+    <div class="random-result" id="random-result"></div>
   </div>
 
   <nav class="bottom-nav">
