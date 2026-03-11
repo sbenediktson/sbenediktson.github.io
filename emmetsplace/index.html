@@ -633,6 +633,18 @@
       font-weight: bold;
     }
 
+    .alpha-index-year {
+      color: #9a8fa0;
+      font-size: 0.52rem;
+      padding: 4px 6px 1px;
+      letter-spacing: 0.03em;
+    }
+
+    .alpha-index-month {
+      font-size: 0.46rem;
+      padding: 1px 6px 1px 11px;
+    }
+
     .tune-section-header {
       font-size: 0.62rem;
       letter-spacing: 0.12em;
@@ -652,10 +664,10 @@
       min-height: calc(100vh - 200px);
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: center;
       gap: 0;
-      padding: 40px 0;
+      padding-top: 18vh;
     }
 
     .random-heading {
@@ -709,7 +721,7 @@
       width: 100%;
       max-width: 500px;
       gap: 16px;
-      margin-bottom: 32px;
+      margin-top: 32px;
     }
 
     .random-thumb-link {
@@ -944,6 +956,26 @@
       const [yyyy, mm] = key.split('-');
       return `${QNAME[mm]} ${yyyy}`;
     }
+    function renderQuarterIndex(alphaIndex, keys) {
+      const yearGroups = {};
+      for (const key of keys) {
+        if (key === "Unknown") continue;
+        const year = key.split('-')[0];
+        if (!yearGroups[year]) yearGroups[year] = [];
+        yearGroups[year].push(key);
+      }
+      const years = Object.keys(yearGroups).sort((a, b) => b - a);
+      let html = years.flatMap(yr => {
+        const qkeys = yearGroups[yr]; // descending order
+        const janKey = qkeys.find(k => k.endsWith('-01')) ?? qkeys[qkeys.length - 1];
+        return [
+          `<span class="alpha-index-letter alpha-index-year" data-letter="${janKey}">${yr}</span>`,
+          ...qkeys.map(k => `<span class="alpha-index-letter alpha-index-month" data-letter="${k}">${QNAME[k.split('-')[1]]}</span>`)
+        ];
+      }).join('');
+      if (keys.includes("Unknown")) html += `<span class="alpha-index-letter" data-letter="Unknown">?</span>`;
+      alphaIndex.innerHTML = html;
+    }
 
     // Register alpha-index click/drag listeners once, shared across all modes
     function initAlphaIndex() {
@@ -1115,9 +1147,7 @@
           return b.localeCompare(a); // YYYY-MM descending
         });
 
-        alphaIndex.innerHTML = keys.map(k =>
-          `<span class="alpha-index-letter" data-letter="${k}">${k === "Unknown" ? "?" : quarterBarLabel(k)}</span>`
-        ).join("");
+        renderQuarterIndex(alphaIndex, keys);
         alphaIndex.style.display = "flex";
 
         for (const key of keys) {
@@ -1321,9 +1351,7 @@
         // Show alpha-index with episode quarter positions if available
         if (Object.keys(episodeYearPositions).length > 0) {
           const keys = Object.keys(episodeYearPositions).sort((a, b) => b.localeCompare(a));
-          alphaIndex.innerHTML = keys.map(k =>
-            `<span class="alpha-index-letter" data-letter="${k}">${quarterBarLabel(k)}</span>`
-          ).join("");
+          renderQuarterIndex(alphaIndex, keys);
           alphaIndex._sectionY = episodeYearPositions;
           alphaIndex.style.display = "flex";
           initAlphaIndex();
