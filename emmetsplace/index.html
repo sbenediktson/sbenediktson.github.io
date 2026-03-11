@@ -20,8 +20,6 @@
     .site-header {
       padding: 32px 24px 20px;
       margin-bottom: 8px;
-      position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
@@ -164,24 +162,6 @@
       letter-spacing: 0.1em;
     }
 
-    .site-header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 55% 120% at 15% 60%,  rgba(160, 100, 40, 0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 110% at 85% 40%,  rgba(80,  50, 160, 0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 80%  at 50% 110%, rgba(120, 40, 80,  0.14) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 60%  at 50% -10%, rgba(30,  20, 50,  0.5)  0%, transparent 80%);
-      animation: stagelight 10s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes stagelight {
-      0%   { opacity: 0.75; transform: scaleX(1) translateY(0); }
-      50%  { opacity: 1;    transform: scaleX(1.04) translateY(3px); }
-      100% { opacity: 0.75; transform: scaleX(0.97) translateY(-3px); }
-    }
 
     .site-logo {
       display: none;
@@ -198,6 +178,7 @@
       text-shadow: 0 0 28px rgba(220, 130, 170, 0.45);
       animation: titleglow 6s ease-in-out infinite alternate;
       line-height: 1;
+      white-space: nowrap;
     }
 
     @keyframes titleglow {
@@ -902,21 +883,27 @@
       });
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        // E(0) m(1) m(2) e(3) t(4) '(5) s(6) P(7) l(8) a(9) c(10) e(11)
-        // Straight: E, M, T, S, L, C → indices 0,1,4,6,8,10
-        const straight = new Set([0, 1, 4, 6, 8, 10]);
-        let diagCount = 0;
+        // "Emmet's Place" spans: E(0) m(1) m(2) e(3) t(4) '(5) s(6) P(7) l(8) a(9) c(10) e(11)
+        // [rotDeg, yPx]  — straight letters get [0,0]
+        const perChar = [
+          [ 0,  0],  // E  — straight
+          [-6,  4],  // m  — left lean, down
+          [ 0,  0],  // m  — straight (the M)
+          [ 6,  4],  // e  — right lean, down
+          [ 0,  0],  // t  — straight (T)
+          [-4,  2],  // '  — slight left
+          [ 0,  0],  // s  — straight (S)
+          [-6,  3],  // P  — left lean
+          [ 0,  0],  // l  — straight (L)
+          [ 6,  4],  // a  — right lean, down
+          [ 0,  0],  // c  — straight (C)
+          [ 6, -2],  // e  — right lean, slight up
+        ];
         spans.forEach((span, i) => {
           const delay = 60 + i * 50;
-          let finalRot = 0, finalY = 0;
-          if (!straight.has(i)) {
-            const dir = diagCount % 2 === 0 ? -1 : 1;
-            finalRot = dir * 6;
-            finalY = dir * 5;
-            diagCount++;
-          }
+          const [rot, y] = perChar[i] ?? [0, 0];
           span.style.transition = `transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 0.7s ease ${delay}ms`;
-          span.style.transform = `translate(0, ${finalY}px) rotate(${finalRot}deg)`;
+          span.style.transform = `translate(0, ${y}px) rotate(${rot}deg)`;
           span.style.opacity = "1";
         });
       }));
@@ -1031,30 +1018,36 @@
         ).join("");
         alphaIndex.style.display = "flex";
 
-        function scrollToLetter(letter, smooth) {
-          const el = document.getElementById(`alpha-section-${letter}`);
-          if (el) el.scrollIntoView({ behavior: smooth ? "smooth" : "instant", block: "start" });
-        }
-        function highlightLetter(letter) {
+        function doNav(letter, smooth) {
+          const section = document.getElementById(`alpha-section-${letter}`);
+          if (section) {
+            const y = section.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: y, behavior: smooth ? "smooth" : "instant" });
+          }
           alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
             el.classList.toggle("active", el.dataset.letter === letter)
           );
         }
 
+        // Click on individual letters (new elements each render, no accumulation)
         alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el => {
-          el.addEventListener("click", () => { scrollToLetter(el.dataset.letter, true); highlightLetter(el.dataset.letter); });
+          el.addEventListener("click", () => doNav(el.dataset.letter, true));
         });
 
-        let dragging = false;
-        function navToPoint(y) {
-          for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
-            const r = el.getBoundingClientRect();
-            if (y >= r.top && y <= r.bottom) { scrollToLetter(el.dataset.letter, false); highlightLetter(el.dataset.letter); break; }
+        // Drag to navigate — register only once to avoid accumulation
+        if (!alphaIndex.dataset.listenersAdded) {
+          alphaIndex.dataset.listenersAdded = "1";
+          let dragging = false;
+          function navToPoint(y) {
+            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
+              const r = el.getBoundingClientRect();
+              if (y >= r.top && y <= r.bottom) { doNav(el.dataset.letter, false); break; }
+            }
           }
+          alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; navToPoint(e.clientY); });
+          alphaIndex.addEventListener("pointermove", (e) => { if (dragging) navToPoint(e.clientY); });
+          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
         }
-        alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; alphaIndex.setPointerCapture(e.pointerId); navToPoint(e.clientY); });
-        alphaIndex.addEventListener("pointermove", (e) => { if (dragging) navToPoint(e.clientY); });
-        alphaIndex.addEventListener("pointerup", () => { dragging = false; });
 
         // Render with section headers
         for (const letter of letters) {
@@ -1084,9 +1077,9 @@
         const featuredId = upcomingVideoId || liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
         if (featuredId) {
           const isLive = !!liveVideoId;
-          const isUpcoming = !liveVideoId && !!upcomingVideoId;
-          const videoTitle = stripEmoji(videoData[featuredId]?.title || "");
           const scheduledTime = videoData[featuredId]?.scheduledStartTime;
+          const isUpcoming = !liveVideoId && !!upcomingVideoId && scheduledTime && new Date(scheduledTime) > new Date();
+          const videoTitle = stripEmoji(videoData[featuredId]?.title || "");
           const scheduledLabel = scheduledTime
             ? new Date(scheduledTime).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
             : null;
@@ -1218,6 +1211,8 @@
         document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
       });
       document.getElementById("episodes-view").style.display = tab === "episodes" ? "" : "none";
+      const ll = document.getElementById("latest-link");
+      if (ll.innerHTML) ll.style.display = tab === "episodes" ? "block" : "none";
       document.getElementById("tunes-view").style.display = tab === "tunes" ? "block" : "none";
       if (tab !== "tunes") document.getElementById("alpha-index").style.display = "none";
       document.getElementById("random-view").style.display = tab === "random" ? "flex" : "none";
