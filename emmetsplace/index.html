@@ -1068,11 +1068,83 @@
           });
           alphaIndex.addEventListener("pointerup", () => { dragging = false; });
         }
+      } else if (!query) {
+        // Year grouping — newest year first
+        const groups = new Map();
+        for (const tune of visible) {
+          const year = tune.streamDate ? new Date(tune.streamDate).getFullYear().toString() : "Unknown";
+          if (!groups.has(year)) groups.set(year, []);
+          groups.get(year).push(tune);
+        }
+        const years = [...groups.keys()].sort((a, b) => {
+          if (a === "Unknown") return 1;
+          if (b === "Unknown") return -1;
+          return Number(b) - Number(a);
+        });
+
+        // Build year index bar
+        alphaIndex.innerHTML = years.map(y =>
+          `<span class="alpha-index-letter" data-letter="${y}">${y === "Unknown" ? "?" : "'" + y.slice(2)}</span>`
+        ).join("");
+        alphaIndex.style.display = "flex";
+
+        // Render year section headers + tune rows
+        for (const year of years) {
+          const header = document.createElement("div");
+          header.className = "tune-section-header";
+          header.id = `year-section-${year}`;
+          header.textContent = year;
+          list.appendChild(header);
+          for (const tune of groups.get(year)) list.appendChild(makeTuneRow(tune));
+        }
+
+        // Pre-compute absolute Y positions
+        const sectionY = {};
+        for (const year of years) {
+          const el = document.getElementById(`year-section-${year}`);
+          if (el) {
+            let y = 0, node = el;
+            while (node) { y += node.offsetTop; node = node.offsetParent; }
+            sectionY[year] = y;
+          }
+        }
+        alphaIndex._sectionY = sectionY;
+
+        // Register interaction handlers only once
+        if (!alphaIndex.dataset.listenersAdded) {
+          alphaIndex.dataset.listenersAdded = "1";
+
+          function nav(letter) {
+            const y = alphaIndex._sectionY?.[letter];
+            if (y !== undefined) window.scrollTo(0, y);
+            alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
+              el.classList.toggle("active", el.dataset.letter === letter)
+            );
+          }
+
+          alphaIndex.addEventListener("click", (e) => {
+            const letter = e.target.closest("[data-letter]")?.dataset.letter;
+            if (letter) nav(letter);
+          });
+          let dragging = false;
+          alphaIndex.addEventListener("pointerdown", () => { dragging = true; });
+          alphaIndex.addEventListener("pointermove", (e) => {
+            if (!dragging) return;
+            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
+              const r = el.getBoundingClientRect();
+              if (e.clientY >= r.top && e.clientY <= r.bottom) { nav(el.dataset.letter); break; }
+            }
+          });
+          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
+        }
       } else {
+        // Search active: flat list, hide index
         alphaIndex.style.display = "none";
         for (const tune of visible) list.appendChild(makeTuneRow(tune));
       }
     }
+
+    let episodeYearPositions = {};
 
     async function render() {
       grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
@@ -1081,6 +1153,7 @@
         grid.innerHTML = "";
         allCards = [];
         allTunes = [];
+        episodeYearPositions = {};
 
         // Update featured card in header (upcoming > live > latest)
         const latestLink = document.getElementById("latest-link");
@@ -1162,6 +1235,7 @@
         }
 
         // Render all cards (most recent first, in carousel)
+        let lastEpisodeYear = null;
         for (const [idx, id] of chronological.entries()) {
           const info = videoData[id];
           const videoTitle = stripEmoji(info.title);
@@ -1174,6 +1248,17 @@
           const isStudio = /\bvol\b/i.test(videoTitle);
           const isRoad = /live at/i.test(videoTitle);
           const cardType = isStudio ? "studio" : isRoad ? "road" : "other";
+
+          // Insert year section header when year changes
+          const cardYear = info.streamDate ? new Date(info.streamDate).getFullYear().toString() : null;
+          if (cardYear && cardYear !== lastEpisodeYear) {
+            const yearHeader = document.createElement("div");
+            yearHeader.className = "tune-section-header episode-year-header";
+            yearHeader.dataset.year = cardYear;
+            yearHeader.textContent = cardYear;
+            grid.appendChild(yearHeader);
+            lastEpisodeYear = cardYear;
+          }
 
           const card = document.createElement("div");
           card.className = "video-card";
@@ -1196,7 +1281,17 @@
           allCards.push(card);
         }
 
+        // Pre-compute absolute Y positions for episode year headers
+        episodeYearPositions = {};
+        for (const hdr of grid.querySelectorAll(".episode-year-header")) {
+          const year = hdr.dataset.year;
+          let y = 0, node = hdr;
+          while (node) { y += node.offsetTop; node = node.offsetParent; }
+          episodeYearPositions[year] = y;
+        }
+
         if (currentTab === "tunes") renderTunes();
+        if (currentTab === "episodes") filterEpisodes(activeFilter);
       } catch (err) {
         grid.innerHTML = `<p style="color:#c88;padding:8px">Failed to load videos: ${err.message}</p>`;
       }
@@ -1213,6 +1308,27 @@
         const show = filter === "all" || card.dataset.type === filter;
         card.style.display = show ? "" : "none";
       });
+
+      const alphaIndex = document.getElementById("alpha-index");
+      if (filter === "all") {
+        // Show year headers
+        document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = ""; });
+        // Show alpha-index with episode year positions if available
+        if (Object.keys(episodeYearPositions).length > 0) {
+          const years = Object.keys(episodeYearPositions).sort((a, b) => Number(b) - Number(a));
+          alphaIndex.innerHTML = years.map(y =>
+            `<span class="alpha-index-letter" data-letter="${y}">'${y.slice(2)}</span>`
+          ).join("");
+          alphaIndex._sectionY = episodeYearPositions;
+          alphaIndex.style.display = "flex";
+        } else {
+          alphaIndex.style.display = "none";
+        }
+      } else {
+        // Hide year headers and index when filtering
+        document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = "none"; });
+        alphaIndex.style.display = "none";
+      }
     }
 
     function switchTab(tab) {
@@ -1224,7 +1340,13 @@
       const ll = document.getElementById("latest-link");
       if (ll.innerHTML) ll.style.display = tab === "episodes" ? "block" : "none";
       document.getElementById("tunes-view").style.display = tab === "tunes" ? "block" : "none";
-      if (tab !== "tunes") document.getElementById("alpha-index").style.display = "none";
+      if (tab === "random") {
+        document.getElementById("alpha-index").style.display = "none";
+      } else if (tab === "tunes") {
+        // renderTunes() below will set visibility
+        document.getElementById("alpha-index").style.display = "none";
+      }
+      // episodes: filterEpisodes() call below manages visibility
       document.getElementById("random-view").style.display = tab === "random" ? "flex" : "none";
       const searchWrap = document.querySelector(".search-wrap");
       searchWrap.style.display = tab === "random" ? "none" : "";
