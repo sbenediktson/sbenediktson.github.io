@@ -886,18 +886,18 @@
         // "Emmet's Place" spans: E(0) m(1) m(2) e(3) t(4) '(5) s(6) P(7) l(8) a(9) c(10) e(11)
         // [rotDeg, yPx]  — straight letters get [0,0]
         const perChar = [
-          [ 0,  0],  // E  — straight
-          [-6,  4],  // m  — left lean, down
-          [ 0,  0],  // m  — straight (the M)
-          [ 6,  4],  // e  — right lean, down
-          [ 0,  0],  // t  — straight (T)
-          [-4,  2],  // '  — slight left
-          [ 0,  0],  // s  — straight (S)
-          [-6,  3],  // P  — left lean
-          [ 0,  0],  // l  — straight (L)
-          [ 6,  4],  // a  — right lean, down
-          [ 0,  0],  // c  — straight (C)
-          [ 6, -2],  // e  — right lean, slight up
+          [ 0,   0],  // E  — straight, baseline
+          [-8,   8],  // m  — left lean, down
+          [ 0, -12],  // m  — straight (M), raised up
+          [ 8,   8],  // e  — right lean, down
+          [ 0,   0],  // t  — straight (T), baseline
+          [-4,   2],  // '  — slight left
+          [ 0,   0],  // s  — straight (S), baseline
+          [-8,   0],  // P  — left lean, baseline
+          [ 0,  10],  // l  — straight (L), down
+          [ 8,  -8],  // a  — right lean, UP (raised)
+          [ 0,   0],  // c  — straight (C), baseline
+          [ 8,  10],  // e  — right lean, down
         ];
         spans.forEach((span, i) => {
           const delay = 60 + i * 50;
@@ -1018,10 +1018,9 @@
         ).join("");
         alphaIndex.style.display = "flex";
 
-        const scrollEl = document.scrollingElement || document.documentElement;
         function doNav(letter) {
           const section = document.getElementById(`alpha-section-${letter}`);
-          if (section) scrollEl.scrollTop = section.getBoundingClientRect().top + scrollEl.scrollTop;
+          if (section) window.scrollTo(0, section.getBoundingClientRect().top + window.pageYOffset);
           alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
             el.classList.toggle("active", el.dataset.letter === letter)
           );
