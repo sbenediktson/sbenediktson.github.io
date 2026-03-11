@@ -902,11 +902,19 @@
       });
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
+        // E(0) m(1) m(2) e(3) t(4) '(5) s(6) P(7) l(8) a(9) c(10) e(11)
+        // Straight: E, M, T, S, L, C → indices 0,1,4,6,8,10
+        const straight = new Set([0, 1, 4, 6, 8, 10]);
+        let diagCount = 0;
         spans.forEach((span, i) => {
           const delay = 60 + i * 50;
-          const even = i % 2 === 0;
-          const finalRot = even ? -5 : 5;
-          const finalY = even ? -5 : 5;
+          let finalRot = 0, finalY = 0;
+          if (!straight.has(i)) {
+            const dir = diagCount % 2 === 0 ? -1 : 1;
+            finalRot = dir * 6;
+            finalY = dir * 5;
+            diagCount++;
+          }
           span.style.transition = `transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 0.7s ease ${delay}ms`;
           span.style.transform = `translate(0, ${finalY}px) rotate(${finalRot}deg)`;
           span.style.opacity = "1";
