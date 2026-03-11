@@ -1528,6 +1528,7 @@
         return;
       }
       document.getElementById("alpha-index").style.display = "none";
+      document.querySelectorAll(".episode-year-header").forEach(h => h.style.display = "none");
       const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
 
       allCards.forEach(card => {
