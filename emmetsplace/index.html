@@ -1018,33 +1018,31 @@
         ).join("");
         alphaIndex.style.display = "flex";
 
-        function doNav(letter, smooth) {
+        const scrollEl = document.scrollingElement || document.documentElement;
+        function doNav(letter) {
           const section = document.getElementById(`alpha-section-${letter}`);
-          if (section) {
-            const y = section.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({ top: y, behavior: smooth ? "smooth" : "instant" });
-          }
+          if (section) scrollEl.scrollTop = section.getBoundingClientRect().top + scrollEl.scrollTop;
           alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
             el.classList.toggle("active", el.dataset.letter === letter)
           );
         }
 
-        // Click on individual letters (new elements each render, no accumulation)
+        // Tap: click on individual letters (new elements each render, no accumulation)
         alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el => {
-          el.addEventListener("click", () => doNav(el.dataset.letter, true));
+          el.addEventListener("click", () => doNav(el.dataset.letter));
         });
 
-        // Drag to navigate — register only once to avoid accumulation
+        // Drag: register only once to avoid accumulation; pointerdown only sets flag
         if (!alphaIndex.dataset.listenersAdded) {
           alphaIndex.dataset.listenersAdded = "1";
           let dragging = false;
-          function navToPoint(y) {
+          function navToPoint(clientY) {
             for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
               const r = el.getBoundingClientRect();
-              if (y >= r.top && y <= r.bottom) { doNav(el.dataset.letter, false); break; }
+              if (clientY >= r.top && clientY <= r.bottom) { doNav(el.dataset.letter); break; }
             }
           }
-          alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; navToPoint(e.clientY); });
+          alphaIndex.addEventListener("pointerdown", (e) => { dragging = true; });
           alphaIndex.addEventListener("pointermove", (e) => { if (dragging) navToPoint(e.clientY); });
           alphaIndex.addEventListener("pointerup", () => { dragging = false; });
         }
