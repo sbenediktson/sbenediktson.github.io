@@ -15,6 +15,8 @@
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
       padding: 0 0 88px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .site-header {
@@ -341,9 +343,18 @@
 
     /* Episode list */
     .video-grid {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 8px;
+    }
+
+    @media (min-width: 700px) {
+      .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .episode-year-header {
+        grid-column: 1 / -1;
+      }
     }
 
     .video-card {
