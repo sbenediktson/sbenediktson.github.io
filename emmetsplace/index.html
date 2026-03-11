@@ -1345,13 +1345,23 @@
       });
 
       const alphaIndex = document.getElementById("alpha-index");
-      if (filter === "all") {
-        // Show quarter headers
-        document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = ""; });
-        // Show alpha-index with episode quarter positions if available
-        if (Object.keys(episodeYearPositions).length > 0) {
-          const keys = Object.keys(episodeYearPositions).sort((a, b) => b.localeCompare(a));
-          renderQuarterIndex(alphaIndex, keys);
+      // Show quarter headers only if they have at least one visible card beneath them
+      document.querySelectorAll(".episode-year-header").forEach(h => {
+        if (filter === "all") { h.style.display = ""; return; }
+        let next = h.nextElementSibling, hasVisible = false;
+        while (next && !next.classList.contains("episode-year-header")) {
+          if (next.style.display !== "none") { hasVisible = true; break; }
+          next = next.nextElementSibling;
+        }
+        h.style.display = hasVisible ? "" : "none";
+      });
+      if (Object.keys(episodeYearPositions).length > 0) {
+        const visibleKeys = [];
+        document.querySelectorAll(".episode-year-header").forEach(h => {
+          if (h.style.display !== "none") visibleKeys.push(h.dataset.year);
+        });
+        if (visibleKeys.length > 0) {
+          renderQuarterIndex(alphaIndex, visibleKeys.sort((a, b) => b.localeCompare(a)));
           alphaIndex._sectionY = episodeYearPositions;
           alphaIndex.style.display = "flex";
           initAlphaIndex();
@@ -1359,8 +1369,6 @@
           alphaIndex.style.display = "none";
         }
       } else {
-        // Hide quarter headers and index when filtering
-        document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = "none"; });
         alphaIndex.style.display = "none";
       }
     }
