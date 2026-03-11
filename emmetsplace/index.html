@@ -1355,19 +1355,22 @@
         }
         h.style.display = hasVisible ? "" : "none";
       });
-      if (Object.keys(episodeYearPositions).length > 0) {
-        const visibleKeys = [];
-        document.querySelectorAll(".episode-year-header").forEach(h => {
-          if (h.style.display !== "none") visibleKeys.push(h.dataset.year);
-        });
-        if (visibleKeys.length > 0) {
-          renderQuarterIndex(alphaIndex, visibleKeys.sort((a, b) => b.localeCompare(a)));
-          alphaIndex._sectionY = episodeYearPositions;
-          alphaIndex.style.display = "flex";
-          initAlphaIndex();
-        } else {
-          alphaIndex.style.display = "none";
+      // Recompute Y positions after filtering since hidden cards shift header positions
+      const freshPositions = {};
+      const visibleKeys = [];
+      document.querySelectorAll(".episode-year-header").forEach(h => {
+        if (h.style.display !== "none") {
+          visibleKeys.push(h.dataset.year);
+          let y = 0, node = h;
+          while (node) { y += node.offsetTop; node = node.offsetParent; }
+          freshPositions[h.dataset.year] = y;
         }
+      });
+      if (visibleKeys.length > 0) {
+        renderQuarterIndex(alphaIndex, visibleKeys.sort((a, b) => b.localeCompare(a)));
+        alphaIndex._sectionY = freshPositions;
+        alphaIndex.style.display = "flex";
+        initAlphaIndex();
       } else {
         alphaIndex.style.display = "none";
       }
