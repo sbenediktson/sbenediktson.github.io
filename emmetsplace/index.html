@@ -884,7 +884,7 @@
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         // "Emmet's Place": straight=high, diagonal=low
-        const HI = -10, LO = 10;
+        const HI = -5, LO = 5;
         const perChar = [
           [ 0,  HI],  // E  — straight, high
           [-8,  LO],  // m  — left lean, low
@@ -1020,20 +1020,21 @@
 
         function doNav(letter) {
           const section = document.getElementById(`alpha-section-${letter}`);
-          if (section) window.scrollTo(0, section.getBoundingClientRect().top + window.pageYOffset);
+          if (section) section.scrollIntoView({ behavior: "auto", block: "start" });
           alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
             el.classList.toggle("active", el.dataset.letter === letter)
           );
         }
 
-        // Tap: click on individual letters (new elements each render, no accumulation)
-        alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el => {
-          el.addEventListener("click", () => doNav(el.dataset.letter));
-        });
-
-        // Drag: register only once to avoid accumulation; pointerdown only sets flag
+        // Register all interaction handlers only once to avoid accumulation
         if (!alphaIndex.dataset.listenersAdded) {
           alphaIndex.dataset.listenersAdded = "1";
+
+          // Tap: delegate clicks from any letter span
+          alphaIndex.addEventListener("click", (e) => {
+            const letter = e.target.closest("[data-letter]")?.dataset.letter;
+            if (letter) doNav(letter);
+          });
           let dragging = false;
           function navToPoint(clientY) {
             for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
