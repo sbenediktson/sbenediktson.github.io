@@ -1494,6 +1494,7 @@
         if (expandBtn) expandBtn.textContent = "Show more";
         card.style.display = "";
       });
+      filterEpisodes(activeFilter); // restores scroll index
     }
 
     render();
@@ -1523,8 +1524,10 @@
           if (expandBtn) expandBtn.textContent = "Show more";
           card.style.display = "";
         });
+        filterEpisodes(activeFilter); // restores scroll index
         return;
       }
+      document.getElementById("alpha-index").style.display = "none";
       const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
 
       allCards.forEach(card => {
