@@ -1020,7 +1020,9 @@
 
         function doNav(letter) {
           const section = document.getElementById(`alpha-section-${letter}`);
-          if (section) window.scrollBy(0, section.getBoundingClientRect().top);
+          const top = section ? section.getBoundingClientRect().top : null;
+          console.log("[alpha] doNav", letter, "section found:", !!section, "top:", top, "scrollY:", window.scrollY);
+          if (section) window.scrollBy(0, top);
           alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
             el.classList.toggle("active", el.dataset.letter === letter)
           );
@@ -1033,6 +1035,7 @@
           // Tap: delegate clicks from any letter span
           alphaIndex.addEventListener("click", (e) => {
             const letter = e.target.closest("[data-letter]")?.dataset.letter;
+            console.log("[alpha] click target:", e.target.tagName, "letter:", letter);
             if (letter) doNav(letter);
           });
           let dragging = false;
