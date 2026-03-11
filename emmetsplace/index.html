@@ -913,6 +913,51 @@
     let currentTab = "episodes";
     let allTunes = []; // { title, videoId, start, videoTitle, streamDate }
 
+    // Quarter helpers
+    const QNAME = {'01':'Jan','04':'Apr','07':'Jul','10':'Oct'};
+    function quarterKey(date) {
+      if (!date) return null;
+      const m = date.getMonth();
+      const qs = m < 3 ? 0 : m < 6 ? 3 : m < 9 ? 6 : 9;
+      return `${date.getFullYear()}-${String(qs + 1).padStart(2, '0')}`;
+    }
+    function quarterBarLabel(key) {
+      const [yyyy, mm] = key.split('-');
+      return `${QNAME[mm]} '${yyyy.slice(2)}`;
+    }
+    function quarterHeaderText(key) {
+      const [yyyy, mm] = key.split('-');
+      return `${QNAME[mm]} ${yyyy}`;
+    }
+
+    // Register alpha-index click/drag listeners once, shared across all modes
+    function initAlphaIndex() {
+      const ai = document.getElementById("alpha-index");
+      if (ai.dataset.listenersAdded) return;
+      ai.dataset.listenersAdded = "1";
+      function nav(letter) {
+        const y = ai._sectionY?.[letter];
+        if (y !== undefined) window.scrollTo(0, y);
+        ai.querySelectorAll(".alpha-index-letter").forEach(el =>
+          el.classList.toggle("active", el.dataset.letter === letter)
+        );
+      }
+      ai.addEventListener("click", (e) => {
+        const letter = e.target.closest("[data-letter]")?.dataset.letter;
+        if (letter) nav(letter);
+      });
+      let dragging = false;
+      ai.addEventListener("pointerdown", () => { dragging = true; });
+      ai.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        for (const el of ai.querySelectorAll(".alpha-index-letter")) {
+          const r = el.getBoundingClientRect();
+          if (e.clientY >= r.top && e.clientY <= r.bottom) { nav(el.dataset.letter); break; }
+        }
+      });
+      ai.addEventListener("pointerup", () => { dragging = false; });
+    }
+
     function stripEmoji(str) {
       return str.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, "").replace(/\s+/g, " ").trim();
     }
@@ -1040,103 +1085,46 @@
           }
         }
         alphaIndex._sectionY = sectionY;
-
-        // Register interaction handlers only once to avoid accumulation
-        if (!alphaIndex.dataset.listenersAdded) {
-          alphaIndex.dataset.listenersAdded = "1";
-
-          function nav(letter) {
-            const y = alphaIndex._sectionY?.[letter];
-            if (y !== undefined) window.scrollTo(0, y);
-            alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
-              el.classList.toggle("active", el.dataset.letter === letter)
-            );
-          }
-
-          alphaIndex.addEventListener("click", (e) => {
-            const letter = e.target.closest("[data-letter]")?.dataset.letter;
-            if (letter) nav(letter);
-          });
-          let dragging = false;
-          alphaIndex.addEventListener("pointerdown", () => { dragging = true; });
-          alphaIndex.addEventListener("pointermove", (e) => {
-            if (!dragging) return;
-            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
-              const r = el.getBoundingClientRect();
-              if (e.clientY >= r.top && e.clientY <= r.bottom) { nav(el.dataset.letter); break; }
-            }
-          });
-          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
-        }
+        initAlphaIndex();
       } else if (!query) {
-        // Year grouping — newest year first
+        // Quarter grouping — newest first
         const groups = new Map();
         for (const tune of visible) {
-          const year = tune.streamDate ? new Date(tune.streamDate).getFullYear().toString() : "Unknown";
-          if (!groups.has(year)) groups.set(year, []);
-          groups.get(year).push(tune);
+          const key = tune.streamDate ? quarterKey(new Date(tune.streamDate)) : "Unknown";
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(tune);
         }
-        const years = [...groups.keys()].sort((a, b) => {
+        const keys = [...groups.keys()].sort((a, b) => {
           if (a === "Unknown") return 1;
           if (b === "Unknown") return -1;
-          return Number(b) - Number(a);
+          return b.localeCompare(a); // YYYY-MM descending
         });
 
-        // Build year index bar
-        alphaIndex.innerHTML = years.map(y =>
-          `<span class="alpha-index-letter" data-letter="${y}">${y === "Unknown" ? "?" : "'" + y.slice(2)}</span>`
+        alphaIndex.innerHTML = keys.map(k =>
+          `<span class="alpha-index-letter" data-letter="${k}">${k === "Unknown" ? "?" : quarterBarLabel(k)}</span>`
         ).join("");
         alphaIndex.style.display = "flex";
 
-        // Render year section headers + tune rows
-        for (const year of years) {
+        for (const key of keys) {
           const header = document.createElement("div");
           header.className = "tune-section-header";
-          header.id = `year-section-${year}`;
-          header.textContent = year;
+          header.id = `qsec-${key}`;
+          header.textContent = key === "Unknown" ? "Unknown" : quarterHeaderText(key);
           list.appendChild(header);
-          for (const tune of groups.get(year)) list.appendChild(makeTuneRow(tune));
+          for (const tune of groups.get(key)) list.appendChild(makeTuneRow(tune));
         }
 
-        // Pre-compute absolute Y positions
         const sectionY = {};
-        for (const year of years) {
-          const el = document.getElementById(`year-section-${year}`);
+        for (const key of keys) {
+          const el = document.getElementById(`qsec-${key}`);
           if (el) {
             let y = 0, node = el;
             while (node) { y += node.offsetTop; node = node.offsetParent; }
-            sectionY[year] = y;
+            sectionY[key] = y;
           }
         }
         alphaIndex._sectionY = sectionY;
-
-        // Register interaction handlers only once
-        if (!alphaIndex.dataset.listenersAdded) {
-          alphaIndex.dataset.listenersAdded = "1";
-
-          function nav(letter) {
-            const y = alphaIndex._sectionY?.[letter];
-            if (y !== undefined) window.scrollTo(0, y);
-            alphaIndex.querySelectorAll(".alpha-index-letter").forEach(el =>
-              el.classList.toggle("active", el.dataset.letter === letter)
-            );
-          }
-
-          alphaIndex.addEventListener("click", (e) => {
-            const letter = e.target.closest("[data-letter]")?.dataset.letter;
-            if (letter) nav(letter);
-          });
-          let dragging = false;
-          alphaIndex.addEventListener("pointerdown", () => { dragging = true; });
-          alphaIndex.addEventListener("pointermove", (e) => {
-            if (!dragging) return;
-            for (const el of alphaIndex.querySelectorAll(".alpha-index-letter")) {
-              const r = el.getBoundingClientRect();
-              if (e.clientY >= r.top && e.clientY <= r.bottom) { nav(el.dataset.letter); break; }
-            }
-          });
-          alphaIndex.addEventListener("pointerup", () => { dragging = false; });
-        }
+        initAlphaIndex();
       } else {
         // Search active: flat list, hide index
         alphaIndex.style.display = "none";
@@ -1235,7 +1223,7 @@
         }
 
         // Render all cards (most recent first, in carousel)
-        let lastEpisodeYear = null;
+        let lastEpisodeQuarter = null;
         for (const [idx, id] of chronological.entries()) {
           const info = videoData[id];
           const videoTitle = stripEmoji(info.title);
@@ -1249,15 +1237,16 @@
           const isRoad = /live at/i.test(videoTitle);
           const cardType = isStudio ? "studio" : isRoad ? "road" : "other";
 
-          // Insert year section header when year changes
-          const cardYear = info.streamDate ? new Date(info.streamDate).getFullYear().toString() : null;
-          if (cardYear && cardYear !== lastEpisodeYear) {
-            const yearHeader = document.createElement("div");
-            yearHeader.className = "tune-section-header episode-year-header";
-            yearHeader.dataset.year = cardYear;
-            yearHeader.textContent = cardYear;
-            grid.appendChild(yearHeader);
-            lastEpisodeYear = cardYear;
+          // Insert quarter section header when quarter changes
+          const cardQuarter = info.streamDate ? quarterKey(new Date(info.streamDate)) : null;
+          if (cardQuarter && cardQuarter !== lastEpisodeQuarter) {
+            const qHeader = document.createElement("div");
+            qHeader.className = "tune-section-header episode-year-header";
+            qHeader.dataset.year = cardQuarter;
+            qHeader.id = `eqsec-${cardQuarter}`;
+            qHeader.textContent = quarterHeaderText(cardQuarter);
+            grid.appendChild(qHeader);
+            lastEpisodeQuarter = cardQuarter;
           }
 
           const card = document.createElement("div");
@@ -1281,7 +1270,7 @@
           allCards.push(card);
         }
 
-        // Pre-compute absolute Y positions for episode year headers
+        // Pre-compute absolute Y positions for episode quarter headers
         episodeYearPositions = {};
         for (const hdr of grid.querySelectorAll(".episode-year-header")) {
           const year = hdr.dataset.year;
@@ -1311,21 +1300,22 @@
 
       const alphaIndex = document.getElementById("alpha-index");
       if (filter === "all") {
-        // Show year headers
+        // Show quarter headers
         document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = ""; });
-        // Show alpha-index with episode year positions if available
+        // Show alpha-index with episode quarter positions if available
         if (Object.keys(episodeYearPositions).length > 0) {
-          const years = Object.keys(episodeYearPositions).sort((a, b) => Number(b) - Number(a));
-          alphaIndex.innerHTML = years.map(y =>
-            `<span class="alpha-index-letter" data-letter="${y}">'${y.slice(2)}</span>`
+          const keys = Object.keys(episodeYearPositions).sort((a, b) => b.localeCompare(a));
+          alphaIndex.innerHTML = keys.map(k =>
+            `<span class="alpha-index-letter" data-letter="${k}">${quarterBarLabel(k)}</span>`
           ).join("");
           alphaIndex._sectionY = episodeYearPositions;
           alphaIndex.style.display = "flex";
+          initAlphaIndex();
         } else {
           alphaIndex.style.display = "none";
         }
       } else {
-        // Hide year headers and index when filtering
+        // Hide quarter headers and index when filtering
         document.querySelectorAll(".episode-year-header").forEach(h => { h.style.display = "none"; });
         alphaIndex.style.display = "none";
       }
