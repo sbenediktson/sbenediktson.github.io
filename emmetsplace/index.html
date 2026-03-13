@@ -160,10 +160,9 @@
       object-fit: cover;
       display: block;
     }
-    .clips-mute-btn {
+    .clips-btn {
       position: absolute;
       bottom: 12px;
-      right: 14px;
       background: rgba(0,0,0,0.55);
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 4px;
@@ -177,7 +176,9 @@
       font-family: inherit;
       transition: background 0.15s;
     }
-    .clips-mute-btn:hover { background: rgba(0,0,0,0.8); }
+    .clips-btn:hover { background: rgba(0,0,0,0.8); }
+    #clips-pause-btn { right: 14px; }
+    #clips-mute-btn  { right: 80px; }
 
     .live-dot {
       width: 8px;
@@ -873,7 +874,8 @@
     <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
     <div id="clips-player" style="display:none">
       <video id="clips-video" muted playsinline autoplay></video>
-      <button class="clips-mute-btn" id="clips-mute-btn" onclick="toggleClipsMute()">Unmute</button>
+      <button class="clips-btn" id="clips-pause-btn" onclick="toggleClipsPause()">Pause</button>
+      <button class="clips-btn" id="clips-mute-btn" onclick="toggleClipsMute()">Unmute</button>
     </div>
     <div class="controls">
       <div class="search-wrap">
@@ -1091,6 +1093,13 @@
       video.addEventListener('ended', playNext);
       playNext();
       player.style.display = 'block';
+    }
+
+    function toggleClipsPause() {
+      const video = document.getElementById('clips-video');
+      const btn = document.getElementById('clips-pause-btn');
+      if (video.paused) { video.play(); btn.textContent = 'Pause'; }
+      else { video.pause(); btn.textContent = 'Play'; }
     }
 
     function toggleClipsMute() {
