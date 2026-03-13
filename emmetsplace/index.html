@@ -143,6 +143,42 @@
 
     .featured-latest:hover .featured-latest-cta { color: #b0a4b8; }
 
+    #clips-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    #clips-player video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .clips-mute-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      color: #c5bfc8;
+      padding: 4px 10px;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .clips-mute-btn:hover { background: rgba(0,0,0,0.8); }
+
     .live-dot {
       width: 8px;
       height: 8px;
@@ -835,6 +871,10 @@
   <header class="site-header">
     <h1 class="site-title" id="site-title">Emmet's Place</h1>
     <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
+    <div id="clips-player" style="display:none">
+      <video id="clips-video" muted playsinline autoplay></video>
+      <button class="clips-mute-btn" id="clips-mute-btn" onclick="toggleClipsMute()">Unmute</button>
+    </div>
     <div class="controls">
       <div class="search-wrap">
         <span class="search-icon">
@@ -1023,6 +1063,43 @@
       return str.replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'");
     }
 
+    const CLIPS = [
+      'clips/anat-cohen.mp4',
+      'clips/bruce-harris.mp4',
+      'clips/cyrille-aimee.mp4',
+      'clips/emmet-cohen-1.mp4',
+      'clips/emmet-cohen-2.mp4',
+      'clips/kyle-poole.mp4',
+      'clips/patrick-bartley.mp4',
+      'clips/russell-hall-2.mp4',
+      'clips/russell-hall.mp4',
+      'clips/sean-jones.mp4',
+      'clips/tivon-pennicott.mp4',
+      'clips/veronica-swift.mp4',
+    ];
+
+    function startClipsPlayer() {
+      const player = document.getElementById('clips-player');
+      const video = document.getElementById('clips-video');
+      const shuffled = [...CLIPS].sort(() => Math.random() - 0.5);
+      let idx = 0;
+      function playNext() {
+        video.src = shuffled[idx % shuffled.length];
+        idx++;
+        video.play().catch(() => {});
+      }
+      video.addEventListener('ended', playNext);
+      playNext();
+      player.style.display = 'block';
+    }
+
+    function toggleClipsMute() {
+      const video = document.getElementById('clips-video');
+      const btn = document.getElementById('clips-mute-btn');
+      video.muted = !video.muted;
+      btn.textContent = video.muted ? 'Unmute' : 'Mute';
+    }
+
     async function loadData() {
       const res = await fetch("videos.json");
       if (!res.ok) throw new Error(`Could not load videos.json (${res.status})`);
@@ -1198,9 +1275,9 @@
         allTunes = [];
         episodeYearPositions = {};
 
-        // Update featured card in header (upcoming > live > latest)
+        // Update featured card in header (upcoming > live > clips reel)
         const latestLink = document.getElementById("latest-link");
-        const featuredId = upcomingVideoId || liveVideoId || ids.find(id => videoData[id]?.isLive && !/^re-stream/i.test(videoData[id]?.title));
+        const featuredId = upcomingVideoId || liveVideoId;
         if (featuredId) {
           const isLive = !!liveVideoId;
           const scheduledTime = videoData[featuredId]?.scheduledStartTime;
@@ -1222,14 +1299,8 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>`;
             cta = "Set Reminder →";
-          } else if (isLive) {
-            badge = `<div class="featured-latest-badge live"><span class="live-dot"></span>Live Now</div>`;
-            centerIcon = `<div class="featured-latest-play">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
-            </div>`;
-            cta = "Watch Now →";
           } else {
-            badge = `<div class="featured-latest-badge">Latest Episode</div>`;
+            badge = `<div class="featured-latest-badge live"><span class="live-dot"></span>Live Now</div>`;
             centerIcon = `<div class="featured-latest-play">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
             </div>`;
@@ -1246,6 +1317,8 @@
             </div>
           `;
           latestLink.style.display = "block";
+        } else {
+          startClipsPlayer();
         }
 
         function passesFilter(id) {
