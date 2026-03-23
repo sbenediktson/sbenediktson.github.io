@@ -1141,16 +1141,14 @@
       newFrame.allow = 'autoplay; encrypted-media';
       newFrame.allowFullscreen = true;
       const startParam = start ? `&start=${start}` : '';
-      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
+      // iOS always needs mute=1 for autoplay; desktop uses mute only if requested (page load)
+      // so Chrome's user-gesture context allows unmuted autoplay on card clicks
+      const shouldMute = isIOS || mute;
+      const extraParams = isIOS ? '&enablejsapi=1' : '';
+      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1${extraParams}${startParam}`;
       old.replaceWith(newFrame);
 
       document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
-      if (!isIOS) {
-        setTimeout(() => {
-          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
-          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
-        }, 1500);
-      }
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
@@ -1194,7 +1192,7 @@
         : "";
       const songLinks = songs.map(({ title, start }) => {
         const cleanTitle = stripEmoji(title);
-        const startArg = start ? `,true,true,${start}` : `,true,true`;
+        const startArg = start ? `,true,false,${start}` : `,true,false`;
         return `<a class="video-entry-link" data-text="${cleanTitle.replace(/"/g, '&quot;')}" href="#" onclick="playInHero('${id}'${startArg});return false;">${cleanTitle}</a>`;
       });
       let entriesHTML;
@@ -1247,7 +1245,7 @@
         const row = document.createElement("a");
         row.className = "tune-row";
         row.href = "#";
-        row.onclick = (e) => { e.preventDefault(); playInHero(tune.videoId, true, true, tune.start); };
+        row.onclick = (e) => { e.preventDefault(); playInHero(tune.videoId, true, false, tune.start); };
         const thumb = `https://img.youtube.com/vi/${tune.videoId}/default.jpg`;
         row.innerHTML = `<img class="tune-thumb" src="${thumb}" alt="" loading="lazy"><div class="tune-info"><span class="tune-title">${titleHTML}</span><span class="tune-meta">${metaHTML}${dateStr ? " · " + dateStr : ""}</span></div>`;
         return row;
@@ -1465,11 +1463,11 @@
           const hasExtra = artistsHTML || entriesHTML;
           card.innerHTML = `
             <div class="video-card-thumb">
-              <a class="video-link" href="#" onclick="playInHero('${id}',true,true);return false;" style="background-image: url('${thumb}')"></a>
+              <a class="video-link" href="#" onclick="playInHero('${id}',true,false);return false;" style="background-image: url('${thumb}')"></a>
             </div>
             <div class="video-card-body">
               ${isStudio ? '<span class="studio-badge">In Studio</span>' : ""}
-              <h2><a class="title-link" href="#" onclick="playInHero('${id}',true,true);return false;">${videoTitle}</a></h2>
+              <h2><a class="title-link" href="#" onclick="playInHero('${id}',true,false);return false;">${videoTitle}</a></h2>
               ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
               ${hasExtra ? `<div id="${collapseId}" style="display:none">${artistsHTML}<div class="video-entries">${entriesHTML}</div></div><button class="card-expand-btn" onclick="var el=document.getElementById('${collapseId}');var open=el.style.display!=='none';el.style.display=open?'none':'';this.textContent=open?'Show more':'Show less'">Show more</button>` : ""}
             </div>
@@ -1578,7 +1576,7 @@
 
       const result = document.getElementById("random-result");
       result.innerHTML = `
-        <a class="random-thumb-link" href="#" onclick="playInHero('${tune.videoId}',true,true,${tune.start || 'null'});return false;" style="background-image:url('${thumb}')">
+        <a class="random-thumb-link" href="#" onclick="playInHero('${tune.videoId}',true,false,${tune.start || 'null'});return false;" style="background-image:url('${thumb}')">
           <div class="random-play-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#111"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
