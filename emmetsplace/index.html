@@ -1141,11 +1141,16 @@
       newFrame.allow = 'autoplay; encrypted-media';
       newFrame.allowFullscreen = true;
       const startParam = start ? `&start=${start}` : '';
-      const muteParam = isIOS ? '&mute=1&enablejsapi=1' : '';
-      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&rel=0&playsinline=1${muteParam}${startParam}`;
+      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
       old.replaceWith(newFrame);
 
       document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
+      if (!isIOS) {
+        setTimeout(() => {
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+        }, 1500);
+      }
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
