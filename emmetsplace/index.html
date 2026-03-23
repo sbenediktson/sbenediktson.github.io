@@ -143,7 +143,7 @@
 
     .featured-latest:hover .featured-latest-cta { color: #b0a4b8; }
 
-    #clips-player {
+    #hero-embed {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -154,31 +154,12 @@
       background: #1a1a1a;
       border: 1px solid rgba(255,255,255,0.08);
     }
-    #clips-player video {
+    #hero-embed iframe {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
+      border: none;
     }
-    .clips-btn {
-      position: absolute;
-      bottom: 12px;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 4px;
-      color: #c5bfc8;
-      padding: 4px 10px;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .clips-btn:hover { background: rgba(0,0,0,0.8); }
-    #clips-pause-btn { right: 14px; }
-    #clips-mute-btn  { right: 80px; }
 
     .live-dot {
       width: 8px;
@@ -872,10 +853,8 @@
   <header class="site-header">
     <h1 class="site-title" id="site-title">Emmet's Place</h1>
     <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
-    <div id="clips-player" style="display:none">
-      <video id="clips-video" muted playsinline autoplay></video>
-      <button class="clips-btn" id="clips-pause-btn" onclick="toggleClipsPause()">Pause</button>
-      <button class="clips-btn" id="clips-mute-btn" onclick="toggleClipsMute()">Unmute</button>
+    <div id="hero-embed" style="display:none">
+      <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <div class="controls">
       <div class="search-wrap">
@@ -1065,48 +1044,11 @@
       return str.replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'");
     }
 
-    const CLIPS = [
-      'clips/anat-cohen.mp4',
-      'clips/bruce-harris.mp4',
-      'clips/cyrille-aimee.mp4',
-      'clips/emmet-cohen-1.mp4',
-      'clips/emmet-cohen-2.mp4',
-      'clips/kyle-poole.mp4',
-      'clips/patrick-bartley.mp4',
-      'clips/russell-hall-2.mp4',
-      'clips/russell-hall.mp4',
-      'clips/sean-jones.mp4',
-      'clips/tivon-pennicott.mp4',
-      'clips/veronica-swift.mp4',
-    ];
-
-    function startClipsPlayer() {
-      const player = document.getElementById('clips-player');
-      const video = document.getElementById('clips-video');
-      const shuffled = [...CLIPS].sort(() => Math.random() - 0.5);
-      let idx = 0;
-      function playNext() {
-        video.src = shuffled[idx % shuffled.length];
-        idx++;
-        video.play().catch(() => {});
-      }
-      video.addEventListener('ended', playNext);
-      playNext();
-      player.style.display = 'block';
-    }
-
-    function toggleClipsPause() {
-      const video = document.getElementById('clips-video');
-      const btn = document.getElementById('clips-pause-btn');
-      if (video.paused) { video.play(); btn.textContent = 'Pause'; }
-      else { video.pause(); btn.textContent = 'Play'; }
-    }
-
-    function toggleClipsMute() {
-      const video = document.getElementById('clips-video');
-      const btn = document.getElementById('clips-mute-btn');
-      video.muted = !video.muted;
-      btn.textContent = video.muted ? 'Unmute' : 'Mute';
+    function showLatestEmbed(id) {
+      const embed = document.getElementById('hero-embed');
+      const iframe = document.getElementById('hero-iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&rel=0&playsinline=1`;
+      embed.style.display = 'block';
     }
 
     async function loadData() {
@@ -1284,7 +1226,17 @@
         allTunes = [];
         episodeYearPositions = {};
 
-        // Update featured card in header (upcoming > live > clips reel)
+        function passesFilter(id) {
+          const info = videoData[id];
+          if (!info) return false;
+          if (!info.isLive) return false;
+          if (/^re-stream/i.test(info.title)) return false;
+          if (['HWOaossSONs'].includes(id)) return false;
+          if (info.duration > 0 && info.duration < 3600) return false;
+          return true;
+        }
+
+        // Update featured card in header (upcoming > live > latest episode embed)
         const latestLink = document.getElementById("latest-link");
         const featuredId = upcomingVideoId || liveVideoId;
         if (featuredId) {
@@ -1327,17 +1279,10 @@
           `;
           latestLink.style.display = "block";
         } else {
-          startClipsPlayer();
-        }
-
-        function passesFilter(id) {
-          const info = videoData[id];
-          if (!info) return false;
-          if (!info.isLive) return false;
-          if (/^re-stream/i.test(info.title)) return false;
-          if (['HWOaossSONs'].includes(id)) return false;
-          if (info.duration > 0 && info.duration < 3600) return false;
-          return true;
+          const latestId = ids
+            .filter(passesFilter)
+            .sort((a, b) => new Date(videoData[b].streamDate || 0) - new Date(videoData[a].streamDate || 0))[0];
+          if (latestId) showLatestEmbed(latestId);
         }
 
         // Sort by actual stream date descending
