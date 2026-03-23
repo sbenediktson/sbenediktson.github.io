@@ -161,6 +161,24 @@
       display: block;
       border: none;
     }
+    #hero-unmute-btn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 0.75rem;
+      font-family: inherit;
+      padding: 6px 14px;
+      cursor: pointer;
+      z-index: 201;
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.04em;
+    }
+    #hero-embed:not(.mini) #hero-unmute-btn { display: block; }
     #hero-embed.mini {
       position: fixed;
       bottom: 100px;
@@ -903,6 +921,7 @@
     <div id="hero-placeholder"></div>
     <div id="hero-embed" style="display:none">
       <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <button id="hero-unmute-btn" onclick="heroUnmute()">🔇 Tap to unmute</button>
       <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
     </div>
     <div class="controls">
@@ -1103,12 +1122,21 @@
       playInHero(id, /*autoplay*/true, /*mute*/true);
     }
 
+    function heroUnmute() {
+      const iframe = document.getElementById('hero-iframe');
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+      document.getElementById('hero-unmute-btn').style.display = 'none';
+    }
+
     function playInHero(id, autoplay = true, mute = false, start = null) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
       const startParam = start ? `&start=${start}` : '';
-      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1${startParam}`;
+      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1&enablejsapi=1${startParam}`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
+      const unmuteBtn = document.getElementById('hero-unmute-btn');
+      unmuteBtn.style.display = mute ? '' : 'none';
       embed.style.display = 'block';
       // If mini-player is visible, just swap the video in place without scrolling
       if (!embed.classList.contains('mini')) {
