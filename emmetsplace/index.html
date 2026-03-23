@@ -153,6 +153,7 @@
       margin-bottom: 24px;
       background: #1a1a1a;
       border: 1px solid rgba(255,255,255,0.08);
+      transition: box-shadow 0.2s;
     }
     #hero-embed iframe {
       width: 100%;
@@ -160,6 +161,37 @@
       display: block;
       border: none;
     }
+    #hero-embed.mini {
+      position: fixed;
+      bottom: 100px;
+      right: 16px;
+      width: 260px;
+      max-height: none;
+      aspect-ratio: 16 / 9;
+      z-index: 200;
+      margin: 0;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.75);
+    }
+    #hero-placeholder { display: none; margin-bottom: 24px; }
+    .mini-close {
+      display: none;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      background: rgba(0,0,0,0.7);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 0.8rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 201;
+      padding: 0;
+    }
+    #hero-embed.mini .mini-close { display: block; }
 
     .live-dot {
       width: 8px;
@@ -853,8 +885,10 @@
   <header class="site-header">
     <h1 class="site-title" id="site-title">Emmet's Place</h1>
     <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
+    <div id="hero-placeholder"></div>
     <div id="hero-embed" style="display:none">
       <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
     </div>
     <div class="controls">
       <div class="search-wrap">
@@ -1044,12 +1078,43 @@
       return str.replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'");
     }
 
+    let heroEmbedHeight = 0;
+
     function showLatestEmbed(id) {
+      playInHero(id, /*autoplay*/true, /*mute*/true);
+    }
+
+    function playInHero(id, autoplay = true, mute = false) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&rel=0&playsinline=1`;
+      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1`;
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
+      embed.classList.remove('mini');
+      document.getElementById('hero-placeholder').style.display = 'none';
       embed.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Capture height after paint so scroll listener has the right threshold
+      requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
     }
+
+    function dismissHeroEmbed() {
+      const embed = document.getElementById('hero-embed');
+      embed.classList.remove('mini');
+      embed.style.display = 'none';
+      document.getElementById('hero-placeholder').style.display = 'none';
+      document.getElementById('hero-iframe').src = '';
+    }
+
+    window.addEventListener('scroll', () => {
+      const embed = document.getElementById('hero-embed');
+      if (embed.style.display === 'none') return;
+      const isMini = window.scrollY > (heroEmbedHeight + 20);
+      const wasMini = embed.classList.contains('mini');
+      if (isMini === wasMini) return;
+      embed.classList.toggle('mini', isMini);
+      document.getElementById('hero-placeholder').style.display = isMini ? 'block' : 'none';
+      if (isMini) document.getElementById('hero-placeholder').style.height = heroEmbedHeight + 'px';
+    }, { passive: true });
 
     async function loadData() {
       const res = await fetch("videos.json");
@@ -1379,11 +1444,11 @@
           const hasExtra = artistsHTML || entriesHTML;
           card.innerHTML = `
             <div class="video-card-thumb">
-              <a class="video-link" href="https://www.youtube.com/watch?v=${id}" target="_blank" style="background-image: url('${thumb}')"></a>
+              <a class="video-link" href="#" onclick="playInHero('${id}');return false;" style="background-image: url('${thumb}')"></a>
             </div>
             <div class="video-card-body">
               ${isStudio ? '<span class="studio-badge">In Studio</span>' : ""}
-              <h2><a class="title-link" href="https://www.youtube.com/watch?v=${id}" target="_blank">${videoTitle}</a></h2>
+              <h2><a class="title-link" href="#" onclick="playInHero('${id}');return false;">${videoTitle}</a></h2>
               ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
               ${hasExtra ? `<div id="${collapseId}" style="display:none">${artistsHTML}<div class="video-entries">${entriesHTML}</div></div><button class="card-expand-btn" onclick="var el=document.getElementById('${collapseId}');var open=el.style.display!=='none';el.style.display=open?'none':'';this.textContent=open?'Show more':'Show less'">Show more</button>` : ""}
             </div>
