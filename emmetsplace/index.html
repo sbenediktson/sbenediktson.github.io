@@ -1158,13 +1158,16 @@
       old.replaceWith(newFrame);
 
       const btn = document.getElementById('hero-unmute-btn');
-      btn.textContent = heroUserUnmuted ? 'Mute' : 'Unmute';
       // Desktop: auto-unmute via postMessage once player initialises
       if (heroUserUnmuted && window.innerWidth > 500) {
+        btn.textContent = 'Mute';
         setTimeout(() => {
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
         }, 1500);
+      } else {
+        // Mobile always starts muted — show Unmute regardless of previous state
+        btn.textContent = 'Unmute';
       }
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
