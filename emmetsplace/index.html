@@ -164,14 +164,20 @@
     #hero-embed.mini {
       position: fixed;
       bottom: 100px;
-      right: 16px;
-      width: 260px;
+      right: 44px;
+      width: 200px;
       max-height: none;
       aspect-ratio: 16 / 9;
       z-index: 200;
       margin: 0;
       border-radius: 8px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.75);
+    }
+
+    @media (min-width: 700px) {
+      #hero-embed.mini {
+        width: 260px;
+      }
     }
     #hero-placeholder { display: none; margin-bottom: 24px; }
     .mini-close {
@@ -730,6 +736,27 @@
       padding-top: 4px;
     }
 
+    .random-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (min-width: 700px) {
+      .random-body {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+      }
+      .random-result {
+        max-width: 420px;
+        width: 420px;
+        margin-top: 0;
+      }
+    }
+
     .random-heading {
       font-size: 1.4rem;
       color: #e8dff0;
@@ -821,31 +848,19 @@
       justify-content: center;
     }
 
-    .random-result-title {
-      font-size: 1.25rem;
-      color: #e8dff0;
+    .random-thumb-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 14px 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.82));
+      color: #fff;
+      font-size: 1rem;
       font-weight: bold;
-      text-align: center;
+      text-align: left;
+      line-height: 1.3;
     }
-
-    .random-watch-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #c8a030;
-      color: #111;
-      text-decoration: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: bold;
-      padding: 14px 32px;
-      border-radius: 999px;
-      transition: background 0.15s;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .random-watch-btn:hover { background: #d4ae40; }
 
     /* Bottom nav */
     .bottom-nav {
@@ -924,12 +939,16 @@
   <div id="random-view">
     <h1 class="random-heading">Feeling Lucky?</h1>
     <p class="random-sub">Shuffle a random tune from Emmet's Place</p>
-    <button class="random-btn-circle" id="random-circle-btn" onclick="doRandom()">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
-      <span id="random-btn-label">Randomize</span>
-    </button>
-    <p class="random-discover" id="random-discover"></p>
-    <div class="random-result" id="random-result"></div>
+    <div class="random-body">
+      <div>
+        <button class="random-btn-circle" id="random-circle-btn" onclick="doRandom()">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          <span id="random-btn-label">Randomize</span>
+        </button>
+        <p class="random-discover" id="random-discover"></p>
+      </div>
+      <div class="random-result" id="random-result"></div>
+    </div>
   </div>
 
   <nav class="bottom-nav">
@@ -1514,7 +1533,6 @@
     function doRandom() {
       if (!allTunes.length) return;
       const tune = allTunes[Math.floor(Math.random() * allTunes.length)];
-      const ytHref = `https://www.youtube.com/watch?v=${tune.videoId}${tune.start ? `&t=${tune.start}s` : ""}`;
       const thumb = `https://img.youtube.com/vi/${tune.videoId}/hqdefault.jpg`;
 
       const result = document.getElementById("random-result");
@@ -1523,11 +1541,7 @@
           <div class="random-play-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#111"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
-        </a>
-        <p class="random-result-title">${tune.title}</p>
-        <a class="random-watch-btn" href="${ytHref}" target="_blank">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Watch on YouTube
+          <div class="random-thumb-title">${tune.title}</div>
         </a>
       `;
       result.style.display = "flex";
