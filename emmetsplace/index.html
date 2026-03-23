@@ -1119,16 +1119,6 @@
     let heroUserUnmuted = false;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-    // Show unmute button on iOS only once the video is actually playing
-    window.addEventListener('message', e => {
-      if (!isIOS) return;
-      try {
-        const data = JSON.parse(e.data);
-        if (data.event === 'onStateChange' && data.info === 1) {
-          document.getElementById('hero-unmute-btn').style.display = 'block';
-        }
-      } catch(_) {}
-    });
 
     function showLatestEmbed(id) {
       playInHero(id, /*autoplay*/true, /*mute*/true);
@@ -1155,13 +1145,7 @@
       newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&rel=0&playsinline=1${muteParam}${startParam}`;
       old.replaceWith(newFrame);
 
-      document.getElementById('hero-unmute-btn').style.display = 'none';
-      if (isIOS) {
-        // Subscribe to player events so we get onStateChange when playing starts
-        setTimeout(() => {
-          newFrame.contentWindow?.postMessage(JSON.stringify({event:'listening'}), '*');
-        }, 500);
-      }
+      document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
