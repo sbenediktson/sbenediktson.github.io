@@ -178,14 +178,6 @@
       backdrop-filter: blur(4px);
       letter-spacing: 0.04em;
     }
-    @media (max-width: 500px) {
-      #hero-embed:not(.mini) #hero-unmute-btn { display: block; }
-    }
-    #hero-embed.mini #hero-unmute-btn {
-      display: block;
-      font-size: 0.6rem;
-      padding: 4px 8px;
-    }
     #hero-embed.mini {
       position: fixed;
       bottom: 100px;
@@ -1127,29 +1119,28 @@
     let heroUserUnmuted = false;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+    // Show unmute button on iOS only once the video is actually playing
+    window.addEventListener('message', e => {
+      if (!isIOS) return;
+      try {
+        const data = JSON.parse(e.data);
+        if (data.event === 'onStateChange' && data.info === 1) {
+          const btn = document.getElementById('hero-unmute-btn');
+          if (!heroUserUnmuted) btn.style.display = 'block';
+        }
+      } catch(_) {}
+    });
+
     function showLatestEmbed(id) {
       playInHero(id, /*autoplay*/true, /*mute*/true);
     }
 
     function heroUnmute() {
       const iframe = document.getElementById('hero-iframe');
-      const btn = document.getElementById('hero-unmute-btn');
-      heroUserUnmuted = !heroUserUnmuted;
-      if (heroUserUnmuted) {
-        // Retry a few times — player may not be ready to receive postMessage immediately
-        const unmute = () => {
-          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
-          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
-        };
-        unmute();
-        setTimeout(unmute, 300);
-        setTimeout(unmute, 800);
-        if (isIOS) { btn.textContent = 'Mute'; } else { btn.style.display = 'none'; }
-      } else {
-        iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'mute', args:[]}), '*');
-        btn.textContent = 'Unmute';
-        btn.style.display = '';
-      }
+      heroUserUnmuted = true;
+      iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+      iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+      document.getElementById('hero-unmute-btn').style.display = 'none';
     }
 
     function playInHero(id, autoplay = true, mute = false, start = null) {
@@ -1166,12 +1157,10 @@
       old.replaceWith(newFrame);
 
       const btn = document.getElementById('hero-unmute-btn');
-      if (isIOS) {
-        // iOS always starts muted — show Unmute button regardless of previous state
-        btn.textContent = 'Unmute';
-      } else if (heroUserUnmuted) {
-        // Non-iOS: auto-unmute via postMessage, no button needed
-        btn.style.display = 'none';
+      btn.style.display = 'none';
+      btn.textContent = 'Unmute';
+      heroUserUnmuted = isIOS ? false : heroUserUnmuted; // reset toggle state on iOS each load
+      if (!isIOS && heroUserUnmuted) {
         setTimeout(() => {
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
