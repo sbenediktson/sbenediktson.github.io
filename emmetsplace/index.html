@@ -1134,13 +1134,21 @@
     function playInHero(id, autoplay = true, mute = false, start = null) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
-      // If user previously unmuted, honour that preference
-      const shouldMute = mute && !heroUserUnmuted;
+      // Always start muted so autoplay works on mobile, then unmute if user has chosen to
       const startParam = start ? `&start=${start}` : '';
-      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1&enablejsapi=1${startParam}`;
+      const params = `?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
       const unmuteBtn = document.getElementById('hero-unmute-btn');
-      unmuteBtn.style.display = shouldMute ? '' : 'none';
+      if (heroUserUnmuted) {
+        // Player needs a moment to initialise before it can receive postMessage commands
+        unmuteBtn.style.display = 'none';
+        setTimeout(() => {
+          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+        }, 1500);
+      } else {
+        unmuteBtn.style.display = mute ? '' : 'none';
+      }
       embed.style.display = 'block';
       // If mini-player is visible, just swap the video in place without scrolling
       if (!embed.classList.contains('mini')) {
