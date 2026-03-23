@@ -1301,48 +1301,10 @@
           return true;
         }
 
-        // Update featured card in header (upcoming > live > latest episode embed)
-        const latestLink = document.getElementById("latest-link");
-        const featuredId = upcomingVideoId || liveVideoId;
+        // Always embed in the hero frame (live > upcoming > latest episode)
+        const featuredId = liveVideoId || upcomingVideoId;
         if (featuredId) {
-          const isLive = !!liveVideoId;
-          const scheduledTime = videoData[featuredId]?.scheduledStartTime;
-          const isUpcoming = !liveVideoId && !!upcomingVideoId && scheduledTime && new Date(scheduledTime) > new Date();
-          const videoTitle = stripEmoji(videoData[featuredId]?.title || "");
-          const scheduledLabel = scheduledTime
-            ? new Date(scheduledTime).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
-            : null;
-          latestLink.href = `https://www.youtube.com/watch?v=${featuredId}`;
-          latestLink.style.backgroundImage = `url('https://img.youtube.com/vi/${featuredId}/hqdefault.jpg')`;
-
-          let badge, centerIcon, cta;
-          if (isUpcoming) {
-            badge = `<div class="featured-latest-badge upcoming">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              ${scheduledLabel ? scheduledLabel : "Upcoming"}
-            </div>`;
-            centerIcon = `<div class="featured-latest-play">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>`;
-            cta = "Set Reminder →";
-          } else {
-            badge = `<div class="featured-latest-badge live"><span class="live-dot"></span>Live Now</div>`;
-            centerIcon = `<div class="featured-latest-play">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
-            </div>`;
-            cta = "Watch Now →";
-          }
-
-          latestLink.innerHTML = `
-            <div class="featured-latest-overlay"></div>
-            ${badge}
-            ${centerIcon}
-            <div class="featured-latest-info">
-              <div class="featured-latest-title">${videoTitle}</div>
-              <div class="featured-latest-cta">${cta}</div>
-            </div>
-          `;
-          latestLink.style.display = "block";
+          showLatestEmbed(featuredId);
         } else {
           const latestId = ids
             .filter(passesFilter)
