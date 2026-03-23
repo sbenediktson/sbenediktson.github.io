@@ -1165,7 +1165,7 @@
     window.addEventListener('scroll', () => {
       const embed = document.getElementById('hero-embed');
       if (embed.style.display === 'none') return;
-      const isMini = window.scrollY > (heroEmbedHeight + 20);
+      const isMini = embed.classList.contains('mini') ? window.scrollY > 10 : window.scrollY > (heroEmbedHeight + 20);
       const wasMini = embed.classList.contains('mini');
       if (isMini === wasMini) return;
       embed.classList.toggle('mini', isMini);
