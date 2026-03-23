@@ -921,7 +921,7 @@
     <div id="hero-placeholder"></div>
     <div id="hero-embed" style="display:none">
       <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      <button id="hero-unmute-btn" onclick="heroUnmute()">🔇 Tap to unmute</button>
+      <button id="hero-unmute-btn" onclick="heroUnmute()">Unmute</button>
       <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
     </div>
     <div class="controls">
@@ -1133,24 +1133,28 @@
 
     function playInHero(id, autoplay = true, mute = false, start = null) {
       const embed = document.getElementById('hero-embed');
-      const iframe = document.getElementById('hero-iframe');
-      // Always start muted so autoplay works on mobile, then unmute if user has chosen to
+      // Replace the iframe entirely so iOS Safari treats it as a fresh user-gesture-initiated load
+      const old = document.getElementById('hero-iframe');
+      const newFrame = document.createElement('iframe');
+      newFrame.id = 'hero-iframe';
+      newFrame.allow = 'autoplay; encrypted-media';
+      newFrame.allowFullscreen = true;
       const startParam = start ? `&start=${start}` : '';
-      const params = `?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
+      // Always start muted — required for autoplay on mobile
+      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
+      old.replaceWith(newFrame);
+
       const unmuteBtn = document.getElementById('hero-unmute-btn');
       if (heroUserUnmuted) {
-        // Player needs a moment to initialise before it can receive postMessage commands
         unmuteBtn.style.display = 'none';
         setTimeout(() => {
-          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
-          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
         }, 1500);
       } else {
         unmuteBtn.style.display = mute ? '' : 'none';
       }
       embed.style.display = 'block';
-      // If mini-player is visible, just swap the video in place without scrolling
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
         requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
