@@ -1157,9 +1157,15 @@
       newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
       old.replaceWith(newFrame);
 
-      // On wide screens YouTube controls are accessible; on mobile always show Unmute button
-      // since iOS blocks unmuted autoplay entirely — postMessage auto-unmute is unreliable
-      document.getElementById('hero-unmute-btn').textContent = heroUserUnmuted ? 'Mute' : 'Unmute';
+      const btn = document.getElementById('hero-unmute-btn');
+      btn.textContent = heroUserUnmuted ? 'Mute' : 'Unmute';
+      // Desktop: auto-unmute via postMessage once player initialises
+      if (heroUserUnmuted && window.innerWidth > 500) {
+        setTimeout(() => {
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+        }, 1500);
+      }
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
