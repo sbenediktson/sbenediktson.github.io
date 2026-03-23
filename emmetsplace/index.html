@@ -1084,10 +1084,11 @@
       playInHero(id, /*autoplay*/true, /*mute*/true);
     }
 
-    function playInHero(id, autoplay = true, mute = false) {
+    function playInHero(id, autoplay = true, mute = false, start = null) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
-      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1`;
+      const startParam = start ? `&start=${start}` : '';
+      const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1${startParam}`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
       embed.style.display = 'block';
       // If mini-player is visible, just swap the video in place without scrolling
@@ -1132,9 +1133,9 @@
           ).join("")}</div>`
         : "";
       const songLinks = songs.map(({ title, start }) => {
-        const startParam = start ? `&t=${start}s` : "";
         const cleanTitle = stripEmoji(title);
-        return `<a class="video-entry-link" data-text="${cleanTitle.replace(/"/g, '&quot;')}" href="https://www.youtube.com/watch?v=${id}${startParam}" target="_blank">${cleanTitle}</a>`;
+        const startArg = start ? `,true,true,${start}` : `,true,true`;
+        return `<a class="video-entry-link" data-text="${cleanTitle.replace(/"/g, '&quot;')}" href="#" onclick="playInHero('${id}'${startArg});return false;">${cleanTitle}</a>`;
       });
       let entriesHTML;
       if (!songs.length) {
@@ -1178,8 +1179,6 @@
         query ? `${visible.length} of ${allTunes.length} tunes` : `${allTunes.length} tunes`;
 
       function makeTuneRow(tune) {
-        const startParam = tune.start ? `&t=${tune.start}s` : "";
-        const href = `https://www.youtube.com/watch?v=${tune.videoId}${startParam}`;
         const titleHTML = re ? tune.title.replace(re, "<mark>$1</mark>") : tune.title;
         const metaHTML = re ? tune.videoTitle.replace(re, "<mark>$1</mark>") : tune.videoTitle;
         const dateStr = tune.streamDate
@@ -1187,8 +1186,8 @@
           : "";
         const row = document.createElement("a");
         row.className = "tune-row";
-        row.href = href;
-        row.target = "_blank";
+        row.href = "#";
+        row.onclick = (e) => { e.preventDefault(); playInHero(tune.videoId, true, true, tune.start); };
         const thumb = `https://img.youtube.com/vi/${tune.videoId}/default.jpg`;
         row.innerHTML = `<img class="tune-thumb" src="${thumb}" alt="" loading="lazy"><div class="tune-info"><span class="tune-title">${titleHTML}</span><span class="tune-meta">${metaHTML}${dateStr ? " · " + dateStr : ""}</span></div>`;
         return row;
@@ -1515,19 +1514,18 @@
     function doRandom() {
       if (!allTunes.length) return;
       const tune = allTunes[Math.floor(Math.random() * allTunes.length)];
-      const startParam = tune.start ? `&t=${tune.start}s` : "";
-      const href = `https://www.youtube.com/watch?v=${tune.videoId}${startParam}`;
+      const ytHref = `https://www.youtube.com/watch?v=${tune.videoId}${tune.start ? `&t=${tune.start}s` : ""}`;
       const thumb = `https://img.youtube.com/vi/${tune.videoId}/hqdefault.jpg`;
 
       const result = document.getElementById("random-result");
       result.innerHTML = `
-        <a class="random-thumb-link" href="${href}" target="_blank" style="background-image:url('${thumb}')">
+        <a class="random-thumb-link" href="#" onclick="playInHero('${tune.videoId}',true,true,${tune.start || 'null'});return false;" style="background-image:url('${thumb}')">
           <div class="random-play-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="#111"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
         </a>
         <p class="random-result-title">${tune.title}</p>
-        <a class="random-watch-btn" href="${href}" target="_blank">
+        <a class="random-watch-btn" href="${ytHref}" target="_blank">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Watch on YouTube
         </a>
