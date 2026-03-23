@@ -1117,6 +1117,7 @@
 
     let heroEmbedHeight = 0;
     let heroUserUnmuted = false;
+    let heroDismissed = false;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 
@@ -1149,6 +1150,7 @@
       old.replaceWith(newFrame);
 
       document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
+      heroDismissed = false;
       embed.style.display = 'block';
       if (!embed.classList.contains('mini')) {
         window.scrollTo(0, 0);
@@ -1160,12 +1162,18 @@
       const embed = document.getElementById('hero-embed');
       embed.classList.remove('mini');
       document.getElementById('hero-placeholder').style.display = 'none';
+      heroDismissed = true;
     }
 
     window.addEventListener('scroll', () => {
       const embed = document.getElementById('hero-embed');
       if (embed.style.display === 'none') return;
-      const isMini = embed.classList.contains('mini') ? window.scrollY > 10 : window.scrollY > (heroEmbedHeight + 20);
+      // Once dismissed, only re-enable mini-player after scrolling back to top
+      if (heroDismissed) {
+        if (window.scrollY <= 10) heroDismissed = false;
+        return;
+      }
+      const isMini = window.scrollY > (heroEmbedHeight + 20);
       const wasMini = embed.classList.contains('mini');
       if (isMini === wasMini) return;
       embed.classList.toggle('mini', isMini);
