@@ -178,7 +178,9 @@
       backdrop-filter: blur(4px);
       letter-spacing: 0.04em;
     }
-    #hero-embed:not(.mini) #hero-unmute-btn { display: block; }
+    @media (max-width: 500px) {
+      #hero-embed:not(.mini) #hero-unmute-btn { display: block; }
+    }
     #hero-embed.mini {
       position: fixed;
       bottom: 100px;
