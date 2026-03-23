@@ -1136,8 +1136,14 @@
       const btn = document.getElementById('hero-unmute-btn');
       heroUserUnmuted = !heroUserUnmuted;
       if (heroUserUnmuted) {
-        iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
-        iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+        // Retry a few times — player may not be ready to receive postMessage immediately
+        const unmute = () => {
+          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
+          iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
+        };
+        unmute();
+        setTimeout(unmute, 300);
+        setTimeout(unmute, 800);
         if (isIOS) { btn.textContent = 'Mute'; } else { btn.style.display = 'none'; }
       } else {
         iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'mute', args:[]}), '*');
