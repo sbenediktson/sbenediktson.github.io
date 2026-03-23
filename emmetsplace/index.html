@@ -1159,9 +1159,8 @@
     function dismissHeroEmbed() {
       const embed = document.getElementById('hero-embed');
       embed.classList.remove('mini');
-      embed.style.display = 'none';
       document.getElementById('hero-placeholder').style.display = 'none';
-      document.getElementById('hero-iframe').src = '';
+      window.scrollTo(0, 0);
     }
 
     window.addEventListener('scroll', () => {
