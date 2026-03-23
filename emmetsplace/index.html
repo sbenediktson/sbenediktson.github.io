@@ -1125,8 +1125,7 @@
       try {
         const data = JSON.parse(e.data);
         if (data.event === 'onStateChange' && data.info === 1) {
-          const btn = document.getElementById('hero-unmute-btn');
-          if (!heroUserUnmuted) btn.style.display = 'block';
+          document.getElementById('hero-unmute-btn').style.display = 'block';
         }
       } catch(_) {}
     });
@@ -1156,11 +1155,14 @@
       newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=1&rel=0&playsinline=1&enablejsapi=1${startParam}`;
       old.replaceWith(newFrame);
 
-      const btn = document.getElementById('hero-unmute-btn');
-      btn.style.display = 'none';
-      btn.textContent = 'Unmute';
-      heroUserUnmuted = isIOS ? false : heroUserUnmuted; // reset toggle state on iOS each load
-      if (!isIOS && heroUserUnmuted) {
+      document.getElementById('hero-unmute-btn').style.display = 'none';
+      if (isIOS) {
+        // Subscribe to player events so we get onStateChange when playing starts
+        setTimeout(() => {
+          newFrame.contentWindow?.postMessage(JSON.stringify({event:'listening'}), '*');
+        }, 500);
+      } else {
+        // Desktop: always auto-unmute once player is ready
         setTimeout(() => {
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
           newFrame.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
