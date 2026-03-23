@@ -1087,13 +1087,13 @@
     function playInHero(id, autoplay = true, mute = false) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
+      // Set src before any other work so the iframe load stays in the user gesture context
       const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
       embed.classList.remove('mini');
       document.getElementById('hero-placeholder').style.display = 'none';
       embed.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Capture height after paint so scroll listener has the right threshold
+      window.scrollTo(0, 0); // instant scroll — smooth breaks the gesture context on mobile
       requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
     }
 
@@ -1444,11 +1444,11 @@
           const hasExtra = artistsHTML || entriesHTML;
           card.innerHTML = `
             <div class="video-card-thumb">
-              <a class="video-link" href="#" onclick="playInHero('${id}');return false;" style="background-image: url('${thumb}')"></a>
+              <a class="video-link" href="#" onclick="playInHero('${id}',true,true);return false;" style="background-image: url('${thumb}')"></a>
             </div>
             <div class="video-card-body">
               ${isStudio ? '<span class="studio-badge">In Studio</span>' : ""}
-              <h2><a class="title-link" href="#" onclick="playInHero('${id}');return false;">${videoTitle}</a></h2>
+              <h2><a class="title-link" href="#" onclick="playInHero('${id}',true,true);return false;">${videoTitle}</a></h2>
               ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
               ${hasExtra ? `<div id="${collapseId}" style="display:none">${artistsHTML}<div class="video-entries">${entriesHTML}</div></div><button class="card-expand-btn" onclick="var el=document.getElementById('${collapseId}');var open=el.style.display!=='none';el.style.display=open?'none':'';this.textContent=open?'Show more':'Show less'">Show more</button>` : ""}
             </div>
