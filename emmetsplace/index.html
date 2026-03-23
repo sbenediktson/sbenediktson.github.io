@@ -1087,14 +1087,14 @@
     function playInHero(id, autoplay = true, mute = false) {
       const embed = document.getElementById('hero-embed');
       const iframe = document.getElementById('hero-iframe');
-      // Set src before any other work so the iframe load stays in the user gesture context
       const params = `?autoplay=${autoplay ? 1 : 0}&mute=${mute ? 1 : 0}&rel=0&playsinline=1`;
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}${params}`;
-      embed.classList.remove('mini');
-      document.getElementById('hero-placeholder').style.display = 'none';
       embed.style.display = 'block';
-      window.scrollTo(0, 0); // instant scroll — smooth breaks the gesture context on mobile
-      requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
+      // If mini-player is visible, just swap the video in place without scrolling
+      if (!embed.classList.contains('mini')) {
+        window.scrollTo(0, 0);
+        requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
+      }
     }
 
     function dismissHeroEmbed() {
