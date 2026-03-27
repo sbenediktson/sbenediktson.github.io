@@ -14,7 +14,7 @@
       background: #000;
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
-      padding: 52px 0 88px;
+      padding: 96px 0 88px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -277,6 +277,21 @@
       display: inline-block;
     }
 
+    .header-chips {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .header-chips::-webkit-scrollbar { display: none; }
+
+    .chips-row {
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     .search-toggle-btn {
       background: none;
       border: none;
@@ -422,7 +437,7 @@
     }
 
     @media (max-width: 640px) {
-      body { padding: 52px 0 88px; }
+      body { padding: 96px 0 88px; }
 
       .site-logo { height: 70px; margin-bottom: 20px; }
 
@@ -983,6 +998,19 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
     </header>
+    <div class="header-chips" id="header-chips">
+      <!-- Episodes chips -->
+      <div class="chips-row" id="chips-episodes">
+        <button class="filter-pill active" data-filter="all" onclick="filterEpisodes('all')">All</button>
+        <button class="filter-pill" data-filter="studio" onclick="filterEpisodes('studio')">In Studio</button>
+        <button class="filter-pill" data-filter="road" onclick="filterEpisodes('road')">On the Road</button>
+      </div>
+      <!-- Tunes chips -->
+      <div class="chips-row" id="chips-tunes" style="display:none">
+        <button class="sort-pill active" data-sort="recent" onclick="setTunesSort('recent')">Most Recent</button>
+        <button class="sort-pill" data-sort="alpha" onclick="setTunesSort('alpha')">A to Z</button>
+      </div>
+    </div>
   </div>
   <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
   <div id="hero-placeholder"></div>
@@ -993,21 +1021,12 @@
   </div>
 
   <div id="episodes-view">
-    <div class="filter-pills">
-      <button class="filter-pill active" data-filter="all" onclick="filterEpisodes('all')">All</button>
-      <button class="filter-pill" data-filter="studio" onclick="filterEpisodes('studio')">In Studio</button>
-      <button class="filter-pill" data-filter="road" onclick="filterEpisodes('road')">On the Road</button>
-    </div>
     <div class="video-grid" id="grid"></div>
   </div>
 
   <div id="tunes-view">
     <div class="tunes-header">
       <span class="tunes-count" id="tunes-count"></span>
-      <div class="sort-pills">
-        <button class="sort-pill" data-sort="alpha" onclick="setTunesSort('alpha')">A to Z</button>
-        <button class="sort-pill active" data-sort="recent" onclick="setTunesSort('recent')">Most Recent</button>
-      </div>
     </div>
     <div class="tune-list" id="tune-list"></div>
   </div>
@@ -1253,7 +1272,7 @@
     window.addEventListener('scroll', () => {
       const header = document.getElementById('site-header-outer');
       const scrollY = window.scrollY;
-      if (scrollY > lastScrollY && scrollY > 80) {
+      if (window.innerWidth < 700 && scrollY > lastScrollY && scrollY > 80) {
         header.classList.add('header-hidden');
       } else {
         header.classList.remove('header-hidden');
@@ -1660,6 +1679,10 @@
       document.getElementById("random-view").style.display = tab === "random" ? "flex" : "none";
       const searchToggleBtn = document.getElementById("search-toggle-btn");
       if (searchToggleBtn) searchToggleBtn.style.display = tab === "random" ? "none" : "";
+      // Show correct chip row in header
+      document.getElementById("chips-episodes").style.display = tab === "episodes" ? "flex" : "none";
+      document.getElementById("chips-tunes").style.display = tab === "tunes" ? "flex" : "none";
+      document.getElementById("header-chips").style.display = tab === "random" ? "none" : "block";
       document.getElementById("search").placeholder =
         tab === "tunes" ? "Search tunes..." : "Search episodes, guests, tunes...";
       if (tab !== "random") clearSearch();
