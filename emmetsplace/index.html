@@ -434,9 +434,11 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
       }
-      /* On desktop, year headers are invisible scroll anchors — no full-width row break */
-      .episode-year-header {
-        height: 0;
+      /* Year headers are invisible scroll anchors — span full width but take no height */
+      .episode-year-header,
+      .episode-year-header.year-start {
+        grid-column: 1 / -1;
+        height: 0 !important;
         overflow: hidden;
         padding: 0 !important;
         border: none !important;
