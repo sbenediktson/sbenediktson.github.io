@@ -1286,6 +1286,13 @@
       heroCommentsEl.style.display = 'none';
       chatMessageListener = (e) => {
         if (e.source !== heroCommentsEl.contentWindow) return;
+        // Only show if message contains actual chat content, not just init/sizing messages
+        try {
+          const d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+          if (!d) return;
+          const hasChatContent = d.chatMessages?.length > 0 || d.actions?.length > 0;
+          if (!hasChatContent) return;
+        } catch { return; }
         chatActive = true;
         heroCommentsEl.style.display = '';
         requestAnimationFrame(() => { heroEmbedHeight = heroSectionEl.offsetHeight; });
