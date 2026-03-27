@@ -179,24 +179,7 @@
       display: block;
       border: none;
     }
-    #hero-unmute-btn {
-      display: none;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(0,0,0,0.65);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 20px;
-      color: #fff;
-      font-size: 0.75rem;
-      font-family: inherit;
-      padding: 6px 14px;
-      cursor: pointer;
-      z-index: 201;
-      backdrop-filter: blur(4px);
-      letter-spacing: 0.04em;
-    }
-    #hero-embed.mini {
+#hero-embed.mini {
       position: fixed;
       bottom: 100px;
       right: 44px;
@@ -376,13 +359,6 @@
     .search-clear:hover { color: #c5bfc8; }
 
     /* Filter pills */
-    .filter-pills {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
     .filter-pill {
       padding: 5px 14px;
       border-radius: 20px;
@@ -1022,8 +998,7 @@
   <div id="hero-placeholder"></div>
   <div id="hero-embed" style="display:none">
     <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <button id="hero-unmute-btn" onclick="heroUnmute()">Unmute</button>
-    <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
+<button class="mini-close" onclick="dismissHeroEmbed()">×</button>
   </div>
 
   <div id="episodes-view">
@@ -1199,105 +1174,85 @@
     }
 
     let heroEmbedHeight = 0;
-    let heroUserUnmuted = false;
     let heroDismissed = false;
     let lastScrollY = 0;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+    // Cached DOM refs used on hot paths (scroll, video play)
+    const heroEmbedEl = document.getElementById('hero-embed');
+    const heroPlaceholderEl = document.getElementById('hero-placeholder');
+    const siteHeaderEl = document.getElementById('site-header-outer');
+
+    function setMiniPlayer(isMini) {
+      heroEmbedEl.classList.toggle('mini', isMini);
+      heroPlaceholderEl.style.display = isMini ? 'block' : 'none';
+      if (isMini) heroPlaceholderEl.style.height = (heroEmbedHeight || heroEmbedEl.offsetHeight) + 'px';
+    }
 
     function showLatestEmbed(id) {
       playInHero(id, /*autoplay*/true, /*mute*/true);
     }
 
-    function heroUnmute() {
-      const iframe = document.getElementById('hero-iframe');
-      heroUserUnmuted = true;
-      iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'unMute', args:[]}), '*');
-      iframe.contentWindow?.postMessage(JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*');
-      document.getElementById('hero-unmute-btn').style.display = 'none';
-    }
-
     function playInHero(id, autoplay = true, mute = false, start = null) {
-      const embed = document.getElementById('hero-embed');
-      // Replace the iframe entirely so iOS Safari treats it as a fresh user-gesture-initiated load
+      // Replace iframe so iOS Safari treats it as a fresh user-gesture-initiated load
       const old = document.getElementById('hero-iframe');
       const newFrame = document.createElement('iframe');
       newFrame.id = 'hero-iframe';
       newFrame.allow = 'autoplay; encrypted-media';
       newFrame.allowFullscreen = true;
       const startParam = start ? `&start=${start}` : '';
-      // iOS always needs mute=1 for autoplay; desktop uses mute only if requested (page load)
-      // so Chrome's user-gesture context allows unmuted autoplay on card clicks
+      // iOS always needs mute=1 for autoplay; Chrome allows unmuted autoplay within a user gesture
       const shouldMute = isIOS || mute;
       const extraParams = isIOS ? '&enablejsapi=1' : '';
       newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1${extraParams}${startParam}`;
       old.replaceWith(newFrame);
 
-      document.getElementById('hero-unmute-btn').style.display = 'none';
       heroDismissed = false;
-      embed.classList.remove('mini');
-      document.getElementById('hero-placeholder').style.display = 'none';
-      embed.style.display = 'block';
+      setMiniPlayer(false);
+      heroEmbedEl.style.display = 'block';
       window.scrollTo(0, 0);
-      // Also close search if open
       document.getElementById('header-search-wrap').classList.remove('active');
-      requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
+      requestAnimationFrame(() => { heroEmbedHeight = heroEmbedEl.offsetHeight; });
     }
 
     function dismissHeroEmbed() {
-      const embed = document.getElementById('hero-embed');
-      embed.classList.remove('mini');
-      document.getElementById('hero-placeholder').style.display = 'none';
+      setMiniPlayer(false);
       heroDismissed = true;
     }
 
     function toggleSearch() {
       document.getElementById('header-search-wrap').classList.add('active');
       setTimeout(() => document.getElementById('search').focus(), 50);
-      // Miniaturize video while searching so it doesn't block results
-      const embed = document.getElementById('hero-embed');
-      if (embed.style.display !== 'none' && !embed.classList.contains('mini') && !heroDismissed) {
-        embed.classList.add('mini');
-        const ph = document.getElementById('hero-placeholder');
-        ph.style.display = 'block';
-        ph.style.height = heroEmbedHeight + 'px';
+      if (heroEmbedEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
+        setMiniPlayer(true);
       }
     }
 
     function closeSearch() {
       document.getElementById('header-search-wrap').classList.remove('active');
       clearSearch();
-      // Restore full video if we were at the top and hadn't dismissed
-      const embed = document.getElementById('hero-embed');
-      if (embed.style.display !== 'none' && embed.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
-        embed.classList.remove('mini');
-        document.getElementById('hero-placeholder').style.display = 'none';
+      if (heroEmbedEl.style.display !== 'none' && heroEmbedEl.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
+        setMiniPlayer(false);
       }
     }
 
     window.addEventListener('scroll', () => {
-      const header = document.getElementById('site-header-outer');
       const scrollY = window.scrollY;
       if (window.innerWidth < 700 && scrollY > lastScrollY && scrollY > 80) {
-        header.classList.add('header-hidden');
+        siteHeaderEl.classList.add('header-hidden');
       } else {
-        header.classList.remove('header-hidden');
+        siteHeaderEl.classList.remove('header-hidden');
       }
       lastScrollY = scrollY;
 
-      const embed = document.getElementById('hero-embed');
-      if (embed.style.display === 'none') return;
-      // Once dismissed, only re-enable mini-player after scrolling back to top
+      if (heroEmbedEl.style.display === 'none') return;
       if (heroDismissed) {
         if (scrollY <= 10) heroDismissed = false;
         return;
       }
       const isMini = scrollY > (heroEmbedHeight + 20);
-      const wasMini = embed.classList.contains('mini');
-      if (isMini === wasMini) return;
-      embed.classList.toggle('mini', isMini);
-      document.getElementById('hero-placeholder').style.display = isMini ? 'block' : 'none';
-      if (isMini) document.getElementById('hero-placeholder').style.height = heroEmbedHeight + 'px';
+      if (isMini === heroEmbedEl.classList.contains('mini')) return;
+      setMiniPlayer(isMini);
     }, { passive: true });
 
     async function loadData() {
