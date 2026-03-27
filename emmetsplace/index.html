@@ -14,7 +14,7 @@
       background: #000;
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
-      padding: 96px 0 88px;
+      padding: 112px 0 88px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -27,7 +27,6 @@
       z-index: 90;
       background: rgba(0,0,0,0.96);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: transform 0.25s ease;
     }
     .site-header-outer.header-hidden {
@@ -36,7 +35,7 @@
     .site-header {
       max-width: 1200px;
       margin: 0 auto;
-      height: 52px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -218,8 +217,8 @@
         display: none;
         flex: 0 0 68%;
         position: sticky;
-        top: 96px;
-        max-height: calc(100vh - 104px);
+        top: 112px;
+        max-height: calc(100vh - 120px);
         overflow-y: auto;
         scrollbar-width: none;
       }
@@ -317,7 +316,7 @@
 
     .site-title {
       font-family: 'Bebas Neue', Georgia, serif;
-      font-size: 1.75rem;
+      font-size: 3.5rem;
       font-weight: normal;
       letter-spacing: 0.06em;
       color: #e8bdd0;
@@ -333,7 +332,6 @@
     }
 
     .header-chips {
-      border-top: 1px solid rgba(255,255,255,0.07);
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -485,7 +483,7 @@
     }
 
     @media (max-width: 640px) {
-      body { padding: 96px 0 88px; }
+      body { padding: 112px 0 88px; }
 
       .site-logo { height: 70px; margin-bottom: 20px; }
 
@@ -1028,6 +1026,7 @@
       cursor: pointer;
       transition: color 0.15s;
       letter-spacing: 0.02em;
+      touch-action: manipulation;
     }
 
     .nav-tab.active { color: #c8a0bc; }
