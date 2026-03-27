@@ -332,6 +332,7 @@
     }
 
     .header-chips {
+      position: relative;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -408,7 +409,7 @@
 
     .search-bar {
       width: 100%;
-      padding: 9px 34px 9px 34px;
+      padding: 6px 34px 6px 34px;
       background: #1a1a1a;
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px;
@@ -1118,6 +1119,11 @@
   <div class="site-header-outer" id="site-header-outer">
     <header class="site-header">
       <h1 class="site-title" id="site-title">Emmet's Place</h1>
+      <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearch()" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </header>
+    <div class="header-chips" id="header-chips">
       <div class="header-search-wrap" id="header-search-wrap">
         <button class="search-back-btn" onclick="closeSearch()" aria-label="Close search">
           <svg class="icon-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
@@ -1131,11 +1137,6 @@
           <button class="search-clear" id="search-clear" onclick="clearSearch()">×</button>
         </div>
       </div>
-      <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearch()" aria-label="Search">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-    </header>
-    <div class="header-chips" id="header-chips">
       <!-- Episodes chips -->
       <div class="chips-row" id="chips-episodes">
         <button class="filter-pill active" data-filter="all" onclick="filterEpisodes('all')">All</button>
