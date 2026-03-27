@@ -458,8 +458,14 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
       }
+      /* On desktop, year headers are invisible scroll anchors — no full-width row break */
       .episode-year-header {
-        grid-column: 1 / -1;
+        height: 0;
+        overflow: hidden;
+        padding: 0 !important;
+        border: none !important;
+        font-size: 0 !important;
+        margin: 0;
       }
     }
 
@@ -1227,7 +1233,7 @@
       newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1${extraParams}${startParam}`;
       old.replaceWith(newFrame);
 
-      document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
+      document.getElementById('hero-unmute-btn').style.display = 'none';
       heroDismissed = false;
       embed.classList.remove('mini');
       document.getElementById('hero-placeholder').style.display = 'none';
