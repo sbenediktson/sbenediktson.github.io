@@ -714,8 +714,8 @@
     .alpha-index {
       position: fixed;
       right: 3px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 96px;
+      top: auto;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -728,7 +728,7 @@
       user-select: none;
       touch-action: none;
       cursor: pointer;
-      max-height: 72vh;
+      max-height: 45vh;
       overflow: hidden;
     }
 
@@ -754,8 +754,9 @@
     }
 
     .alpha-index-month {
-      font-size: 0.46rem;
-      padding: 1px 6px 1px 11px;
+      font-size: 0.55rem;
+      padding: 1px 6px 1px 9px;
+      color: #4a4050;
     }
 
     .tune-section-header {
@@ -772,7 +773,20 @@
     }
 
     .episode-year-header {
-      padding-top: 16px;
+      padding-top: 0;
+      font-size: 0;       /* hide month text */
+      border: none;
+      padding-bottom: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    /* Show year label only for the first header of each year */
+    .episode-year-header.year-start {
+      font-size: 0.62rem;
+      height: auto;
+      overflow: visible;
+      padding: 20px 12px 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
     }
 
     /* Random view */
@@ -1113,7 +1127,7 @@
         const janKey = qkeys.find(k => k.endsWith('-01')) ?? qkeys[qkeys.length - 1];
         return [
           `<span class="alpha-index-letter alpha-index-year" data-letter="${janKey}">${yr}</span>`,
-          ...qkeys.map(k => `<span class="alpha-index-letter alpha-index-month" data-letter="${k}">${QNAME[k.split('-')[1]]}</span>`)
+          ...qkeys.map(k => `<span class="alpha-index-letter alpha-index-month" data-letter="${k}">·</span>`)
         ];
       }).join('');
       if (keys.includes("Unknown")) html += `<span class="alpha-index-letter" data-letter="Unknown">?</span>`;
@@ -1531,10 +1545,13 @@
           const cardQuarter = info.streamDate ? quarterKey(new Date(info.streamDate)) : null;
           if (cardQuarter && cardQuarter !== lastEpisodeQuarter) {
             const qHeader = document.createElement("div");
-            qHeader.className = "tune-section-header episode-year-header";
+            const yr = cardQuarter.split('-')[0];
+            const isNewYear = !lastEpisodeQuarter || lastEpisodeQuarter.split('-')[0] !== yr;
+            qHeader.className = "tune-section-header episode-year-header" + (isNewYear ? " year-start" : "");
             qHeader.dataset.year = cardQuarter;
             qHeader.id = `eqsec-${cardQuarter}`;
-            qHeader.textContent = quarterHeaderText(cardQuarter);
+            // Show only the year for the year-start header; hidden divs are just anchors
+            qHeader.textContent = isNewYear ? yr : quarterHeaderText(cardQuarter);
             grid.appendChild(qHeader);
             lastEpisodeQuarter = cardQuarter;
           }
