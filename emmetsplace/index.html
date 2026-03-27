@@ -1448,6 +1448,7 @@
     }
 
     function toggleSearch() {
+      siteHeaderEl.classList.remove('header-hidden');
       document.getElementById('header-search-wrap').classList.add('active');
       setTimeout(() => document.getElementById('search').focus(), 50);
       if (window.innerWidth < 700 && heroSectionEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
@@ -1467,12 +1468,15 @@
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       const searchOpen = document.getElementById('header-search-wrap').classList.contains('active');
-      if (window.innerWidth < 700 && !searchOpen && scrollY > lastScrollY && scrollY > 80) {
+      if (searchOpen) {
+        lastScrollY = scrollY; // keep in sync but don't hide
+      } else if (window.innerWidth < 700 && scrollY > lastScrollY && scrollY > 80) {
         siteHeaderEl.classList.add('header-hidden');
+        lastScrollY = scrollY;
       } else {
         siteHeaderEl.classList.remove('header-hidden');
+        lastScrollY = scrollY;
       }
-      lastScrollY = scrollY;
 
       if (heroSectionEl.style.display === 'none') return;
       if (window.innerWidth >= 700) return; // sticky layout on desktop — no mini-player
