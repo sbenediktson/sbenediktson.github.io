@@ -11,7 +11,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0f0f0f;
+      background: #000;
       color: #c5bfc8;
       font-family: Georgia, 'Times New Roman', serif;
       padding: 52px 0 88px;
@@ -25,7 +25,7 @@
       left: 0;
       right: 0;
       z-index: 90;
-      background: rgba(15,15,15,0.96);
+      background: rgba(0,0,0,0.96);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.07);
       transition: transform 0.25s ease;
@@ -435,15 +435,23 @@
     .video-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 8px;
+      gap: 0;
     }
 
-    @media (min-width: 700px) {
+    @media (min-width: 600px) {
       .video-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
       }
       .episode-year-header {
         grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .video-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
       }
     }
 
@@ -758,7 +766,7 @@
       padding: 10px 12px 4px;
       position: sticky;
       top: 0;
-      background: #0f0f0f;
+      background: #000;
       z-index: 2;
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
@@ -910,7 +918,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #0f0f0f;
+      background: #000;
       border-top: 1px solid rgba(255,255,255,0.08);
       display: flex;
       z-index: 100;
@@ -1185,11 +1193,13 @@
 
       document.getElementById('hero-unmute-btn').style.display = isIOS ? 'block' : 'none';
       heroDismissed = false;
+      embed.classList.remove('mini');
+      document.getElementById('hero-placeholder').style.display = 'none';
       embed.style.display = 'block';
-      if (!embed.classList.contains('mini')) {
-        window.scrollTo(0, 0);
-        requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
-      }
+      window.scrollTo(0, 0);
+      // Also close search if open
+      document.getElementById('header-search-wrap').classList.remove('active');
+      requestAnimationFrame(() => { heroEmbedHeight = embed.offsetHeight; });
     }
 
     function dismissHeroEmbed() {
@@ -1202,11 +1212,25 @@
     function toggleSearch() {
       document.getElementById('header-search-wrap').classList.add('active');
       setTimeout(() => document.getElementById('search').focus(), 50);
+      // Miniaturize video while searching so it doesn't block results
+      const embed = document.getElementById('hero-embed');
+      if (embed.style.display !== 'none' && !embed.classList.contains('mini') && !heroDismissed) {
+        embed.classList.add('mini');
+        const ph = document.getElementById('hero-placeholder');
+        ph.style.display = 'block';
+        ph.style.height = heroEmbedHeight + 'px';
+      }
     }
 
     function closeSearch() {
       document.getElementById('header-search-wrap').classList.remove('active');
       clearSearch();
+      // Restore full video if we were at the top and hadn't dismissed
+      const embed = document.getElementById('hero-embed');
+      if (embed.style.display !== 'none' && embed.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
+        embed.classList.remove('mini');
+        document.getElementById('hero-placeholder').style.display = 'none';
+      }
     }
 
     window.addEventListener('scroll', () => {
