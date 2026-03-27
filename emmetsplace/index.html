@@ -161,6 +161,11 @@
 
     .featured-latest:hover .featured-latest-cta { color: #b0a4b8; }
 
+    #hero-section {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+    }
     #hero-embed {
       position: relative;
       width: 100%;
@@ -179,6 +184,13 @@
       display: block;
       border: none;
     }
+    #hero-comments {
+      width: 100%;
+      height: 380px;
+      border: none;
+      background: #0f0f0f;
+      display: block;
+    }
 #hero-embed.mini {
       position: fixed;
       bottom: 100px;
@@ -192,9 +204,69 @@
       box-shadow: 0 8px 32px rgba(0,0,0,0.75);
     }
 
+    /* Desktop sidebar layout */
+    #main-layout {
+      display: block;
+    }
     @media (min-width: 700px) {
+      #main-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      #main-left {
+        display: none;
+        flex: 0 0 68%;
+        position: sticky;
+        top: 96px;
+        max-height: calc(100vh - 104px);
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+      #main-left::-webkit-scrollbar { display: none; }
+      #main-layout.has-video #main-left {
+        display: block;
+      }
+      #main-right {
+        flex: 1;
+        min-width: 0;
+      }
+      /* Single-column list in sidebar */
+      #main-layout.has-video #main-right .video-grid {
+        grid-template-columns: 1fr !important;
+        gap: 4px;
+      }
+      /* Horizontal YouTube-style cards in sidebar */
+      #main-layout.has-video #main-right .video-card {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      #main-layout.has-video #main-right .video-card-thumb {
+        width: 160px;
+        flex-shrink: 0;
+      }
+      #main-layout.has-video #main-right .video-card-body {
+        padding: 2px 4px 4px;
+      }
+      #main-layout.has-video #main-right .video-card h2 {
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+      #main-layout.has-video #main-right .video-card .stream-date {
+        font-size: 0.72rem;
+      }
+      #main-layout.has-video #main-right .video-card .card-expand-btn {
+        display: none;
+      }
+      #hero-embed {
+        max-height: none;
+      }
       #hero-embed.mini {
         width: 260px;
+      }
+      .alpha-index {
+        display: none;
       }
     }
     #hero-placeholder { display: none; margin-bottom: 24px; }
@@ -577,10 +649,10 @@
 
 
     mark {
-      background: rgba(200,160,188,0.2);
-      color: #e8c8dc;
+      background: rgba(200,140,180,0.45);
+      color: #f0dce8;
       border-radius: 2px;
-      padding: 0 1px;
+      padding: 0 2px;
     }
 
     .show-more-btn {
@@ -997,24 +1069,30 @@
     </div>
   </div>
   <a class="featured-latest" id="latest-link" href="#" target="_blank" style="display:none"></a>
-  <div id="hero-placeholder"></div>
-  <div id="hero-embed" style="display:none">
-    <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<button class="mini-close" onclick="dismissHeroEmbed()">×</button>
-  </div>
-
-  <div id="episodes-view">
-    <div class="video-grid" id="grid"></div>
-  </div>
-
-  <div id="tunes-view">
-    <div class="tunes-header">
-      <span class="tunes-count" id="tunes-count"></span>
+  <div id="main-layout">
+    <div id="main-left">
+      <div id="hero-placeholder"></div>
+      <div id="hero-section" style="display:none">
+        <div id="hero-embed">
+          <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
+        </div>
+        <iframe id="hero-comments" src="" title="Comments" style="display:none"></iframe>
+      </div>
     </div>
-    <div class="tune-list" id="tune-list"></div>
-  </div>
+    <div id="main-right">
+      <div id="episodes-view">
+        <div class="video-grid" id="grid"></div>
+      </div>
 
-  <div id="random-view">
+      <div id="tunes-view">
+        <div class="tunes-header">
+          <span class="tunes-count" id="tunes-count"></span>
+        </div>
+        <div class="tune-list" id="tune-list"></div>
+      </div>
+
+      <div id="random-view">
     <h1 class="random-heading">Feeling Lucky?</h1>
     <p class="random-sub">Shuffle a random tune from Emmet's Place</p>
     <div class="random-body">
@@ -1028,6 +1106,8 @@
       <div class="random-result" id="random-result"></div>
     </div>
   </div>
+    </div><!-- #main-right -->
+  </div><!-- #main-layout -->
 
   <nav class="bottom-nav">
     <button class="nav-tab active" id="tab-episodes" onclick="switchTab('episodes')">
@@ -1131,8 +1211,8 @@
         const qkeys = yearGroups[yr]; // descending order
         const janKey = qkeys.find(k => k.endsWith('-01')) ?? qkeys[qkeys.length - 1];
         return [
+          ...qkeys.map(k => `<span class="alpha-index-letter alpha-index-month" data-letter="${k}">·</span>`),
           `<span class="alpha-index-letter alpha-index-year" data-letter="${janKey}">${yr}</span>`,
-          ...qkeys.map(k => `<span class="alpha-index-letter alpha-index-month" data-letter="${k}">·</span>`)
         ];
       }).join('');
       if (keys.includes("Unknown")) html += `<span class="alpha-index-letter" data-letter="Unknown">?</span>`;
@@ -1178,17 +1258,48 @@
     let heroEmbedHeight = 0;
     let heroDismissed = false;
     let lastScrollY = 0;
+    let chatActive = false;
+    let chatDetectTimer = null;
+    let chatMessageListener = null;
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     // Cached DOM refs used on hot paths (scroll, video play)
+    const mainLayoutEl = document.getElementById('main-layout');
+    const heroSectionEl = document.getElementById('hero-section');
     const heroEmbedEl = document.getElementById('hero-embed');
     const heroPlaceholderEl = document.getElementById('hero-placeholder');
+    const heroCommentsEl = document.getElementById('hero-comments');
     const siteHeaderEl = document.getElementById('site-header-outer');
+    const embedDomain = window.location.hostname || 'localhost';
 
     function setMiniPlayer(isMini) {
       heroEmbedEl.classList.toggle('mini', isMini);
       heroPlaceholderEl.style.display = isMini ? 'block' : 'none';
-      if (isMini) heroPlaceholderEl.style.height = (heroEmbedHeight || heroEmbedEl.offsetHeight) + 'px';
+      if (isMini) heroPlaceholderEl.style.height = (heroEmbedHeight || heroSectionEl.offsetHeight) + 'px';
+      heroCommentsEl.style.display = (isMini || !chatActive) ? 'none' : '';
+    }
+
+    function setupChatDetection() {
+      if (chatMessageListener) window.removeEventListener('message', chatMessageListener);
+      clearTimeout(chatDetectTimer);
+      chatActive = false;
+      heroCommentsEl.style.display = 'none';
+      chatMessageListener = (e) => {
+        if (e.source !== heroCommentsEl.contentWindow) return;
+        chatActive = true;
+        heroCommentsEl.style.display = '';
+        requestAnimationFrame(() => { heroEmbedHeight = heroSectionEl.offsetHeight; });
+        window.removeEventListener('message', chatMessageListener);
+        chatMessageListener = null;
+        clearTimeout(chatDetectTimer);
+      };
+      window.addEventListener('message', chatMessageListener);
+      chatDetectTimer = setTimeout(() => {
+        if (chatMessageListener) {
+          window.removeEventListener('message', chatMessageListener);
+          chatMessageListener = null;
+        }
+      }, 6000);
     }
 
     function showLatestEmbed(id) {
@@ -1210,30 +1321,35 @@
       old.replaceWith(newFrame);
 
       heroDismissed = false;
+      setupChatDetection();
       setMiniPlayer(false);
-      heroEmbedEl.style.display = 'block';
+      heroSectionEl.style.display = '';
+      mainLayoutEl.classList.add('has-video');
+      heroCommentsEl.src = `https://www.youtube.com/live_chat?v=${id}&embed_domain=${embedDomain}`;
       window.scrollTo(0, 0);
       document.getElementById('header-search-wrap').classList.remove('active');
-      requestAnimationFrame(() => { heroEmbedHeight = heroEmbedEl.offsetHeight; });
+      requestAnimationFrame(() => { heroEmbedHeight = heroSectionEl.offsetHeight; });
     }
 
     function dismissHeroEmbed() {
       setMiniPlayer(false);
+      heroCommentsEl.style.display = 'none';
       heroDismissed = true;
     }
 
     function toggleSearch() {
       document.getElementById('header-search-wrap').classList.add('active');
       setTimeout(() => document.getElementById('search').focus(), 50);
-      if (heroEmbedEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
+      if (window.innerWidth < 700 && heroSectionEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
         setMiniPlayer(true);
+        heroPlaceholderEl.style.display = 'none'; // no gap during search
       }
     }
 
     function closeSearch() {
       document.getElementById('header-search-wrap').classList.remove('active');
       clearSearch();
-      if (heroEmbedEl.style.display !== 'none' && heroEmbedEl.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
+      if (window.innerWidth < 700 && heroSectionEl.style.display !== 'none' && heroEmbedEl.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
         setMiniPlayer(false);
       }
     }
@@ -1247,9 +1363,13 @@
       }
       lastScrollY = scrollY;
 
-      if (heroEmbedEl.style.display === 'none') return;
+      if (heroSectionEl.style.display === 'none') return;
+      if (window.innerWidth >= 700) return; // sticky layout on desktop — no mini-player
       if (heroDismissed) {
-        if (scrollY <= 10) heroDismissed = false;
+        if (scrollY <= 10) {
+          heroDismissed = false;
+          heroCommentsEl.style.display = chatActive ? '' : 'none';
+        }
         return;
       }
       const isMini = scrollY > (heroEmbedHeight + 20);
