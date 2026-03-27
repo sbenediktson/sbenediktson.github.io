@@ -455,6 +455,9 @@
     }
     .view-toggle-btn.active { color: #c8a0bc; }
     .view-toggle-btn:hover { color: #9a8fa0; }
+    @media (min-width: 700px) {
+      .view-toggle { display: none; }
+    }
 
     /* List view grid */
     .video-grid.list-view {
@@ -746,6 +749,28 @@
       flex-direction: column;
       gap: 2px;
       max-width: 700px;
+    }
+    .tune-list.grid-view {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-width: none;
+    }
+    .tune-list.grid-view .tune-section-header {
+      grid-column: 1 / -1;
+    }
+    .tune-list.grid-view .tune-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0 0 8px;
+    }
+    .tune-list.grid-view .tune-thumb {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+    }
+    .tune-list.grid-view .tune-info {
+      padding: 6px 10px 0;
     }
 
     .tune-row {
@@ -1124,6 +1149,14 @@
       <div class="chips-row" id="chips-tunes" style="display:none">
         <button class="sort-pill active" data-sort="recent" onclick="setTunesSort('recent')">Most Recent</button>
         <button class="sort-pill" data-sort="alpha" onclick="setTunesSort('alpha')">A to Z</button>
+        <div class="view-toggle">
+          <button class="view-toggle-btn" id="tune-view-grid-btn" onclick="setTuneListView(false)" aria-label="Grid view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+          </button>
+          <button class="view-toggle-btn active" id="tune-view-list-btn" onclick="setTuneListView(true)" aria-label="List view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1771,6 +1804,12 @@
       document.getElementById('grid').classList.toggle('list-view', isList);
       document.getElementById('view-grid-btn').classList.toggle('active', !isList);
       document.getElementById('view-list-btn').classList.toggle('active', isList);
+    }
+
+    function setTuneListView(isList) {
+      document.getElementById('tune-list').classList.toggle('grid-view', !isList);
+      document.getElementById('tune-view-grid-btn').classList.toggle('active', !isList);
+      document.getElementById('tune-view-list-btn').classList.toggle('active', isList);
     }
 
     function filterEpisodes(filter) {
