@@ -30,7 +30,7 @@
       transition: transform 0.25s ease;
     }
     .site-header-outer.header-hidden {
-      transform: translateY(-100%);
+      transform: translateY(-68px);
     }
     .site-header {
       max-width: 1200px;
@@ -1488,7 +1488,7 @@
     function buildCardInner(id, videoTitle, artists, songs, thumb) {
       const artistsHTML = artists.length
         ? `<div class="video-artists">${artists.map(a =>
-            `<span class="video-artist"><strong>${a.name}</strong> · ${a.instrument}</span>`
+            `<span class="video-artist"><strong class="artist-name" data-text="${a.name.replace(/"/g,'&quot;')}">${a.name}</strong> · ${a.instrument}</span>`
           ).join("")}</div>`
         : "";
       const songLinks = songs.map(({ title, start }) => {
@@ -1952,6 +1952,7 @@
           });
           const titleAnchor = card.querySelector("h2 .title-link");
           if (titleAnchor && titleAnchor.dataset.text) titleAnchor.innerHTML = titleAnchor.dataset.text;
+          card.querySelectorAll(".artist-name").forEach(el => { if (el.dataset.text) el.innerHTML = el.dataset.text; });
           card.querySelectorAll("[id^='more-']").forEach(el => { el.style.display = "none"; });
           card.querySelectorAll(".show-more-btn").forEach(btn => { btn.style.display = ""; });
           const collapseEl = card.querySelector("[id^='collapse-']");
@@ -1963,7 +1964,6 @@
         filterEpisodes(activeFilter); // restores scroll index
         return;
       }
-      document.getElementById("alpha-index").style.display = "none";
       document.querySelectorAll(".episode-year-header").forEach(h => h.style.display = "none");
       const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
 
@@ -1981,6 +1981,11 @@
         const titleMatch = normalizeApos(titleText.toLowerCase()).includes(query) || normalizeApos(artistText).includes(query);
 
         if (titleAnchor) titleAnchor.innerHTML = titleMatch ? titleText.replace(re, "<mark>$1</mark>") : titleText;
+
+        card.querySelectorAll(".artist-name").forEach(el => {
+          const text = el.dataset.text || el.textContent;
+          el.innerHTML = normalizeApos(text.toLowerCase()).includes(query) ? text.replace(re, "<mark>$1</mark>") : text;
+        });
 
         let anyLinkVisible = false;
         card.querySelectorAll(".video-entry-link").forEach(link => {
