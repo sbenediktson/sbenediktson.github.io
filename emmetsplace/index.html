@@ -604,16 +604,18 @@
       font-size: 0.75rem;
       background: none;
       border: none;
-      border-bottom: 1px solid #6a6070;
       padding: 0;
       cursor: pointer;
       font-family: inherit;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.15s;
       text-align: left;
       line-height: 1.4;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: #3a3040;
     }
 
-    .card-expand-btn:hover { color: #c5bfc8; border-color: #c5bfc8; }
+    .card-expand-btn:hover { color: #c5bfc8; text-decoration-color: #6a6070; }
 
     /* Tunes view */
     #episodes-view { padding: 0 16px; }
@@ -755,8 +757,8 @@
 
     .alpha-index-month {
       font-size: 0.55rem;
-      padding: 0px 6px 0px 9px;
-      line-height: 1;
+      padding: 0 6px;
+      line-height: 0.7;
       color: #4a4050;
     }
 
