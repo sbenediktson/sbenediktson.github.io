@@ -117,6 +117,7 @@ async function fetchVideoData(ids) {
         isLive: !!item.liveStreamingDetails,
         streamDate: item.liveStreamingDetails?.actualStartTime || item.snippet.publishedAt,
         scheduledStartTime: item.liveStreamingDetails?.scheduledStartTime || null,
+        description: desc,
         artists: parseArtists(desc),
         songs: parseSongs(desc),
       };

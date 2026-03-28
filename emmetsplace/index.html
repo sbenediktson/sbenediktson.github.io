@@ -190,6 +190,56 @@
       background: #0f0f0f;
       display: block;
     }
+
+    #hero-desc {
+      display: none;
+      padding: 8px 10px 6px;
+      font-size: 0.78rem;
+      color: #aaa;
+      line-height: 1.45;
+    }
+    #hero-desc .hero-desc-title {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: #ddd;
+      margin-bottom: 4px;
+    }
+    #hero-desc .hero-desc-meta {
+      color: #888;
+      margin-bottom: 5px;
+      font-size: 0.75rem;
+    }
+    #hero-desc .hero-desc-body {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    #hero-desc .hero-desc-body.expanded {
+      display: block;
+      -webkit-line-clamp: unset;
+    }
+    #hero-desc .hero-desc-toggle {
+      background: none;
+      border: none;
+      color: #c8a0bc;
+      font-size: 0.75rem;
+      padding: 4px 0 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      display: block;
+    }
+    @media (min-width: 700px) {
+      #hero-desc {
+        padding: 12px 14px 10px;
+        font-size: 0.9rem;
+      }
+      #hero-desc .hero-desc-title { font-size: 1rem; margin-bottom: 5px; }
+      #hero-desc .hero-desc-meta { font-size: 0.82rem; margin-bottom: 7px; }
+      #hero-desc .hero-desc-toggle { font-size: 0.82rem; }
+      #hero-desc .hero-desc-body { -webkit-line-clamp: 3; }
+    }
+
 #hero-embed.mini {
       position: fixed;
       bottom: 100px;
@@ -218,7 +268,7 @@
         flex: 0 0 68%;
         position: sticky;
         top: 112px;
-        max-height: calc(100vh - 120px);
+        max-height: calc(100vh - 120px - 88px);
         overflow-y: auto;
         scrollbar-width: none;
       }
@@ -325,6 +375,8 @@
       text-shadow: 0 0 28px rgba(220, 130, 170, 0.45);
       line-height: 1;
       white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
     }
 
     .site-title .char {
@@ -759,7 +811,7 @@
     }
     .tune-list.grid-view {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 8px;
       max-width: none;
     }
@@ -1008,6 +1060,7 @@
       font-weight: bold;
       transition: border-color 0.2s, box-shadow 0.2s;
       margin-bottom: 20px;
+      touch-action: manipulation;
     }
 
     .random-btn-circle:hover {
@@ -1120,7 +1173,7 @@
 <body>
   <div class="site-header-outer" id="site-header-outer">
     <header class="site-header">
-      <h1 class="site-title" id="site-title">Emmet's Place</h1>
+      <h1 class="site-title" id="site-title" onclick="switchTab('episodes')">Emmet's Place</h1>
       <button class="search-toggle-btn" id="search-toggle-btn" onclick="toggleSearch()" aria-label="Search">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
@@ -1183,6 +1236,7 @@
           <iframe id="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           <button class="mini-close" onclick="dismissHeroEmbed()">×</button>
         </div>
+        <div id="hero-desc"></div>
         <iframe id="hero-comments" src="" title="Comments" style="display:none"></iframe>
       </div>
     </div>
@@ -1287,6 +1341,7 @@
     const grid = document.getElementById("grid");
     let currentTab = "episodes";
     let allTunes = []; // { title, videoId, start, videoTitle, streamDate }
+    let allVideoData = {};
 
     // Quarter helpers
     const QNAME = {'01':'Jan','04':'Apr','07':'Jul','10':'Oct'};
@@ -1381,7 +1436,7 @@
     function setMiniPlayer(isMini) {
       heroEmbedEl.classList.toggle('mini', isMini);
       heroPlaceholderEl.style.display = isMini ? 'block' : 'none';
-      if (isMini) heroPlaceholderEl.style.height = (heroEmbedHeight || heroSectionEl.offsetHeight) + 'px';
+      if (isMini) heroPlaceholderEl.style.height = (heroEmbedHeight || heroEmbedEl.offsetHeight) + 'px';
       heroCommentsEl.style.display = (isMini || !chatActive) ? 'none' : '';
     }
 
@@ -1441,7 +1496,25 @@
       heroCommentsEl.src = `https://www.youtube.com/live_chat?v=${id}&embed_domain=${embedDomain}`;
       window.scrollTo(0, 0);
       document.getElementById('header-search-wrap').classList.remove('active');
-      requestAnimationFrame(() => { heroEmbedHeight = heroSectionEl.offsetHeight; });
+      requestAnimationFrame(() => { heroEmbedHeight = heroEmbedEl.offsetHeight; });
+
+      // Populate description panel
+      const heroDescEl = document.getElementById('hero-desc');
+      const info = allVideoData[id];
+      if (info && info.description) {
+        const title = stripEmoji(info.title);
+        const dateStr = info.streamDate ? new Date(info.streamDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+        const descText = info.description.trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+        heroDescEl.innerHTML = `
+          <div class="hero-desc-title">${title}</div>
+          ${dateStr ? `<div class="hero-desc-meta">${dateStr}</div>` : ''}
+          <div class="hero-desc-body">${descText}</div>
+          <button class="hero-desc-toggle" onclick="(function(btn){const b=btn.previousElementSibling;const exp=b.classList.toggle('expanded');btn.textContent=exp?'Show less':'Show more';})(this)">Show more</button>
+        `;
+        heroDescEl.style.display = 'block';
+      } else {
+        heroDescEl.style.display = 'none';
+      }
     }
 
     function dismissHeroEmbed() {
@@ -1483,6 +1556,7 @@
 
       if (heroSectionEl.style.display === 'none') return;
       if (window.innerWidth >= 700) return; // sticky layout on desktop — no mini-player
+      if (currentTab !== 'episodes') return; // keep mini-player fixed on other tabs
       if (heroDismissed) {
         if (scrollY <= 10) {
           heroDismissed = false;
@@ -1663,6 +1737,7 @@
       grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
       try {
         const { ids, data: videoData, liveVideoId, upcomingVideoId } = await loadData();
+        allVideoData = videoData;
         grid.innerHTML = "";
         allCards = [];
         allTunes = [];
@@ -1875,16 +1950,19 @@
 
     function switchTab(tab) {
       currentTab = tab;
+      const heroDescEl = document.getElementById('hero-desc');
       // On mobile, mini-player the video when leaving episodes tab
       if (window.innerWidth < 700 && tab !== 'episodes' &&
           heroSectionEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
         setMiniPlayer(true);
         heroPlaceholderEl.style.display = 'none';
+        heroDescEl.style.display = 'none';
       }
       // On mobile, restore video when returning to episodes tab
       if (window.innerWidth < 700 && tab === 'episodes' &&
           heroEmbedEl.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
         setMiniPlayer(false);
+        if (heroDescEl.innerHTML.trim()) heroDescEl.style.display = 'block';
       }
       ["episodes", "tunes", "random"].forEach(t => {
         document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
