@@ -1875,6 +1875,17 @@
 
     function switchTab(tab) {
       currentTab = tab;
+      // On mobile, mini-player the video when leaving episodes tab
+      if (window.innerWidth < 700 && tab !== 'episodes' &&
+          heroSectionEl.style.display !== 'none' && !heroEmbedEl.classList.contains('mini') && !heroDismissed) {
+        setMiniPlayer(true);
+        heroPlaceholderEl.style.display = 'none';
+      }
+      // On mobile, restore video when returning to episodes tab
+      if (window.innerWidth < 700 && tab === 'episodes' &&
+          heroEmbedEl.classList.contains('mini') && !heroDismissed && window.scrollY < 20) {
+        setMiniPlayer(false);
+      }
       ["episodes", "tunes", "random"].forEach(t => {
         document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
       });
