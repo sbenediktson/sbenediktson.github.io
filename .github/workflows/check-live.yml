@@ -2,8 +2,8 @@ name: Check live broadcast
 
 on:
   schedule:
-    - cron: "15-45 23 * * 1"  # Mon 6:15–6:45 PM CDT (UTC-5)
-    - cron: "15-45 0 * * 2"   # Mon 6:15–6:45 PM CST (UTC-6, runs Tue UTC)
+    - cron: "*/5 18-23 * * 1"  # Mon 1–6:55 PM EDT (UTC-4) / 12–5:55 PM CDT (UTC-5)
+    - cron: "*/5 0-4 * * 2"    # Mon 8 PM–midnight EDT / 7–11 PM CDT (runs Tue UTC)
   workflow_dispatch:
 
 jobs:
