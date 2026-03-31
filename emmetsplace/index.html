@@ -1470,11 +1470,11 @@
       }, 6000);
     }
 
-    function showLatestEmbed(id) {
-      playInHero(id, /*autoplay*/true, /*mute*/true);
+    function showLatestEmbed(id, isLive = false) {
+      playInHero(id, /*autoplay*/true, /*mute*/true, /*start*/null, isLive);
     }
 
-    function playInHero(id, autoplay = true, mute = false, start = null) {
+    function playInHero(id, autoplay = true, mute = false, start = null, isLive = false) {
       // Replace iframe so iOS Safari treats it as a fresh user-gesture-initiated load
       const old = document.getElementById('hero-iframe');
       const newFrame = document.createElement('iframe');
@@ -1489,7 +1489,14 @@
       old.replaceWith(newFrame);
 
       heroDismissed = false;
-      setupChatDetection();
+      if (isLive) {
+        // Live/premiere: show chat immediately without waiting for postMessage
+        if (chatMessageListener) window.removeEventListener('message', chatMessageListener);
+        clearTimeout(chatDetectTimer);
+        chatActive = true;
+      } else {
+        setupChatDetection();
+      }
       setMiniPlayer(false);
       heroSectionEl.style.display = '';
       mainLayoutEl.classList.add('has-video');
@@ -1756,7 +1763,7 @@
         // Always embed in the hero frame (live > upcoming > latest episode)
         const featuredId = liveVideoId || upcomingVideoId;
         if (featuredId) {
-          showLatestEmbed(featuredId);
+          showLatestEmbed(featuredId, /*isLive*/true);
         } else {
           const latestId = ids
             .filter(passesFilter)
