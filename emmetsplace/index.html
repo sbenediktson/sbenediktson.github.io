@@ -1486,7 +1486,8 @@
       // iOS always needs mute=1 for autoplay; Chrome allows unmuted autoplay within a user gesture
       const shouldMute = isIOS || mute;
       const extraParams = isIOS ? '&enablejsapi=1' : '';
-      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1${extraParams}${startParam}`;
+      const origin = encodeURIComponent(window.location.origin || 'https://sbenediktson.github.io');
+      newFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoplay ? 1 : 0}&mute=${shouldMute ? 1 : 0}&rel=0&playsinline=1&origin=${origin}${extraParams}${startParam}`;
       old.replaceWith(newFrame);
 
       heroDismissed = false;
