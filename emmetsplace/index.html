@@ -1195,9 +1195,9 @@
       </div>
       <!-- Episodes chips -->
       <div class="chips-row" id="chips-episodes">
-        <button class="filter-pill active" data-filter="all" onclick="filterEpisodes('all')">All</button>
-        <button class="filter-pill" data-filter="studio" onclick="filterEpisodes('studio')">In Studio</button>
+        <button class="filter-pill active" data-filter="studio" onclick="filterEpisodes('studio')">In Studio</button>
         <button class="filter-pill" data-filter="road" onclick="filterEpisodes('road')">On the Road</button>
+        <button class="filter-pill" data-filter="all" onclick="filterEpisodes('all')">All</button>
         <div class="view-toggle">
           <button class="view-toggle-btn active" id="view-grid-btn" onclick="setListView(false)" aria-label="Grid view">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
@@ -1901,7 +1901,7 @@
       }
     }
 
-    let activeFilter = "all";
+    let activeFilter = "studio";
 
     function setListView(isList) {
       document.getElementById('grid').classList.toggle('list-view', isList);
