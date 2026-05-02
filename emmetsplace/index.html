@@ -1844,7 +1844,7 @@
           const dateStr = info.streamDate
             ? new Date(info.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
             : "";
-          const isStudio = /\b(vol|ep)\b/i.test(videoTitle);
+          const isStudio = /\b(vol|ep)\b/i.test(videoTitle) || id === 'mX912vvfmdo';
           const isRoad = /live at/i.test(videoTitle);
           const cardType = isStudio ? "studio" : isRoad ? "road" : "other";
 
