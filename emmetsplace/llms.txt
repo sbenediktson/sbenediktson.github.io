@@ -1,0 +1,466 @@
+# Emmet's Place
+
+> Emmet's Place is a series of live jazz streams hosted by pianist Emmet Cohen. Each episode page has the full video, date, location, lineup and setlist; each musician page lists every episode they appear in.
+
+Sitemap: https://www.sambenediktson.com/emmetsplace/sitemap.xml
+
+## Episodes
+
+- [The Best Jazz Night in Miami? | Emmet’s Place LIVE 2026](https://www.sambenediktson.com/emmetsplace/episodes/the-best-jazz-night-in-miami-emmet-s-place-live-2026/): 2026-05-11
+- [The Most Fearless Voice in Jazz Today? Veronica Swift - Live From Emmet's Place Vol. 140 (2026)](https://www.sambenediktson.com/emmetsplace/episodes/vol-140/): 2026-04-27
+- [Emmet Cohen Quintet | Miles and Coltrane at 100 - Live at Jimmy's Jazz & Blues (FIRST SET) (2026)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-quintet-miles-and-coltrane-at-100-live-at-jimmy-s-jazz-blues-first-set/): 2026-04-20
+- [Emmet Cohen Quintet | Miles and Coltrane at 100 - Live at Jimmy's Jazz & Blues (SECOND SET) (2026)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-quintet-miles-and-coltrane-at-100-live-at-jimmy-s-jazz-blues-second-set/): 2026-04-13
+- [Emmet’s Place: George Coleman 91st Birthday Celebration! - Live From Emmet's Place Vol. 139 (2026)](https://www.sambenediktson.com/emmetsplace/episodes/vol-139/): 2026-03-09
+- [Emmet Cohen Trio w/ Orchestra - Live in Poland (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-orchestra-live-in-poland-2025/): 2026-02-24
+- [Emmet Cohen Trio | Live at Birdland Jazz Club (Dec 2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-birdland-jazz-club-dec-2025/): 2026-01-20
+- [Emmet’s Place Revue: Kate Kortum, Jordan Fisher, Endea Owens & Peter Martin - Live From Emmet's Place Vol. 138 (2026)](https://www.sambenediktson.com/emmetsplace/episodes/vol-138/): 2026-01-13
+- [Best of Live From Emmet's Place 2025!](https://www.sambenediktson.com/emmetsplace/episodes/best-of-live-from-emmet-s-place-2025/): 2025-12-30
+- [Emmet’s Place Revival: Joshua Redman Ignites the New Era - Live From Emmet's Place Vol. 137 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-137/): 2025-12-09
+- [Emmet Cohen Trio - Live in Thailand (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-thailand-2023/): 2025-11-18
+- [Live From Emmet's Place Farewell Episode! (2025)](https://www.sambenediktson.com/emmetsplace/episodes/live-from-emmet-s-place-farewell-episode/): 2025-10-06
+- [Unseen Secret 2021 Set! Emmet’s Place: Benny Benack III & Russell Hall!](https://www.sambenediktson.com/emmetsplace/episodes/unseen-secret-2021-set-emmet-s-place-benny-benack-iii-russell-hall/): 2025-09-22
+- [Steve Nelson & Peter Washington - Live From Emmet's Place Vol. 135 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-135-steve-nelson-peter-washington/): 2025-09-08
+- [Kurt Elling - Live From Emmet's Place Vol. 134 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-134-kurt-elling/): 2025-08-25
+- [Emmet Cohen Trio w/ the Havana Chamber Orchestra (Live in Cuba 2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-the-havana-chamber-orchestra-live-in-cuba-2025/): 2025-08-11
+- [Emmet Cohen Quartet feat. Patrick Bartley - Live in Spain (July 2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-quartet-feat-patrick-bartley-live-in-spain-july-2025/): 2025-07-28
+- [Ashlin Parker & Ruben Fox - Live From Emmet's Place Vol. 133 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-133-ashlin-parker-ruben-fox/): 2025-07-21
+- [Emmet Cohen Quartet feat. Patrick Bartley - Live in France (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-quartet-feat-patrick-bartley-live-in-france-2025/): 2025-07-14
+- [Unseen Secret 2021 Set! Emmet’s Place: Cyrille Aimée, Dan Wilson & Russell Hall](https://www.sambenediktson.com/emmetsplace/episodes/unseen-secret-2021-set-emmet-s-place-cyrille-aimee-dan-wilson-russell-hall/): 2025-06-30
+- [Georgia Heers - Live From Emmet's Place Vol. 132 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-132-georgia-heers/): 2025-06-16
+- [Emmet Cohen Trio feat. Patrick Bartley - Live at Harlem School Of The Arts (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-patrick-bartley-live-at-harlem-school-of-the-arts/): 2025-06-09
+- [Anat Cohen - Live From Emmet's Place Vol. 131 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-131-anat-cohen/): 2025-05-26
+- [Emmet Cohen Trio - Live in Havana, Cuba (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-havana-cuba-2025/): 2025-05-05
+- [Emmet Cohen Trio - Live from The University of Texas at Dallas (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-from-the-university-of-texas-at-dallas/): 2025-04-28
+- [Bria Skonberg & Chris Lewis - Live From Emmet's Place Vol. 130 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-130-bria-skonberg-chris-lewis/): 2025-04-21
+- [Emmet Cohen Trio - Live at JALC in Shanghai, China 2024 (Second Set)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-jalc-in-shanghai-china-2024-second-set/): 2025-04-14
+- [Emmet Cohen Trio - Live at JALC in Shanghai, China 2024 (First Set)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-jalc-in-shanghai-china-2024-first-set/): 2025-04-07
+- [5-Year Bash w/ Cyrille Aimée & Morgan James! - Live From Emmet's Place Vol. 129 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-129-5-year-bash-w-cyrille-aimee-morgan-james/): 2025-03-24
+- [Emmet's Place Miami LIVE 2025 w/ Special Guests](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-miami-live-2025-w-special-guests/): 2025-02-25
+- [Patrick Bartley - Live From Emmet's Place Vol. 128 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-128-patrick-bartley/): 2025-02-18
+- [Emmet Cohen Trio | Live at Birdland Jazz Club (Dec 2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-birdland-jazz-club-dec-2024/): 2025-01-28
+- [Emmet Cohen Trio w/ Kurt Elling & Sean Jones - Live From Hilton Head (2025)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-kurt-elling-sean-jones-live-from-hilton-head/): 2025-01-14
+- [Stella Cole & Vuyo Sotashe - Live From Emmet's Place Vol. 127 (2025)](https://www.sambenediktson.com/emmetsplace/episodes/vol-127-stella-cole-vuyo-sotashe/): 2025-01-07
+- [Best of Live From Emmet's Place 2024!](https://www.sambenediktson.com/emmetsplace/episodes/best-of-live-from-emmet-s-place-2024/): 2024-12-31
+- [Emmet Cohen Trio | Live at Budapest Jazz Club 2024 (SECOND SET)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-budapest-jazz-club-2024-second-set/): 2024-12-24
+- [Theo Croker, Herlin Riley & Russell Hall - Live From Emmet's Place Vol. 126 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-126-theo-croker-herlin-riley-russell-hall/): 2024-12-03
+- [Emmet Cohen Trio | Live at Dakota in Minneapolis (SECOND SET) (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-dakota-in-minneapolis-second-set/): 2024-11-26
+- [Emmet Cohen Trio | Live at Dakota in Minneapolis (FIRST SET) (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-dakota-in-minneapolis-first-set/): 2024-11-19
+- [Houston Person 90th Birthday Celebration! - Live From Emmet's Place Vol. 125 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-125-houston-person-90th-birthday-celebration/): 2024-11-12
+- [Joe Farnsworth Trio Feat. Emmet Cohen and Yasushi Nakamura - Live at Chris' Jazz Café (2024)](https://www.sambenediktson.com/emmetsplace/episodes/joe-farnsworth-trio-feat-emmet-cohen-and-yasushi-nakamura-live-at-chris-jazz-cafe/): 2024-10-21
+- [Emmet Cohen Trio - Live in Poland 2024](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-poland-2024/): 2024-10-14
+- [Vibe Provider w/ Tivon Pennicott, Jeremy Pelt & Reuben Rogers - Live From Emmet's Place Vol. 124 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-124-vibe-provider-w-tivon-pennicott-jeremy-pelt-reuben-rogers/): 2024-10-07
+- [Emmet Cohen Trio | Live in Spain (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-spain-2024/): 2024-09-30
+- [Emmet Cohen Trio Featuring Benny Golson (Full Concert) (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-featuring-benny-golson-full-concert/): 2024-09-23
+- [Joe Farnsworth Quartet feat. Emmet Cohen - Live In Mexico City (2024)](https://www.sambenediktson.com/emmetsplace/episodes/joe-farnsworth-quartet-feat-emmet-cohen-live-in-mexico-city/): 2024-09-16
+- [Stella Cole, Joy Brown, Lucy Y and Tyreek McDole - Live From Emmet's Place Vol. 123 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-123-stella-cole-joy-brown-lucy-y-and-tyreek-mcdole/): 2024-09-09
+- [James Morrison - Live From Emmet's Place Vol. 122 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-122-james-morrison/): 2024-08-19
+- [Emmet Cohen Trio | Live in Warsaw (November 2023) - Second Set](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-warsaw-november-2023-second-set/): 2024-08-12
+- [Emmet Cohen & Ron Carter at Birdland 2024](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-ron-carter-at-birdland-2024/): 2024-08-05
+- [Emmet Cohen Trio | Live at Bimhuis in Amsterdam (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-bimhuis-in-amsterdam-2024/): 2024-07-29
+- [Rudresh Mahanthappa & Giveton Gelin - Live From Emmet's Place Vol. 121 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-121-rudresh-mahanthappa-giveton-gelin/): 2024-07-15
+- [Emmet Cohen Trio | Live In Santa Cruz, CA - May 2024 (FIRST SET)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-santa-cruz-ca-may-2024-first-set/): 2024-07-08
+- [Emmet Cohen Trio Live In Berlin, Germany (May 2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-berlin-germany-may-2024/): 2024-07-01
+- [Ekep Nkwelle & Caity Gyorgy - Live From Emmet's Place Vol. 120 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-120-ekep-nkwelle-caity-gyorgy/): 2024-06-17
+- [Emmet Cohen Trio - Live at Bix Jazz Club, Germany 2024 (SECOND SET)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-bix-jazz-club-germany-2024-second-set/): 2024-06-03
+- [Emmet Cohen Trio - Live at Bix Jazz Club, Germany 2024](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-bix-jazz-club-germany-2024/): 2024-05-27
+- [New Jazz Underground - Live From Emmet's Place Vol. 119 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-119-new-jazz-underground/): 2024-05-14
+- [Emmet Cohen Trio - Live at JazzFest Brno 2024](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-jazzfest-brno-2024/): 2024-05-06
+- [Emmet Cohen Trio feat. Joy Brown Live at the Louis Armstrong House Museum (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-joy-brown-live-at-the-louis-armstrong-house-museum/): 2024-04-22
+- [Nicholas Payton & Joe Dyson - Live From Emmet's Place Vol. 118 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-118-nicholas-payton-joe-dyson/): 2024-04-15
+- [Emmet Cohen Trio - Live at SMOKE (March 2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-smoke-march-2024/): 2024-04-01
+- [Brian Lynch & Craig Handy - Live From Emmet's Place Vol. 117 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-117-brian-lynch-craig-handy/): 2024-03-11
+- [Emmet Cohen Trio w/ Houston Person (Feat. Sean Jones) - Live at Keystone Korner (2024)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-houston-person-feat-sean-jones-live-at-keystone-korner/): 2024-03-05
+- [Lew Tabackin - Live From Emmet's Place Vol. 116 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-116-lew-tabackin/): 2024-02-27
+- [Emmet Cohen Trio - Live in Spain (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-spain-2023/): 2024-02-13
+- [Emmet's Place Miami LIVE 2024 w/ Special Guests](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-miami-live-2024-w-special-guests/): 2024-01-30
+- [Emmet Cohen Trio | Live in Warsaw (November 2023) - First Set](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-warsaw-november-2023-first-set/): 2024-01-16
+- [Johnny O'Neal, Philip Harper & Brad Mehldau - Live From Emmet's Place Vol. 115 (2024)](https://www.sambenediktson.com/emmetsplace/episodes/vol-115-johnny-o-neal-philip-harper-brad-mehldau/): 2024-01-02
+- [Best of Emmet Cohen Live in 2023!](https://www.sambenediktson.com/emmetsplace/episodes/best-of-emmet-cohen-live-in-2023/): 2023-12-26
+- [Holiday Show Hosted by Matt Wilson - Live From Emmet's Place Vol. 114 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-114-holiday-show-hosted-by-matt-wilson/): 2023-12-19
+- [Best of Live From Emmet's Place 2023!](https://www.sambenediktson.com/emmetsplace/episodes/best-of-live-from-emmet-s-place-2023/): 2023-12-12
+- [Emmet Cohen w/ Benny Benack & J Hoard - Live in Buc Bel Air! (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-w-benny-benack-j-hoard-live-in-buc-bel-air/): 2023-11-28
+- [Herlin Riley - Live From Emmet's Place Vol. 113 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-113-herlin-riley/): 2023-11-21
+- [Emmet Cohen & Houston Person Duo Concert and Interview at WBGO Studios (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-houston-person-duo-concert-and-interview-at-wbgo-studios/): 2023-11-14
+- [Emmet Cohen Trio Featuring Tootie Heath - Live in New Mexico 2023](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-featuring-tootie-heath-live-in-new-mexico-2023/): 2023-10-16
+- [Tierney Sutton - Live From Emmet's Place Vol. 112 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-112-tierney-sutton/): 2023-10-02
+- [Emmet Cohen Trio feat. Houston Person - Live at Birdland 2023](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-houston-person-live-at-birdland-2023/): 2023-09-18
+- [Jeremy Pelt - Live From Emmet's Place Vol. 111 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-111-jeremy-pelt/): 2023-09-11
+- [Mary Stallings with Emmet Cohen @ Smoke 2023](https://www.sambenediktson.com/emmetsplace/episodes/mary-stallings-with-emmet-cohen-smoke-2023/): 2023-08-28
+- [Tyreek McDole, Ekep Nkwelle & Georgia Heers - Live From Emmet's Place Vol. 110 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-110-tyreek-mcdole-ekep-nkwelle-georgia-heers/): 2023-08-14
+- [Emmet Cohen Trio feat. Lars Frank & Ola Kvernberg - Live in Molde, Norway (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-lars-frank-ola-kvernberg-live-in-molde-norway/): 2023-08-07
+- [Live in Funchal, Portugal 2023](https://www.sambenediktson.com/emmetsplace/episodes/live-in-funchal-portugal-2023/): 2023-07-17
+- [Emmet Cohen Trio - Live in Stockholm (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-stockholm/): 2023-06-19
+- [Terell Stafford, Dick Oatts & Peter Washington - Live From Emmet's Place Vol. 108 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-108-terell-stafford-dick-oatts-peter-washington/): 2023-06-12
+- [Brian Lynch x Emmet Cohen - Miami Live (2023)](https://www.sambenediktson.com/emmetsplace/episodes/brian-lynch-x-emmet-cohen-miami-live/): 2023-05-29
+- [Patrick Bartley and Larry Grenadier - Live From Emmet's Place Vol. 107 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-107-patrick-bartley-and-larry-grenadier/): 2023-05-22
+- [Emmet Cohen Trio - Live in Warsaw (Second Set) (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-warsaw-second-set/): 2023-05-08
+- [Alex Weitz "Rule of Thirds" Album Premiere (2023)](https://www.sambenediktson.com/emmetsplace/episodes/alex-weitz-rule-of-thirds-album-premiere/): 2023-05-01
+- [The Four Freshmen - Live From Emmet's Place Vol. 106 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-106-the-four-freshmen/): 2023-04-24
+- [Emmet Cohen Trio - Live in Warsaw (First Set) (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-warsaw-first-set/): 2023-04-17
+- [Emmet Cohen Trio Live At The Jazz Kitchen (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-the-jazz-kitchen/): 2023-03-27
+- [Emmet Cohen Trio & Friends at The LIED Center in Kansas (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-friends-at-the-lied-center-in-kansas/): 2023-03-20
+- [Kurt Rosenwinkel - Live From Emmet's Place Vol. 105 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-105-kurt-rosenwinkel/): 2023-03-13
+- [Emmet Cohen Trio Live at SMOKE Vol. 1 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-smoke-vol-1/): 2023-02-28
+- [Dayna Stephens & Josh Evans - Live From Emmet's Place Vol. 104 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-104-dayna-stephens-josh-evans/): 2023-02-21
+- [Emmet Cohen Trio @ Tucson Jazz Fest 2023](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-tucson-jazz-fest-2023/): 2023-02-14
+- [Emmet Cohen Trio | Live in Jeonju-si, Korea (2023)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-jeonju-si-korea/): 2023-02-07
+- [Emmet Cohen Trio | Detroit Jazz Festival 2022](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-detroit-jazz-festival-2022/): 2023-01-24
+- [Paquito D'Rivera & Diego Urcola - Live From Emmet's Place Vol. 103 (2023)](https://www.sambenediktson.com/emmetsplace/episodes/vol-103-paquito-d-rivera-diego-urcola/): 2023-01-03
+- [Emmet Cohen & Friends WNYC Holiday Show (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-friends-wnyc-holiday-show/): 2022-12-27
+- [Emmet’s Place Education: Dan Wilson (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-dan-wilson/): 2022-12-20
+- [Emmet Cohen Trio & Houston Person | Live At The Keystone Korner (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-houston-person-live-at-the-keystone-korner/): 2022-12-20
+- [The Baylor Project - Live From Emmet's Place Vol. 102 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-102-the-baylor-project/): 2022-12-13
+- [Gabrielle Cavassa & Saul Rubin - Live From Emmet's Place Vol. 101 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-101-gabrielle-cavassa-saul-rubin/): 2022-11-29
+- [Emmet Cohen Trio - Live in Lithuania (SECOND SET) (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-lithuania-second-set/): 2022-11-15
+- [Emmet Cohen Trio - Live in Lithuania (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-lithuania/): 2022-11-08
+- [Sean Jones & Tivon Pennicott | Uptown In Orbit Release - Live From Emmet's Place Vol. 100 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-100-sean-jones-tivon-pennicott-uptown-in-orbit-release/): 2022-10-24
+- [Live From Emmet's Place Compilation - Johnny O'Neal, Lucy Yeghiazaryan and Mary Stallings (2022)](https://www.sambenediktson.com/emmetsplace/episodes/live-from-emmet-s-place-compilation-johnny-o-neal-lucy-yeghiazaryan-and-mary-stallings/): 2022-10-17
+- [Emmet’s Place Education: Grant Stewart (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-grant-stewart/): 2022-10-11
+- [Emmet Cohen Trio - Live in Half Moon Bay | SECOND SET (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-half-moon-bay-second-set/): 2022-10-10
+- [Emmet Cohen Trio - Live in Half Moon Bay | FIRST SET (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-half-moon-bay-first-set/): 2022-10-03
+- [Emmet Cohen Trio W/ Tootie Heath | Live In New Mexico (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-tootie-heath-live-in-new-mexico/): 2022-09-19
+- [Emmet’s Place Education: Alexa Tarantino (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-alexa-tarantino/): 2022-09-13
+- [Joy Brown & Abdias Armenteros - Live From Emmet's Place Vol. 99 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-99-joy-brown-abdias-armenteros/): 2022-09-12
+- [Emmet Cohen Trio - Live in Poland (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-poland/): 2022-08-29
+- [Buster Williams, Lenny White & Wallace Roney Jr. - Live From Emmet's Place Vol. 98 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-98-buster-williams-lenny-white-wallace-roney-jr/): 2022-08-22
+- [Patrick Bartley - Live From Emmet's Place Vol. 97 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-97-patrick-bartley/): 2022-08-08
+- [Todd Barkan’s Keystone Korner 50th Anniversary - Live From Emmet's Place Vol. 96 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-96-todd-barkan-s-keystone-korner-50th-anniversary/): 2022-07-25
+- [Emmet Cohen Trio feat. Patrick Bartley and Fabien Mary in France (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-patrick-bartley-and-fabien-mary-in-france/): 2022-07-18
+- [Emmet Cohen Trio w/ Bruce Harris Live At Twin Cities Jazz Fest (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-w-bruce-harris-live-at-twin-cities-jazz-fest/): 2022-07-04
+- [Emmet’s Place Education: Bruce Harris (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-bruce-harris/): 2022-06-28
+- [Scott Robinson - Live From Emmet's Place Vol. 95 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-95-scott-robinson/): 2022-06-27
+- [Emmet Cohen Trio Live at JazzArts Charlotte (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-jazzarts-charlotte/): 2022-06-20
+- [Mike Rodriguez & John Ellis - Live From Emmet's Place Vol. 94 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-94-mike-rodriguez-john-ellis/): 2022-06-13
+- [Miguel Zenón & Matt Penman - Live From Emmet's Place Vol. 93 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-93-miguel-zenon-matt-penman/): 2022-06-06
+- [Emmet’s Place Education: Chad Lefkowitz-Brown (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-chad-lefkowitz-brown/): 2022-05-31
+- [Emmet Cohen Trio Live from Baroque Jazz Club, Miami (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-from-baroque-jazz-club-miami/): 2022-05-30
+- [Bruce Harris & Julian Lee - Live From Emmet's Place Vol. 92 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-92-bruce-harris-julian-lee/): 2022-05-23
+- [Dr. Eddie Henderson & Steve Davis - Live From Emmet's Place Vol. 91 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-91-dr-eddie-henderson-steve-davis/): 2022-05-16
+- [Emmet Cohen Trio feat. Herlin Riley | Live from New Orleans (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-feat-herlin-riley-live-from-new-orleans/): 2022-05-09
+- [Gilad Hekselman & Obed Calvaire - Live From Emmet's Place Vol. 90 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-90-gilad-hekselman-obed-calvaire/): 2022-04-25
+- [Emmet’s Place Education: Benny Benack III (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-benny-benack-iii/): 2022-04-19
+- [Cyrille Aimée & Wayne Tucker - Live From Emmet's Place Vol. 89 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-89-cyrille-aimee-wayne-tucker/): 2022-04-18
+- [Johnny O'Neal & Ruben Fox - Live From Emmet's Place Vol. 88 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-88-johnny-o-neal-ruben-fox/): 2022-04-11
+- [Ukraine Benefit (Jazz4Ukraine) - Live From Emmet's Place Vol. 87 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-87-ukraine-benefit-jazz4ukraine/): 2022-04-04
+- [Lucy Yeghiazaryan feat. Joe Farnsworth - Live From Emmet's Place Vol. 86 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-86-lucy-yeghiazaryan-feat-joe-farnsworth/): 2022-03-28
+- [Emmet Cohen w/ Samara Joy Duo | Live from Verona, Italy (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-w-samara-joy-duo-live-from-verona-italy/): 2022-03-21
+- [Emmet Cohen Trio Live at the Blue Strawberry in St. Louis (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-the-blue-strawberry-in-st-louis/): 2022-03-14
+- [Live From Emmet's Place at Purdue Convocations feat. Mary Stallings, Patrick Bartley & Bruce Harris (2022)](https://www.sambenediktson.com/emmetsplace/episodes/live-from-emmet-s-place-at-purdue-convocations-feat-mary-stallings-patrick-bartley-bruce-harris/): 2022-03-08
+- [Emmet Cohen Trio Live from Mexico City (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-from-mexico-city/): 2022-03-01
+- [Emmet Cohen Trio Live at the Gilmore (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-the-gilmore/): 2022-02-22
+- [Victor Lewis, Ben Wolfe, & Stacy Dillard - Live From Emmet's Place Vol. 85 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-85-victor-lewis-ben-wolfe-stacy-dillard/): 2022-02-15
+- [Alphonso Horne & The Gotham Kings - Live From Emmet's Place Vol. 84 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-84-alphonso-horne-the-gotham-kings/): 2022-02-08
+- [Emmet Cohen Trio Live at the Dirty Dog Jazz Cafe (Set 2) (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-the-dirty-dog-jazz-cafe-set-2/): 2022-02-01
+- [Emmet Cohen Trio Live at Budapest Jazz Club (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-budapest-jazz-club/): 2022-01-25
+- [Ruben Fox & Benny Benack III - Live From Emmet's Place Vol. 83 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-83-ruben-fox-benny-benack-iii/): 2022-01-18
+- [Emmet’s Place Education: Cyrille Aimée (2022)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-cyrille-aimee/): 2022-01-11
+- [Cedar Walton Birthday Tribute feat. Joe Farnsworth - Live From Emmet's Place Vol. 82 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-82-cedar-walton-birthday-tribute-feat-joe-farnsworth/): 2022-01-11
+- [Sheila Jordan - Live From Emmet's Place Vol. 81 (2022)](https://www.sambenediktson.com/emmetsplace/episodes/vol-81-sheila-jordan/): 2022-01-04
+- [Brianna Thomas - Live From Emmet's Place Vol. 80 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-80-brianna-thomas/): 2021-12-28
+- [Emmet’s Place Education: Patrick Bartley (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-patrick-bartley/): 2021-12-21
+- [Vuyo Sotashe, Grant Stewart, Tyler Mitchell & Evan Sherman - Live From Emmet's Place Vol. 79 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-79-vuyo-sotashe-grant-stewart-tyler-mitchell-evan-sherman/): 2021-12-21
+- [Mary Stallings - Live From Emmet's Place Vol. 78 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-78-mary-stallings/): 2021-12-14
+- [Alexa Tarantino & Tatum Greenblatt - Live From Emmet's Place Vol. 77 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-77-alexa-tarantino-tatum-greenblatt/): 2021-12-08
+- [Emmet’s Place Education: Emmet Cohen Trio (Russell Hall & Kyle Poole) (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-s-place-education-emmet-cohen-trio-russell-hall-kyle-poole/): 2021-12-07
+- [Randy Brecker & Chad LB - Live From Emmet's Place Vol. 76 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-76-randy-brecker-chad-lb/): 2021-11-30
+- [Wycliffe Gordon & Adrian Cunningham - Live From Emmet's Place Vol. 75 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-75-wycliffe-gordon-adrian-cunningham/): 2021-11-23
+- [Emmet Cohen w/ Patrick Bartley Live at Twin Cities Jazz Fest (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-w-patrick-bartley-live-at-twin-cities-jazz-fest/): 2021-11-16
+- [Emmet Cohen Trio Live at the Dirty Dog Jazz Cafe (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-the-dirty-dog-jazz-cafe/): 2021-11-09
+- [Jon-Erik Kellso & Evan Christopher - Live From Emmet's Place Vol. 74 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-74-jon-erik-kellso-evan-christopher/): 2021-11-01
+- [Regina Carter - Live From Emmet's Place Vol. 73 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-73-regina-carter/): 2021-10-25
+- [Emmet Cohen Trio Live in Paris | Le Duc des Lombards (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-in-paris-le-duc-des-lombards/): 2021-10-18
+- [Dizzy Celebration feat. Bruce Harris & Benny Benack III - Live From Emmet's Place Vol. 72 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-72-dizzy-celebration-feat-bruce-harris-benny-benack-iii/): 2021-10-11
+- [Emmet Cohen Trio Live at Dazzle Denver (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-dazzle-denver/): 2021-10-04
+- [Seamus Blake & Troy Roberts - Live From Emmet's Place Vol. 71 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-71-seamus-blake-troy-roberts/): 2021-09-27
+- [Jeffery Miller, Julian Lee, & Anthony Hervey - Live From Emmet's Place Vol. 70 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-70-jeffery-miller-julian-lee-anthony-hervey/): 2021-09-20
+- [Joel Ross - Live From Emmet's Place Vol. 69 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-69-joel-ross/): 2021-09-13
+- [Emmet Cohen Trio at Jazzclub Unterfahrt (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-at-jazzclub-unterfahrt/): 2021-09-06
+- [Bird at 101 - Live From Emmet's Place Vol. 68 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-68-bird-at-101/): 2021-08-30
+- [Samara Joy - Live From Emmet's Place Vol. 67 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-67-samara-joy/): 2021-08-23
+- [Nicholas Payton - Live From Emmet's Place Vol. 66 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-66-nicholas-payton/): 2021-08-16
+- [Russell Malone - Live From Emmet's Place Vol. 65 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-65-russell-malone/): 2021-08-09
+- [Eric Alexander & Vincent Herring (Part 1) - Live From Emmet's Place Vol. 64 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-64-eric-alexander-vincent-herring-part-1/): 2021-08-02
+- [Benny Golson w/ the Emmet Cohen Trio Part 1 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/benny-golson-w-the-emmet-cohen-trio-part-1/): 2021-07-26
+- [Emmet Cohen at Umbria Jazz | Performances & Behind the Scenes (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-at-umbria-jazz-performances-behind-the-scenes/): 2021-07-20
+- [Presenting the Emmet Cohen Organ Band (2021)](https://www.sambenediktson.com/emmetsplace/episodes/presenting-the-emmet-cohen-organ-band/): 2021-07-12
+- [Christian McBride - Live From Emmet's Place Vol. 63 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-63-christian-mcbride/): 2021-07-05
+- [Sean Jones - Live From Emmet's Place Vol. 62 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-62-sean-jones/): 2021-06-28
+- [Peter Bernstein - Live From Emmet's Place Vol. 61 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-61-peter-bernstein/): 2021-06-21
+- [Pride Celebration! - Live From Emmet's Place Vol. 60 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-60-pride-celebration/): 2021-06-14
+- [Houston Person - Live From Emmet's Place Vol. 59 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-59-houston-person/): 2021-06-07
+- [Pasquale Grasso & Spike Wilner - Live From Emmet's Place Vol. 58 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-58-pasquale-grasso-spike-wilner/): 2021-05-31
+- [Emmet's Birthday feat. Michael Stephenson & Benny Benack III - Live From Emmet's Place Vol. 57 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-57-emmet-s-birthday-feat-michael-stephenson-benny-benack-iii/): 2021-05-24
+- [Joe Lovano - Live From Emmet's Place Vol. 56 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-56-joe-lovano/): 2021-05-17
+- [Camille Thurman - Live From Emmet's Place Vol. 55 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-55-camille-thurman/): 2021-05-10
+- [Cyrille Aimée & Dan Wilson - Live From Emmet's Place Vol. 54 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-54-cyrille-aimee-dan-wilson/): 2021-05-03
+- [Warren Vache & Harry Allen - Live From Emmet's Place Vol. 53 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-53-warren-vache-harry-allen/): 2021-04-26
+- [Patrick Bartley and Bruce Harris - Live From Emmet's Place Vol. 52 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-52-patrick-bartley-and-bruce-harris/): 2021-04-19
+- [Jerry Weldon and Joe Magnarelli - Live From Emmet's Place Vol. 51 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-51-jerry-weldon-and-joe-magnarelli/): 2021-04-12
+- [Lucy Yeghiazaryan & Grant Stewart - Live From Emmet's Place Vol. 50 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-50-lucy-yeghiazaryan-grant-stewart/): 2021-04-05
+- [Vanisha Gould, Roxy Coss, Mariel Bildsten, & Liya Grigoryan - Live From Emmet's Place Vol. 49 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-49-vanisha-gould-roxy-coss-mariel-bildsten-liya-grigoryan/): 2021-03-29
+- [Live Q&A with Sullivan Fortner Hosted by Emmet Cohen (2021)](https://www.sambenediktson.com/emmetsplace/episodes/live-q-a-with-sullivan-fortner-hosted-by-emmet-cohen/): 2021-03-25
+- [Emmet Cohen WBGO Spotlight! (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-wbgo-spotlight/): 2021-03-23
+- [Sasha Berliner & Nicole Glover - Live From Emmet's Place Vol. 48 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-48-sasha-berliner-nicole-glover/): 2021-03-22
+- [Emmet Cohen Trio and Guests Live from Moscow, Russia (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-and-guests-live-from-moscow-russia/): 2021-03-15
+- [Houston Person - Live From Emmet's Place Vol. 47 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-47-houston-person/): 2021-03-09
+- [Samara Joy - Live From Emmet's Place Vol. 46 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-46-samara-joy/): 2021-03-02
+- [Frank Lacy & Stacy Dillard - Live From Emmet's Place Vol. 45 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-45-frank-lacy-stacy-dillard/): 2021-02-23
+- [Lezlie Harrison, Allan Harris, & Bruce Harris - Live From Emmet's Place Vol. 44 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-44-lezlie-harrison-allan-harris-bruce-harris/): 2021-02-16
+- [Valentine's Day: Emmet Cohen Quintet Part 2 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/valentine-s-day-emmet-cohen-quintet-part-2/): 2021-02-15
+- [Valentine's Day: Emmet Cohen Quintet (2021)](https://www.sambenediktson.com/emmetsplace/episodes/valentine-s-day-emmet-cohen-quintet/): 2021-02-15
+- [Veronica Swift & Johnny O'Neal - Live From Emmet's Place Vol. 43 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-43-veronica-swift-johnny-o-neal/): 2021-02-09
+- [Future Stride Album Release Party - Live From Emmet's Place Vol. 42 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-42-future-stride-album-release-party/): 2021-02-02
+- [Catherine Russell & Ken Peplowski - Live From Emmet's Place Vol. 41 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-41-catherine-russell-ken-peplowski/): 2021-01-26
+- [Emmet Cohen Trio with Special Guest Mark Whitfield (2021)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-with-special-guest-mark-whitfield/): 2021-01-24
+- [Cedar Walton Celebration feat. Joe Farnsworth, Mathis, Julius - Live From Emmet's Place Vol. 40 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-40-cedar-walton-celebration-feat-joe-farnsworth-mathis-julius/): 2021-01-19
+- [Giveton Gelin & Patrick Bartley - Live From Emmet's Place Vol. 39 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-39-giveton-gelin-patrick-bartley/): 2021-01-12
+- [Martina DaSilva & Lucas Pino - Live From Emmet's Place Vol. 38 (2021)](https://www.sambenediktson.com/emmetsplace/episodes/vol-38-martina-dasilva-lucas-pino/): 2021-01-05
+- [Jazzmeia Horn - Live From Emmet's Place Vol. 37 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-37-jazzmeia-horn/): 2020-12-29
+- [Vuyo Sotashe, Bruce Harris & Godwin Louis - Live From Emmet's Place Vol. 36 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-36-vuyo-sotashe-bruce-harris-godwin-louis/): 2020-12-22
+- [Tivon Pennicott & Alphonso Horne - Live From Emmet's Place Vol. 35 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-35-tivon-pennicott-alphonso-horne/): 2020-12-17
+- [Warren Wolf - Live From Emmet's Place Vol. 34 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-34-warren-wolf/): 2020-12-08
+- [Cyrille Aimée and Armand Hirsch - Live From Emmet's Place Vol. 33 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-33-cyrille-aimee-and-armand-hirsch/): 2020-12-01
+- [Benny Benack III 30th Birthday Celebration! - Live From Emmet's Place Vol. 32 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-32-benny-benack-iii-30th-birthday-celebration/): 2020-11-24
+- [Veronica Swift and Jerry Weldon - Live From Emmet's Place Vol. 31 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-31-veronica-swift-and-jerry-weldon/): 2020-11-17
+- [Vuyo Sotashe - Live From Emmet's Place Vol. 30 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-30-vuyo-sotashe/): 2020-11-10
+- [Emmet Cohen Trio Live from Cologne, Germany 2020](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-from-cologne-germany-2020/): 2020-11-03
+- [Mark Whitfield - Live From Emmet's Place Vol. 29 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-29-mark-whitfield/): 2020-10-26
+- [Bruce Harris and Patrick Bartley- Dizzy's Business! - Live From Emmet's Place Vol. 28 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-28-bruce-harris-and-patrick-bartley-dizzy-s-business/): 2020-10-19
+- [Emmet Cohen Trio Live from Basel, Switzerland (2020)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-from-basel-switzerland/): 2020-10-12
+- [Emmet Cohen Trio Live at Umbria Jazz in Perugia Italy! (2020)](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-live-at-umbria-jazz-in-perugia-italy/): 2020-10-05
+- [Live From Emmet's Place Vol. 27 (Bud Powell Celebration) (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-27/): 2020-09-28
+- [Godwin Louis - Live From Emmet's Place Vol. 26 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-26-godwin-louis/): 2020-09-21
+- [Johnny O'Neal and Stacy Dillard - Live From Emmet's Place Vol. 25 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-25-johnny-o-neal-and-stacy-dillard/): 2020-09-14
+- [Tivon Pennicott - Live From Emmet's Place Vol. 24 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-24-tivon-pennicott/): 2020-09-07
+- [Live From Emmet's Place Vol. 23 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-23/): 2020-08-31
+- [Bruce Harris - Live From Emmet's Place Vol. 22 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-22-bruce-harris/): 2020-08-24
+- [Michela Lerman - Live From Emmet's Place Vol. 21 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-21-michela-lerman/): 2020-08-17
+- [Live at Emmet's Place Vol. 20 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-20/): 2020-08-10
+- [Cyrille Aimée - Live From Emmet's Place Vol. 19 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-19-cyrille-aimee/): 2020-08-03
+- [Live at Emmet's Place Vol. 18 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-18/): 2020-07-27
+- [Live at Emmet's Place Vol. 17 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-17/): 2020-07-20
+- [Patrick Bartley - Live From Emmet's Place Vol. 16 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-16-patrick-bartley/): 2020-07-13
+- [Live at Emmet's Place Vol. 15 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-15/): 2020-07-06
+- [Johnny O'Neal - Live From Emmet's Place Vol. 14 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-14-johnny-o-neal/): 2020-06-29
+- [Live at Emmet's Place Vol. 13 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-13/): 2020-06-22
+- [Veronica Swift - Live From Emmet's Place Vol. 12 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-12-veronica-swift/): 2020-06-15
+- [Live at Emmet's Place Vol. 11 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-11/): 2020-06-08
+- [Live at Emmet's Place Vol. 10 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-10/): 2020-05-25
+- [Live at Emmet's Place Vol. 9 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-9/): 2020-05-18
+- [5/14 Livestream for St. Cecilia Music Center (2020)](https://www.sambenediktson.com/emmetsplace/episodes/5-14-livestream-for-st-cecilia-music-center/): 2020-05-14
+- [Live at Emmet's Place Vol. 8 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-8/): 2020-05-11
+- [Live at Emmet's Place Vol. 7 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-7/): 2020-05-04
+- [Live at Emmet's Place Vol. 6 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-6/): 2020-04-27
+- [Live from Emmet's Vol. 5 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-5/): 2020-04-20
+- [Live From Emmet's Place Vol. 3 (2020)](https://www.sambenediktson.com/emmetsplace/episodes/vol-3/): 2020-04-06
+- [Emmet Cohen Trio Detroit Jazz Fest 2018](https://www.sambenediktson.com/emmetsplace/episodes/emmet-cohen-trio-detroit-jazz-fest-2018/): 2019-05-03
+
+## Musicians
+
+- [Emmet Cohen](https://www.sambenediktson.com/emmetsplace/musicians/emmet-cohen/): 225 episodes
+- [Kyle Poole](https://www.sambenediktson.com/emmetsplace/musicians/kyle-poole/): 134 episodes
+- [Russell Hall](https://www.sambenediktson.com/emmetsplace/musicians/russell-hall/): 100 episodes
+- [Philip Norris](https://www.sambenediktson.com/emmetsplace/musicians/philip-norris/): 56 episodes
+- [Joe Farnsworth](https://www.sambenediktson.com/emmetsplace/musicians/joe-farnsworth/): 41 episodes
+- [Yasushi Nakamura](https://www.sambenediktson.com/emmetsplace/musicians/yasushi-nakamura/): 32 episodes
+- [Patrick Bartley](https://www.sambenediktson.com/emmetsplace/musicians/patrick-bartley/): 17 episodes
+- [Benny Benack III](https://www.sambenediktson.com/emmetsplace/musicians/benny-benack-iii/): 14 episodes
+- [Bruce Harris](https://www.sambenediktson.com/emmetsplace/musicians/bruce-harris/): 13 episodes
+- [Tivon Pennicott](https://www.sambenediktson.com/emmetsplace/musicians/tivon-pennicott/): 13 episodes
+- [Reuben Rogers](https://www.sambenediktson.com/emmetsplace/musicians/reuben-rogers/): 11 episodes
+- [Joe Saylor](https://www.sambenediktson.com/emmetsplace/musicians/joe-saylor/): 10 episodes
+- [Evan Sherman](https://www.sambenediktson.com/emmetsplace/musicians/evan-sherman/): 9 episodes
+- [Cyrille Aimée](https://www.sambenediktson.com/emmetsplace/musicians/cyrille-aimee/): 8 episodes
+- [Houston Person](https://www.sambenediktson.com/emmetsplace/musicians/houston-person/): 8 episodes
+- [Joey Ranieri](https://www.sambenediktson.com/emmetsplace/musicians/joey-ranieri/): 8 episodes
+- [Sean Jones](https://www.sambenediktson.com/emmetsplace/musicians/sean-jones/): 7 episodes
+- [Herlin Riley](https://www.sambenediktson.com/emmetsplace/musicians/herlin-riley/): 6 episodes
+- [Bryan Carter](https://www.sambenediktson.com/emmetsplace/musicians/bryan-carter/): 5 episodes
+- [Lucy Yeghiazaryan](https://www.sambenediktson.com/emmetsplace/musicians/lucy-yeghiazaryan/): 5 episodes
+- [Samara Joy](https://www.sambenediktson.com/emmetsplace/musicians/samara-joy/): 5 episodes
+- [Stacy Dillard](https://www.sambenediktson.com/emmetsplace/musicians/stacy-dillard/): 5 episodes
+- [Vuyo Sotashe](https://www.sambenediktson.com/emmetsplace/musicians/vuyo-sotashe/): 5 episodes
+- [J. Hoard](https://www.sambenediktson.com/emmetsplace/musicians/j-hoard/): 4 episodes
+- [Jeremy Pelt](https://www.sambenediktson.com/emmetsplace/musicians/jeremy-pelt/): 4 episodes
+- [John Lumpkin II](https://www.sambenediktson.com/emmetsplace/musicians/john-lumpkin-ii/): 4 episodes
+- [Johnny O'Neal](https://www.sambenediktson.com/emmetsplace/musicians/johnny-o-neal/): 4 episodes
+- [Julian Lee](https://www.sambenediktson.com/emmetsplace/musicians/julian-lee/): 4 episodes
+- [Kurt Elling](https://www.sambenediktson.com/emmetsplace/musicians/kurt-elling/): 4 episodes
+- [Peter Washington](https://www.sambenediktson.com/emmetsplace/musicians/peter-washington/): 4 episodes
+- [Ruben Fox](https://www.sambenediktson.com/emmetsplace/musicians/ruben-fox/): 4 episodes
+- [Abdias Armenteros](https://www.sambenediktson.com/emmetsplace/musicians/abdias-armenteros/): 3 episodes
+- [Brian Lynch](https://www.sambenediktson.com/emmetsplace/musicians/brian-lynch/): 3 episodes
+- [Georgia Heers](https://www.sambenediktson.com/emmetsplace/musicians/georgia-heers/): 3 episodes
+- [Giveton Gelin](https://www.sambenediktson.com/emmetsplace/musicians/giveton-gelin/): 3 episodes
+- [Godwin Louis](https://www.sambenediktson.com/emmetsplace/musicians/godwin-louis/): 3 episodes
+- [Joy Brown](https://www.sambenediktson.com/emmetsplace/musicians/joy-brown/): 3 episodes
+- [Mary Stallings](https://www.sambenediktson.com/emmetsplace/musicians/mary-stallings/): 3 episodes
+- [Pedro Segundo](https://www.sambenediktson.com/emmetsplace/musicians/pedro-segundo/): 3 episodes
+- [Shelly Berg](https://www.sambenediktson.com/emmetsplace/musicians/shelly-berg/): 3 episodes
+- [Tyreek McDole](https://www.sambenediktson.com/emmetsplace/musicians/tyreek-mcdole/): 3 episodes
+- [Veronica Swift](https://www.sambenediktson.com/emmetsplace/musicians/veronica-swift/): 3 episodes
+- [Alphonso Horne](https://www.sambenediktson.com/emmetsplace/musicians/alphonso-horne/): 2 episodes
+- [Anthony Hervey](https://www.sambenediktson.com/emmetsplace/musicians/anthony-hervey/): 2 episodes
+- [Ben Wolfe](https://www.sambenediktson.com/emmetsplace/musicians/ben-wolfe/): 2 episodes
+- [Benny Golson](https://www.sambenediktson.com/emmetsplace/musicians/benny-golson/): 2 episodes
+- [Catherine Russell](https://www.sambenediktson.com/emmetsplace/musicians/catherine-russell/): 2 episodes
+- [Dan Wilson](https://www.sambenediktson.com/emmetsplace/musicians/dan-wilson/): 2 episodes
+- [Ekep Nkwelle](https://www.sambenediktson.com/emmetsplace/musicians/ekep-nkwelle/): 2 episodes
+- [Gabrielle Cavassa](https://www.sambenediktson.com/emmetsplace/musicians/gabrielle-cavassa/): 2 episodes
+- [Grant Stewart](https://www.sambenediktson.com/emmetsplace/musicians/grant-stewart/): 2 episodes
+- [Hank Allen-Barfield](https://www.sambenediktson.com/emmetsplace/musicians/hank-allen-barfield/): 2 episodes
+- [Jerry Weldon](https://www.sambenediktson.com/emmetsplace/musicians/jerry-weldon/): 2 episodes
+- [Julius Rodriguez](https://www.sambenediktson.com/emmetsplace/musicians/julius-rodriguez/): 2 episodes
+- [Lars Frank](https://www.sambenediktson.com/emmetsplace/musicians/lars-frank/): 2 episodes
+- [Leo Larratt](https://www.sambenediktson.com/emmetsplace/musicians/leo-larratt/): 2 episodes
+- [Mark Whitfield](https://www.sambenediktson.com/emmetsplace/musicians/mark-whitfield/): 2 episodes
+- [Nicholas Payton](https://www.sambenediktson.com/emmetsplace/musicians/nicholas-payton/): 2 episodes
+- [Nicole Glover](https://www.sambenediktson.com/emmetsplace/musicians/nicole-glover/): 2 episodes
+- [Ola Kvernberg](https://www.sambenediktson.com/emmetsplace/musicians/ola-kvernberg/): 2 episodes
+- [Ricardo Toscano](https://www.sambenediktson.com/emmetsplace/musicians/ricardo-toscano/): 2 episodes
+- [Sarah Hanahan](https://www.sambenediktson.com/emmetsplace/musicians/sarah-hanahan/): 2 episodes
+- [Stella Cole](https://www.sambenediktson.com/emmetsplace/musicians/stella-cole/): 2 episodes
+- [TJ Reddick](https://www.sambenediktson.com/emmetsplace/musicians/tj-reddick/): 2 episodes
+- [Tootie Heath](https://www.sambenediktson.com/emmetsplace/musicians/tootie-heath/): 2 episodes
+- [Yotam Silberstein](https://www.sambenediktson.com/emmetsplace/musicians/yotam-silberstein/): 2 episodes
+- [Adrian Cunningham](https://www.sambenediktson.com/emmetsplace/musicians/adrian-cunningham/): 1 episode
+- [Ahmad Johnson](https://www.sambenediktson.com/emmetsplace/musicians/ahmad-johnson/): 1 episode
+- [Alejandro Delgado](https://www.sambenediktson.com/emmetsplace/musicians/alejandro-delgado/): 1 episode
+- [Alexa Tarantino](https://www.sambenediktson.com/emmetsplace/musicians/alexa-tarantino/): 1 episode
+- [Alexander Claffy](https://www.sambenediktson.com/emmetsplace/musicians/alexander-claffy/): 1 episode
+- [Alina Engibaryan](https://www.sambenediktson.com/emmetsplace/musicians/alina-engibaryan/): 1 episode
+- [Allan Harris](https://www.sambenediktson.com/emmetsplace/musicians/allan-harris/): 1 episode
+- [Anaïs Reno](https://www.sambenediktson.com/emmetsplace/musicians/anais-reno/): 1 episode
+- [Anat Cohen](https://www.sambenediktson.com/emmetsplace/musicians/anat-cohen/): 1 episode
+- [Ann Hampton Callaway](https://www.sambenediktson.com/emmetsplace/musicians/ann-hampton-callaway/): 1 episode
+- [Anthony Ware](https://www.sambenediktson.com/emmetsplace/musicians/anthony-ware/): 1 episode
+- [Ari Hoenig](https://www.sambenediktson.com/emmetsplace/musicians/ari-hoenig/): 1 episode
+- [Armand Hirsch](https://www.sambenediktson.com/emmetsplace/musicians/armand-hirsch/): 1 episode
+- [Ashlin Parker](https://www.sambenediktson.com/emmetsplace/musicians/ashlin-parker/): 1 episode
+- [Ben Tiberio](https://www.sambenediktson.com/emmetsplace/musicians/ben-tiberio/): 1 episode
+- [Brad Mehldau](https://www.sambenediktson.com/emmetsplace/musicians/brad-mehldau/): 1 episode
+- [Bria Skonberg](https://www.sambenediktson.com/emmetsplace/musicians/bria-skonberg/): 1 episode
+- [Brian Richburg Jr.](https://www.sambenediktson.com/emmetsplace/musicians/brian-richburg-jr/): 1 episode
+- [Brianna Thomas](https://www.sambenediktson.com/emmetsplace/musicians/brianna-thomas/): 1 episode
+- [Buster Williams](https://www.sambenediktson.com/emmetsplace/musicians/buster-williams/): 1 episode
+- [C Anthony Bryant](https://www.sambenediktson.com/emmetsplace/musicians/c-anthony-bryant/): 1 episode
+- [Caelan Cardello](https://www.sambenediktson.com/emmetsplace/musicians/caelan-cardello/): 1 episode
+- [Caity Gyorgy](https://www.sambenediktson.com/emmetsplace/musicians/caity-gyorgy/): 1 episode
+- [Calvin Johnson](https://www.sambenediktson.com/emmetsplace/musicians/calvin-johnson/): 1 episode
+- [Camille Thurman](https://www.sambenediktson.com/emmetsplace/musicians/camille-thurman/): 1 episode
+- [Chad LB](https://www.sambenediktson.com/emmetsplace/musicians/chad-lb/): 1 episode
+- [Charles Goold](https://www.sambenediktson.com/emmetsplace/musicians/charles-goold/): 1 episode
+- [Chris Lewis](https://www.sambenediktson.com/emmetsplace/musicians/chris-lewis/): 1 episode
+- [Christian McBride](https://www.sambenediktson.com/emmetsplace/musicians/christian-mcbride/): 1 episode
+- [Christian Sands](https://www.sambenediktson.com/emmetsplace/musicians/christian-sands/): 1 episode
+- [Craig Handy](https://www.sambenediktson.com/emmetsplace/musicians/craig-handy/): 1 episode
+- [Damien Mehldau](https://www.sambenediktson.com/emmetsplace/musicians/damien-mehldau/): 1 episode
+- [Dayna Stephens](https://www.sambenediktson.com/emmetsplace/musicians/dayna-stephens/): 1 episode
+- [Dee Dee Bridgewater](https://www.sambenediktson.com/emmetsplace/musicians/dee-dee-bridgewater/): 1 episode
+- [Dick Oatts](https://www.sambenediktson.com/emmetsplace/musicians/dick-oatts/): 1 episode
+- [Diego Urcola](https://www.sambenediktson.com/emmetsplace/musicians/diego-urcola/): 1 episode
+- [Dr. Eddie Henderson](https://www.sambenediktson.com/emmetsplace/musicians/dr-eddie-henderson/): 1 episode
+- [Eddie Barbash](https://www.sambenediktson.com/emmetsplace/musicians/eddie-barbash/): 1 episode
+- [Erena Terakubo](https://www.sambenediktson.com/emmetsplace/musicians/erena-terakubo/): 1 episode
+- [Eric Alexander](https://www.sambenediktson.com/emmetsplace/musicians/eric-alexander/): 1 episode
+- [Evan Christopher](https://www.sambenediktson.com/emmetsplace/musicians/evan-christopher/): 1 episode
+- [Fabien Mary](https://www.sambenediktson.com/emmetsplace/musicians/fabien-mary/): 1 episode
+- [Frank Lacy](https://www.sambenediktson.com/emmetsplace/musicians/frank-lacy/): 1 episode
+- [Freddie Hendrix](https://www.sambenediktson.com/emmetsplace/musicians/freddie-hendrix/): 1 episode
+- [Gilad Hekselman](https://www.sambenediktson.com/emmetsplace/musicians/gilad-hekselman/): 1 episode
+- [Harry Allen](https://www.sambenediktson.com/emmetsplace/musicians/harry-allen/): 1 episode
+- [Igor Butman](https://www.sambenediktson.com/emmetsplace/musicians/igor-butman/): 1 episode
+- [Jacob Chung](https://www.sambenediktson.com/emmetsplace/musicians/jacob-chung/): 1 episode
+- [James Morrison](https://www.sambenediktson.com/emmetsplace/musicians/james-morrison/): 1 episode
+- [Jazzmeia Horn](https://www.sambenediktson.com/emmetsplace/musicians/jazzmeia-horn/): 1 episode
+- [Jean Baylor](https://www.sambenediktson.com/emmetsplace/musicians/jean-baylor/): 1 episode
+- [Jeff Lederer](https://www.sambenediktson.com/emmetsplace/musicians/jeff-lederer/): 1 episode
+- [Jeffery Miller](https://www.sambenediktson.com/emmetsplace/musicians/jeffery-miller/): 1 episode
+- [Joe Dyson](https://www.sambenediktson.com/emmetsplace/musicians/joe-dyson/): 1 episode
+- [Joe Lovano](https://www.sambenediktson.com/emmetsplace/musicians/joe-lovano/): 1 episode
+- [Joe Magnarelli](https://www.sambenediktson.com/emmetsplace/musicians/joe-magnarelli/): 1 episode
+- [Joel Ross](https://www.sambenediktson.com/emmetsplace/musicians/joel-ross/): 1 episode
+- [John Ellis](https://www.sambenediktson.com/emmetsplace/musicians/john-ellis/): 1 episode
+- [John Splithoff](https://www.sambenediktson.com/emmetsplace/musicians/john-splithoff/): 1 episode
+- [Jon-Erik Kellso](https://www.sambenediktson.com/emmetsplace/musicians/jon-erik-kellso/): 1 episode
+- [Jonathan Barber](https://www.sambenediktson.com/emmetsplace/musicians/jonathan-barber/): 1 episode
+- [Jorge Luis Pacheco](https://www.sambenediktson.com/emmetsplace/musicians/jorge-luis-pacheco/): 1 episode
+- [Josh Evans](https://www.sambenediktson.com/emmetsplace/musicians/josh-evans/): 1 episode
+- [Justin Robinson](https://www.sambenediktson.com/emmetsplace/musicians/justin-robinson/): 1 episode
+- [Keith Loftis](https://www.sambenediktson.com/emmetsplace/musicians/keith-loftis/): 1 episode
+- [Ken Peplowski](https://www.sambenediktson.com/emmetsplace/musicians/ken-peplowski/): 1 episode
+- [Kurt Rosenwinkel](https://www.sambenediktson.com/emmetsplace/musicians/kurt-rosenwinkel/): 1 episode
+- [Kush Abadey](https://www.sambenediktson.com/emmetsplace/musicians/kush-abadey/): 1 episode
+- [Larry Grenadier](https://www.sambenediktson.com/emmetsplace/musicians/larry-grenadier/): 1 episode
+- [Lenny White](https://www.sambenediktson.com/emmetsplace/musicians/lenny-white/): 1 episode
+- [Leo Sidran](https://www.sambenediktson.com/emmetsplace/musicians/leo-sidran/): 1 episode
+- [Lew Tabackin](https://www.sambenediktson.com/emmetsplace/musicians/lew-tabackin/): 1 episode
+- [Lezlie Harrison](https://www.sambenediktson.com/emmetsplace/musicians/lezlie-harrison/): 1 episode
+- [Liya Grigoryan](https://www.sambenediktson.com/emmetsplace/musicians/liya-grigoryan/): 1 episode
+- [Luca Filastro](https://www.sambenediktson.com/emmetsplace/musicians/luca-filastro/): 1 episode
+- [Lucas Pino](https://www.sambenediktson.com/emmetsplace/musicians/lucas-pino/): 1 episode
+- [Mar Vilaseca](https://www.sambenediktson.com/emmetsplace/musicians/mar-vilaseca/): 1 episode
+- [Marcus Baylor](https://www.sambenediktson.com/emmetsplace/musicians/marcus-baylor/): 1 episode
+- [Marcus Printup](https://www.sambenediktson.com/emmetsplace/musicians/marcus-printup/): 1 episode
+- [Marcus Strickland](https://www.sambenediktson.com/emmetsplace/musicians/marcus-strickland/): 1 episode
+- [Mariel Bildsten](https://www.sambenediktson.com/emmetsplace/musicians/mariel-bildsten/): 1 episode
+- [Mark Lewandowski](https://www.sambenediktson.com/emmetsplace/musicians/mark-lewandowski/): 1 episode
+- [Martina DaSilva](https://www.sambenediktson.com/emmetsplace/musicians/martina-dasilva/): 1 episode
+- [Mathis Picard](https://www.sambenediktson.com/emmetsplace/musicians/mathis-picard/): 1 episode
+- [Matt Dwonszyk](https://www.sambenediktson.com/emmetsplace/musicians/matt-dwonszyk/): 1 episode
+- [Matt Lee](https://www.sambenediktson.com/emmetsplace/musicians/matt-lee/): 1 episode
+- [Matt Penman](https://www.sambenediktson.com/emmetsplace/musicians/matt-penman/): 1 episode
+- [Matt Wilson](https://www.sambenediktson.com/emmetsplace/musicians/matt-wilson/): 1 episode
+- [Mejedi Owusu](https://www.sambenediktson.com/emmetsplace/musicians/mejedi-owusu/): 1 episode
+- [Michael Blume](https://www.sambenediktson.com/emmetsplace/musicians/michael-blume/): 1 episode
+- [Michael Piolet](https://www.sambenediktson.com/emmetsplace/musicians/michael-piolet/): 1 episode
+- [Michel Stephenson](https://www.sambenediktson.com/emmetsplace/musicians/michel-stephenson/): 1 episode
+- [Michela Marino Lerman](https://www.sambenediktson.com/emmetsplace/musicians/michela-marino-lerman/): 1 episode
+- [Miguel Zenón](https://www.sambenediktson.com/emmetsplace/musicians/miguel-zenon/): 1 episode
+- [Mike Rodriguez](https://www.sambenediktson.com/emmetsplace/musicians/mike-rodriguez/): 1 episode
+- [Morgan James](https://www.sambenediktson.com/emmetsplace/musicians/morgan-james/): 1 episode
+- [Obed Calvaire](https://www.sambenediktson.com/emmetsplace/musicians/obed-calvaire/): 1 episode
+- [Oleg Akkuratov](https://www.sambenediktson.com/emmetsplace/musicians/oleg-akkuratov/): 1 episode
+- [Paquito D'Rivera](https://www.sambenediktson.com/emmetsplace/musicians/paquito-d-rivera/): 1 episode
+- [Pasquale Grasso](https://www.sambenediktson.com/emmetsplace/musicians/pasquale-grasso/): 1 episode
+- [Paul Sikivie](https://www.sambenediktson.com/emmetsplace/musicians/paul-sikivie/): 1 episode
+- [Peter Bernstein](https://www.sambenediktson.com/emmetsplace/musicians/peter-bernstein/): 1 episode
+- [Philip Harper](https://www.sambenediktson.com/emmetsplace/musicians/philip-harper/): 1 episode
+- [Randy Brecker](https://www.sambenediktson.com/emmetsplace/musicians/randy-brecker/): 1 episode
+- [Rashaan Salaam](https://www.sambenediktson.com/emmetsplace/musicians/rashaan-salaam/): 1 episode
+- [Regina Carter](https://www.sambenediktson.com/emmetsplace/musicians/regina-carter/): 1 episode
+- [Richard Cortez](https://www.sambenediktson.com/emmetsplace/musicians/richard-cortez/): 1 episode
+- [Richie Goods](https://www.sambenediktson.com/emmetsplace/musicians/richie-goods/): 1 episode
+- [Ron Carter](https://www.sambenediktson.com/emmetsplace/musicians/ron-carter/): 1 episode
+- [Roxy Coss](https://www.sambenediktson.com/emmetsplace/musicians/roxy-coss/): 1 episode
+- [Rudresh Mahanthappa](https://www.sambenediktson.com/emmetsplace/musicians/rudresh-mahanthappa/): 1 episode
+- [Russell Malone](https://www.sambenediktson.com/emmetsplace/musicians/russell-malone/): 1 episode
+- [Ryan Howe](https://www.sambenediktson.com/emmetsplace/musicians/ryan-howe/): 1 episode
+- [Saniyyah](https://www.sambenediktson.com/emmetsplace/musicians/saniyyah/): 1 episode
+- [Sasha Berliner](https://www.sambenediktson.com/emmetsplace/musicians/sasha-berliner/): 1 episode
+- [Saul Rubin](https://www.sambenediktson.com/emmetsplace/musicians/saul-rubin/): 1 episode
+- [Scott Robinson](https://www.sambenediktson.com/emmetsplace/musicians/scott-robinson/): 1 episode
+- [Seamus Blake](https://www.sambenediktson.com/emmetsplace/musicians/seamus-blake/): 1 episode
+- [Sebastian Rios](https://www.sambenediktson.com/emmetsplace/musicians/sebastian-rios/): 1 episode
+- [Sheila Jordan](https://www.sambenediktson.com/emmetsplace/musicians/sheila-jordan/): 1 episode
+- [Spike Wilner](https://www.sambenediktson.com/emmetsplace/musicians/spike-wilner/): 1 episode
+- [Steve Davis](https://www.sambenediktson.com/emmetsplace/musicians/steve-davis/): 1 episode
+- [Steve Nelson](https://www.sambenediktson.com/emmetsplace/musicians/steve-nelson/): 1 episode
+- [Tal Cohen](https://www.sambenediktson.com/emmetsplace/musicians/tal-cohen/): 1 episode
+- [Tatum Greenblatt](https://www.sambenediktson.com/emmetsplace/musicians/tatum-greenblatt/): 1 episode
+- [Terell Stafford](https://www.sambenediktson.com/emmetsplace/musicians/terell-stafford/): 1 episode
+- [Theo Croker](https://www.sambenediktson.com/emmetsplace/musicians/theo-croker/): 1 episode
+- [Tierney Sutton](https://www.sambenediktson.com/emmetsplace/musicians/tierney-sutton/): 1 episode
+- [Troy Roberts](https://www.sambenediktson.com/emmetsplace/musicians/troy-roberts/): 1 episode
+- [Tyler Mitchell](https://www.sambenediktson.com/emmetsplace/musicians/tyler-mitchell/): 1 episode
+- [Vanisha Gould](https://www.sambenediktson.com/emmetsplace/musicians/vanisha-gould/): 1 episode
+- [Victor Lewis](https://www.sambenediktson.com/emmetsplace/musicians/victor-lewis/): 1 episode
+- [Vincent Herring](https://www.sambenediktson.com/emmetsplace/musicians/vincent-herring/): 1 episode
+- [Wallace Roney Jr.](https://www.sambenediktson.com/emmetsplace/musicians/wallace-roney-jr/): 1 episode
+- [Warren Vache](https://www.sambenediktson.com/emmetsplace/musicians/warren-vache/): 1 episode
+- [Warren Wolf](https://www.sambenediktson.com/emmetsplace/musicians/warren-wolf/): 1 episode
+- [Wayne Tucker](https://www.sambenediktson.com/emmetsplace/musicians/wayne-tucker/): 1 episode
+- [Winard Harper](https://www.sambenediktson.com/emmetsplace/musicians/winard-harper/): 1 episode
+- [Wycliffe Gordon](https://www.sambenediktson.com/emmetsplace/musicians/wycliffe-gordon/): 1 episode
+- [Yanet Valdes](https://www.sambenediktson.com/emmetsplace/musicians/yanet-valdes/): 1 episode
+- [Yaroldi Abreu](https://www.sambenediktson.com/emmetsplace/musicians/yaroldi-abreu/): 1 episode
