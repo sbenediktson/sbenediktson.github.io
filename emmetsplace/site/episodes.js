@@ -5,6 +5,9 @@ const { nyParts } = require('./dates');
 
 const MIN_DURATION = 1800;
 
+// A live/upcoming stream that has no duration yet but is scheduled.
+const isUpcoming = (v) => v.isLive === true && v.duration === 0 && Boolean(v.scheduledStartTime);
+
 // Re-streams whose title differs too much from the original to match by title (re-stream id -> original id).
 const RESTREAM_OF = {
   eeGOC0JB2rY: 'JqdIoQgOGnw', // Dazzle Denver
@@ -74,7 +77,7 @@ function byDateAsc(a, b) {
 function selectEpisodes(data) {
   const entries = [];
   for (const [id, v] of Object.entries(data || {})) {
-    if (!v || !(v.duration >= MIN_DURATION)) continue;
+    if (!v || !(v.duration >= MIN_DURATION || isUpcoming(v))) continue;
     const number = parseNumber(v.title);
     entries.push({ id, v, number, key: groupKey(v.title, number) });
   }
@@ -110,7 +113,8 @@ function selectEpisodes(data) {
     const originals = members.filter((m) => !isRestream(m.v.title));
     const canonical = (originals.length ? originals : members)[0];
     const { id, v, number } = canonical;
-    const streamDate = v.streamDate || null;
+    // Upcoming streams: streamDate is only the publish date, so use the scheduled start.
+    const streamDate = (isUpcoming(v) ? v.scheduledStartTime : v.streamDate) || null;
     episodes.push({
       id,
       title: v.title,

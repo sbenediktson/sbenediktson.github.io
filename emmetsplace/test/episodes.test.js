@@ -187,3 +187,22 @@ test('selectEpisodes cleans artists', () => {
   const [ep] = selectEpisodes({ x: v('Concert', '2025-01-01T12:00:00Z', { artists: [{ name: 'Bass', instrument: 'Russell Hall' }, { name: 'Cameraman', instrument: 'Joe' }, { name: 'Feat. Sean Jones', instrument: 'Trumpet' }] }) });
   assert.deepStrictEqual(ep.artists, [{ name: 'Russell Hall', instrument: 'Bass' }, { name: 'Sean Jones', instrument: 'Trumpet' }]);
 });
+
+test('upcoming live stream with a scheduled start is an episode', () => {
+  const ep = byId('up147');
+  assert.ok(ep);
+  assert.strictEqual(ep.number, 147);
+  assert.strictEqual(ep.location, 'Power Station at Berklee NYC');
+  assert.strictEqual(ep.streamDate, '2026-11-24T00:30:00Z');
+  assert.strictEqual(ep.year, 2026);
+  assert.strictEqual(require('../site/dates').nyParts(ep.streamDate).day, 23);
+});
+
+test('zero-duration non-live and live-without-schedule videos stay excluded', () => {
+  assert.strictEqual(byId('zero'), undefined);
+  assert.strictEqual(byId('livenosched'), undefined);
+});
+
+test('finished streams keep their streamDate', () => {
+  assert.strictEqual(byId('v134').streamDate, '2025-06-02T23:30:00Z');
+});

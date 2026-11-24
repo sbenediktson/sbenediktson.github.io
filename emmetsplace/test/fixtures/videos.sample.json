@@ -135,5 +135,34 @@
     "description": "",
     "artists": [],
     "songs": []
+  },
+  "up147": {
+    "title": "Two of Jazz’s Greatest Brass Players | Wycliffe Gordon & Terell Stafford (Ep. 147)",
+    "duration": 0,
+    "isLive": true,
+    "streamDate": "2026-11-12T13:12:52Z",
+    "scheduledStartTime": "2026-11-24T00:30:00Z",
+    "description": "Upcoming.",
+    "artists": [],
+    "songs": []
+  },
+  "zero": {
+    "title": "Not live zero duration (Ep. 148)",
+    "duration": 0,
+    "isLive": false,
+    "streamDate": "2026-11-13T13:00:00Z",
+    "scheduledStartTime": null,
+    "description": "",
+    "artists": [],
+    "songs": []
+  },
+  "livenosched": {
+    "title": "Live without schedule (Ep. 149)",
+    "duration": 0,
+    "isLive": true,
+    "streamDate": "2026-11-14T13:00:00Z",
+    "description": "",
+    "artists": [],
+    "songs": []
   }
 }
