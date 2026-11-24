@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Emmet's Place – Streams</title>
+  <title>Emmet's Place – Live Jazz Streams with Emmet Cohen</title>
+  <meta name="description" content="Watch Emmet's Place, the live jazz stream series from pianist Emmet Cohen. Browse every episode, musician and tune from the Emmet Cohen Trio and guests.">
+  <link rel="canonical" href="https://www.sambenediktson.com/emmetsplace/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -1237,7 +1239,8 @@
     </div>
     <div id="main-right">
       <div id="episodes-view">
-        <div class="video-grid" id="grid"></div>
+        <!-- build:intro:start --><!-- build:intro:end -->
+        <div class="video-grid" id="grid"><!-- build:cards:start --><!-- build:cards:end --></div>
       </div>
 
       <div id="tunes-view">
@@ -1581,31 +1584,6 @@
 
     let allCards = [];
 
-    function buildCardInner(id, videoTitle, artists, songs, thumb) {
-      const artistsHTML = artists.length
-        ? `<div class="video-artists">${artists.map(a =>
-            `<span class="video-artist"><strong class="artist-name" data-text="${a.name.replace(/"/g,'&quot;')}">${a.name}</strong> · ${a.instrument}</span>`
-          ).join("")}</div>`
-        : "";
-      const songLinks = songs.map(({ title, start }) => {
-        const cleanTitle = stripEmoji(title);
-        const startArg = start ? `,true,false,${start}` : `,true,false`;
-        return `<a class="video-entry-link" data-text="${cleanTitle.replace(/"/g, '&quot;')}" href="#" onclick="playInHero('${id}'${startArg});return false;">${cleanTitle}</a>`;
-      });
-      let entriesHTML;
-      if (!songs.length) {
-        entriesHTML = "";
-      } else if (songs.length <= 6) {
-        entriesHTML = songLinks.join("");
-      } else {
-        const uid = `more-${id}`;
-        entriesHTML = songLinks.slice(0, 6).join("") +
-          `<div id="${uid}" style="display:none;flex-direction:column;gap:6px">${songLinks.slice(6).join("")}</div>` +
-          `<button class="show-more-btn" onclick="var el=document.getElementById('${uid}');var isOpen=el.style.display==='flex';el.style.display=isOpen?'none':'flex';this.textContent=isOpen?'Show ${songs.length - 6} more...':'Show less'">Show ${songs.length - 6} more...</button>`;
-      }
-      return { artistsHTML, entriesHTML };
-    }
-
     let tunesSort = "recent";
 
     function setTunesSort(sort) {
@@ -1736,45 +1714,38 @@
 
     let episodeYearPositions = {};
 
-    async function render() {
-      grid.innerHTML = "<p style=\"color:#555;padding:8px\">Loading...</p>";
-      try {
-        const { ids, data: videoData, liveVideoId, upcomingVideoId } = await loadData();
-        allVideoData = videoData;
-        grid.innerHTML = "";
-        allCards = [];
-        allTunes = [];
-        episodeYearPositions = {};
+    // Pre-compute absolute Y positions for the (static) episode quarter headers
+    function computeEpisodeYearPositions() {
+      episodeYearPositions = {};
+      for (const hdr of grid.querySelectorAll(".episode-year-header")) {
+        const year = hdr.dataset.year;
+        let y = 0, node = hdr;
+        while (node) { y += node.offsetTop; node = node.offsetParent; }
+        episodeYearPositions[year] = y;
+      }
+    }
 
-        function passesFilter(id) {
-          const info = videoData[id];
-          if (!info) return false;
-          if (!info.isLive) return false;
-          if (/^re-stream/i.test(info.title)) return false;
-          if (['HWOaossSONs'].includes(id)) return false;
-          if (info.duration > 0 && info.duration < 3600) return false;
-          return true;
-        }
+    async function render() {
+      // Episode cards are pre-rendered into #grid by the build; adopt them.
+      allCards = [...grid.querySelectorAll(".video-card")];
+      allTunes = [];
+      computeEpisodeYearPositions();
+      if (currentTab === "episodes") filterEpisodes(activeFilter);
+      try {
+        const { data: videoData, liveVideoId, upcomingVideoId } = await loadData();
+        allVideoData = videoData;
+
+        // Episode ids from the static cards, in DOM order (newest first)
+        const chronological = allCards.map(card => card.dataset.id).filter(id => videoData[id]);
 
         // Always embed in the hero frame (live > upcoming > latest episode)
         const featuredId = liveVideoId || upcomingVideoId;
         if (featuredId) {
           showLatestEmbed(featuredId, /*isLive*/true);
         } else {
-          const latestId = ids
-            .filter(passesFilter)
-            .sort((a, b) => new Date(videoData[b].streamDate || 0) - new Date(videoData[a].streamDate || 0))[0];
+          const latestId = allCards.length ? allCards[0].dataset.id : null;
           if (latestId) showLatestEmbed(latestId);
         }
-
-        // Sort by actual stream date descending
-        const chronological = ids
-          .filter(passesFilter)
-          .sort((a, b) => {
-            const da = new Date(videoData[a].streamDate || 0);
-            const db = new Date(videoData[b].streamDate || 0);
-            return db - da;
-          });
 
         // Patterns that identify non-song entries (announcements, intros, remarks, etc.)
         const NON_SONG_PATTERNS = [
@@ -1827,71 +1798,13 @@
           }
         }
 
-        // Render all cards (most recent first, in carousel)
-        let lastEpisodeQuarter = null;
-        for (const [idx, id] of chronological.entries()) {
-          const info = videoData[id];
-          const videoTitle = stripEmoji(info.title);
-          const thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-          const { artistsHTML, entriesHTML } = buildCardInner(id, videoTitle, info.artists, info.songs, thumb);
-
-          const dateStr = info.streamDate
-            ? new Date(info.streamDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-            : "";
-          const isStudio = /\b(vol|ep)\b/i.test(videoTitle) || id === 'mX912vvfmdo';
-          const isRoad = /live at/i.test(videoTitle);
-          const cardType = isStudio ? "studio" : isRoad ? "road" : "other";
-
-          // Insert quarter section header when quarter changes
-          const cardQuarter = info.streamDate ? quarterKey(new Date(info.streamDate)) : null;
-          if (cardQuarter && cardQuarter !== lastEpisodeQuarter) {
-            const qHeader = document.createElement("div");
-            const yr = cardQuarter.split('-')[0];
-            const isNewYear = !lastEpisodeQuarter || lastEpisodeQuarter.split('-')[0] !== yr;
-            qHeader.className = "tune-section-header episode-year-header" + (isNewYear ? " year-start" : "");
-            qHeader.dataset.year = cardQuarter;
-            qHeader.id = `eqsec-${cardQuarter}`;
-            // Show only the year for the year-start header; hidden divs are just anchors
-            qHeader.textContent = isNewYear ? yr : quarterHeaderText(cardQuarter);
-            grid.appendChild(qHeader);
-            lastEpisodeQuarter = cardQuarter;
-          }
-
-          const card = document.createElement("div");
-          card.className = "video-card";
-          card.dataset.type = cardType;
-          const collapseId = `collapse-${id}`;
-          const hasExtra = artistsHTML || entriesHTML;
-          card.innerHTML = `
-            <div class="video-card-thumb">
-              <a class="video-link" href="#" onclick="playInHero('${id}',true,false);return false;" style="background-image: url('${thumb}')"></a>
-            </div>
-            <div class="video-card-body">
-              ${isStudio ? '<span class="studio-badge">In Studio</span>' : ""}
-              <h2><a class="title-link" href="#" onclick="playInHero('${id}',true,false);return false;">${videoTitle}</a></h2>
-              ${dateStr ? `<div class="stream-date">${dateStr}</div>` : ""}
-              ${hasExtra ? `<div id="${collapseId}" style="display:none">${artistsHTML}<div class="video-entries">${entriesHTML}</div></div><button class="card-expand-btn" onclick="var el=document.getElementById('${collapseId}');var open=el.style.display!=='none';el.style.display=open?'none':'';this.textContent=open?'Show more':'Show less'">Show more</button>` : ""}
-            </div>
-          `;
-          card.dataset.titles = [videoTitle, ...info.songs.map(s => s.title)].join(" ").toLowerCase();
-          card.dataset.artists = info.artists.map(a => a.name).join(" ").toLowerCase();
-          grid.appendChild(card);
-          allCards.push(card);
-        }
-
-        // Pre-compute absolute Y positions for episode quarter headers
-        episodeYearPositions = {};
-        for (const hdr of grid.querySelectorAll(".episode-year-header")) {
-          const year = hdr.dataset.year;
-          let y = 0, node = hdr;
-          while (node) { y += node.offsetTop; node = node.offsetParent; }
-          episodeYearPositions[year] = y;
-        }
+        computeEpisodeYearPositions();
 
         if (currentTab === "tunes") renderTunes();
         if (currentTab === "episodes") filterEpisodes(activeFilter);
       } catch (err) {
-        grid.innerHTML = `<p style="color:#c88;padding:8px">Failed to load videos: ${err.message}</p>`;
+        // Static cards stay visible; tunes and shuffle keep their empty states.
+        console.warn(`Failed to load videos: ${err.message}`);
       }
     }
 
