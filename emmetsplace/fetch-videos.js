@@ -4,11 +4,18 @@
 // In CI: key comes from GitHub Actions secret
 
 const fs = require("fs");
+const { assertNotTruncated, assertEnoughDetails } = require("./fetch-guard");
 
 const API_KEY = process.env.YOUTUBE_API_KEY;
 if (!API_KEY) {
   console.error("Missing YOUTUBE_API_KEY environment variable");
   process.exit(1);
+}
+
+function throwOnApiError(data) {
+  if (data.error) {
+    throw new Error("YouTube API error: " + (data.error.message || JSON.stringify(data.error)));
+  }
 }
 
 function parseDuration(iso) {
@@ -64,6 +71,7 @@ async function fetchLiveVideoId(channelId) {
     `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&type=video&key=${API_KEY}`
   );
   const data = await res.json();
+  throwOnApiError(data);
   return data.items?.[0]?.id?.videoId || null;
 }
 
@@ -72,6 +80,7 @@ async function fetchUpcomingVideoId(channelId) {
     `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=upcoming&type=video&key=${API_KEY}`
   );
   const data = await res.json();
+  throwOnApiError(data);
   return data.items?.[0]?.id?.videoId || null;
 }
 
@@ -80,6 +89,7 @@ async function fetchChannelVideos() {
     `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=EmmetCohen&key=${API_KEY}`
   );
   const channelData = await channelRes.json();
+  throwOnApiError(channelData);
   const channelItem = channelData.items[0];
   const uploadsId = channelItem.contentDetails.relatedPlaylists.uploads;
   fetchChannelVideos._channelId = channelItem.id;
@@ -90,6 +100,7 @@ async function fetchChannelVideos() {
     const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=50&key=${API_KEY}${pageToken ? `&pageToken=${pageToken}` : ""}`;
     const res = await fetch(url);
     const data = await res.json();
+    throwOnApiError(data);
     for (const item of (data.items || [])) {
       const id = item.snippet.resourceId?.videoId;
       if (id) ids.push(id);
@@ -109,6 +120,7 @@ async function fetchVideoData(ids) {
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,liveStreamingDetails&id=${batch.join(",")}&key=${API_KEY}`
     );
     const data = await res.json();
+    throwOnApiError(data);
     for (const item of (data.items || [])) {
       const desc = item.snippet.description || "";
       results[item.id] = {
@@ -134,6 +146,7 @@ async function mainLiveOnly() {
     `https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=EmmetCohen&key=${API_KEY}`
   );
   const channelData = await channelRes.json();
+  throwOnApiError(channelData);
   const channelId = channelData.items[0].id;
 
   console.log("Checking for live broadcast...");
@@ -180,6 +193,11 @@ async function main() {
     const extra = await fetchVideoData([upcomingVideoId]);
     Object.assign(data, extra);
   }
+
+  // Never overwrite a good file with a truncated fetch
+  const existing = fs.existsSync("videos.json") ? JSON.parse(fs.readFileSync("videos.json", "utf8")) : null;
+  assertNotTruncated(existing && existing.ids, ids);
+  assertEnoughDetails(ids, data);
 
   const output = { generatedAt: new Date().toISOString(), ids, data, liveVideoId, upcomingVideoId };
   fs.writeFileSync("videos.json", JSON.stringify(output));
